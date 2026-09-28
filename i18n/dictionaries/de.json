@@ -1,0 +1,215 @@
+{
+  "_note": "PLACEHOLDER COPY. Albanian strings come from the Figma wireframes; EN/DE are draft translations. Replace with approved copy.",
+  "meta": {
+    "siteName": "Wilson Real Estate",
+    "defaultDescription": "Grundstücke und Immobilien in Albanien, geprüft und strukturiert für Investitionen.",
+    "home": {
+      "title": "Wilson Real Estate | Grundstücke und Immobilien in Albanien",
+      "description": "Grundstücke und Immobilien in Albanien, geprüft und strukturiert für Investitionen."
+    },
+    "properties": {
+      "title": "Immobilien",
+      "description": "Grundstücke und Immobilien in ganz Albanien auf der Karte entdecken."
+    },
+    "services": {
+      "title": "Leistungen",
+      "description": "Verkauf, Kauf, Entwicklung von Immobilien und Investitionsberatung."
+    },
+    "about": {
+      "title": "Über Wilson",
+      "description": "Wer wir sind und wie Wilson Real Estate arbeitet."
+    },
+    "contact": {
+      "title": "Kontakt",
+      "description": "Kontaktieren Sie Wilson Real Estate."
+    },
+    "notFound": {
+      "title": "Seite nicht gefunden"
+    }
+  },
+  "nav": {
+    "home": "Startseite",
+    "properties": "Immobilien",
+    "services": "Leistungen",
+    "about": "Über Wilson",
+    "contact": "Kontakt",
+    "cta": "Immobilien ansehen",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
+    "language": "Sprache",
+    "skipToContent": "Zum Inhalt springen",
+    "mainNavigation": "Hauptnavigation"
+  },
+  "common": {
+    "imagePlaceholder": "Bildplatzhalter",
+    "details": "Details",
+    "view": "Ansehen",
+    "priceOnRequest": "Preis auf Anfrage",
+    "backToTop": "Nach oben",
+    "sqm": "m²"
+  },
+  "propertyTypes": {
+    "land": "Grundstück",
+    "residential": "Wohnen",
+    "commercial": "Gewerbe"
+  },
+  "propertyStatus": {
+    "sale": "Zu verkaufen",
+    "rent": "Zu vermieten"
+  },
+  "search": {
+    "zone": "Region",
+    "type": "Typ",
+    "area": "Fläche",
+    "status": "Status",
+    "all": "Alle",
+    "anyArea": "Min - Max m²",
+    "submit": "Suchen",
+    "label": "Immobiliensuche",
+    "areaRanges": {
+      "lt1000": "Unter 1.000 m²",
+      "1000-5000": "1.000 - 5.000 m²",
+      "gt5000": "Über 5.000 m²"
+    }
+  },
+  "home": {
+    "banner": {
+      "eyebrow": "Wilson Real Estate",
+      "title": "Wo Investition auf Meer und Berge trifft.",
+      "primaryCta": "Immobilien ansehen",
+      "secondaryCta": "Wilson kontaktieren"
+    },
+    "highlights": [
+      "Rechtliche Prüfung und sichere Dokumentation",
+      "Begleitung vom Erstkontakt bis zum Abschluss",
+      "Büros in Tale, Tirana und im Kosovo"
+    ],
+    "featured": {
+      "title": "Ausgewählte Immobilien",
+      "viewAll": "Alle Immobilien ansehen"
+    },
+    "zones": {
+      "title": "Regionen",
+      "viewAll": "Alle Regionen ansehen",
+      "count": "{count} Immobilien",
+      "description": "Platzhaltertext zu dieser Region. Kurz und einfach halten."
+    },
+    "process": {
+      "statement": "Wir bieten nicht einfach Immobilien. Wir bieten analysierte, geprüfte und strukturierte Chancen.",
+      "stepImage": "Bild zu Schritt {number}",
+      "steps": [
+        { "title": "Kenntnis des lokalen Marktes", "text": "Detaillierte Marktanalyse und strategische Auswahl von Immobilien." },
+        { "title": "Prüfung der Immobilie", "text": "Vollständige rechtliche Prüfung und sichere Dokumentation." },
+        { "title": "Investitionsmöglichkeiten", "text": "Reale und sichere Investitionsmöglichkeiten auf dem albanischen Immobilienmarkt." },
+        { "title": "Transparenz", "text": "Klare Kommunikation mit jedem Kunden, in jeder Phase." },
+        { "title": "Langfristiger Wert", "text": "Fokus auf Wertsteigerung und langfristige Entwicklung." },
+        { "title": "Begleitung bis zum Schluss", "text": "Vollständige Betreuung des Prozesses vom Erstkontakt bis zum Abschluss." }
+      ]
+    },
+    "services": {
+      "eyebrow": "Was bieten wir?",
+      "title": "Wilson Leistungen",
+      "text": "Vier Leistungen, ein Standard: Transparenz und klare Kommunikation mit jedem Kunden, vom Erstkontakt bis zum Abschluss.",
+      "viewAll": "Alle Leistungen"
+    },
+    "about": {
+      "eyebrow": "Über uns",
+      "title": "Über Wilson",
+      "text": "Platzhaltertext über Wilson Real Estate. Zwei oder drei Sätze darüber, wer wir sind und warum Kunden uns vertrauen.",
+      "cta": "Mehr erfahren"
+    }
+  },
+  "services": [
+    { "slug": "sales", "title": "Immobilienverkauf", "text": "Platzhalterbeschreibung der Leistung Immobilienverkauf." },
+    { "slug": "purchase", "title": "Immobilienkauf", "text": "Platzhalterbeschreibung der Leistung Immobilienkauf." },
+    { "slug": "development", "title": "Entwicklung und Bau", "text": "Platzhalterbeschreibung der Leistung Entwicklung und Bau." },
+    { "slug": "consulting", "title": "Investitionsberatung", "text": "Platzhalterbeschreibung der Leistung Investitionsberatung." }
+  ],
+  "propertiesPage": {
+    "eyebrow": "Immobilien",
+    "title": "Grundstücke und Immobilien in Albanien",
+    "intro": "Platzhaltertext. Alle Angebote auf der Karte oder in der Liste unten ansehen.",
+    "results": "{count} Immobilien",
+    "resultsOne": "1 Immobilie",
+    "empty": "Keine Immobilien entsprechen diesen Filtern.",
+    "reset": "Filter zurücksetzen",
+    "mapLabel": "Karte der Immobilien in Albanien"
+  },
+  "property": {
+    "back": "Zurück zu den Immobilien",
+    "overview": "Überblick",
+    "description": "Beschreibung",
+    "location": "Lage",
+    "price": "Preis",
+    "area": "Fläche",
+    "type": "Typ",
+    "status": "Status",
+    "zone": "Region",
+    "reference": "Referenz",
+    "contactTitle": "Interesse an dieser Immobilie?",
+    "contactText": "Platzhaltertext. Kontaktieren Sie Wilson für Unterlagen, eine Besichtigung oder weitere Details.",
+    "contactCta": "Wilson kontaktieren",
+    "more": "Weitere Immobilien"
+  },
+  "servicesPage": {
+    "eyebrow": "Leistungen",
+    "title": "Wilson Leistungen",
+    "intro": "Platzhaltertext für die Leistungsseite.",
+    "cta": "Sprechen Sie mit uns"
+  },
+  "aboutPage": {
+    "eyebrow": "Über Wilson",
+    "title": "Über Wilson Real Estate",
+    "intro": "Platzhaltertext für die Seite Über Wilson.",
+    "storyTitle": "Unsere Geschichte",
+    "storyText": "Platzhalterabsatz über die Geschichte des Unternehmens, das Team und den Ansatz für Grundstücksinvestitionen in Albanien.",
+    "valuesTitle": "Wie wir arbeiten",
+    "officesTitle": "Unsere Büros",
+    "offices": [
+      { "name": "Tale", "text": "Platzhalter-Büroadresse." },
+      { "name": "Tirana", "text": "Platzhalter-Büroadresse." },
+      { "name": "Kosovo", "text": "Platzhalter-Büroadresse." }
+    ]
+  },
+  "contactPage": {
+    "eyebrow": "Kontakt",
+    "title": "Wilson kontaktieren",
+    "intro": "Platzhaltertext. Senden Sie uns eine Nachricht, wir melden uns bei Ihnen.",
+    "formTitle": "Nachricht senden",
+    "infoTitle": "Kontaktdaten",
+    "mapLabel": "Karte mit dem Wilson-Büro",
+    "form": {
+      "name": "Vollständiger Name",
+      "email": "E-Mail",
+      "phone": "Telefon (optional)",
+      "subject": "Betreff",
+      "subjects": {
+        "general": "Allgemeine Frage",
+        "buying": "Immobilie kaufen",
+        "selling": "Immobilie verkaufen",
+        "investment": "Investitionsberatung"
+      },
+      "message": "Nachricht",
+      "consent": "Ich bin einverstanden, dass Wilson Real Estate mich zu dieser Anfrage kontaktiert.",
+      "submit": "Nachricht senden",
+      "notConnected": "Das Formular ist noch nicht verbunden. Der Versand folgt in der nächsten Phase."
+    }
+  },
+  "footer": {
+    "navigation": "Navigation",
+    "contact": "Kontakt",
+    "social": "Soziale Medien",
+    "rights": "Alle Rechte vorbehalten.",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen"
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "text": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+    "cta": "Zur Startseite"
+  },
+  "map": {
+    "loading": "Karte wird geladen…",
+    "viewProperty": "Immobilie ansehen"
+  }
+}

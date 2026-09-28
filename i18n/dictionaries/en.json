@@ -1,0 +1,215 @@
+{
+  "_note": "PLACEHOLDER COPY. Albanian strings come from the Figma wireframes; EN/DE are draft translations. Replace with approved copy.",
+  "meta": {
+    "siteName": "Wilson Real Estate",
+    "defaultDescription": "Land and property in Albania, verified and structured for investment.",
+    "home": {
+      "title": "Wilson Real Estate | Land and property in Albania",
+      "description": "Land and property in Albania, verified and structured for investment."
+    },
+    "properties": {
+      "title": "Properties",
+      "description": "Browse land and properties across Albania on the map."
+    },
+    "services": {
+      "title": "Services",
+      "description": "Property sales, purchase, development and investment consulting."
+    },
+    "about": {
+      "title": "About Wilson",
+      "description": "Who we are and how Wilson Real Estate works."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Get in touch with Wilson Real Estate."
+    },
+    "notFound": {
+      "title": "Page not found"
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "properties": "Properties",
+    "services": "Services",
+    "about": "About Wilson",
+    "contact": "Contact",
+    "cta": "View properties",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language",
+    "skipToContent": "Skip to content",
+    "mainNavigation": "Main navigation"
+  },
+  "common": {
+    "imagePlaceholder": "Image placeholder",
+    "details": "Details",
+    "view": "View",
+    "priceOnRequest": "Price on request",
+    "backToTop": "Back to top",
+    "sqm": "m²"
+  },
+  "propertyTypes": {
+    "land": "Land",
+    "residential": "Residential",
+    "commercial": "Commercial"
+  },
+  "propertyStatus": {
+    "sale": "For sale",
+    "rent": "For rent"
+  },
+  "search": {
+    "zone": "Zone",
+    "type": "Type",
+    "area": "Area",
+    "status": "Status",
+    "all": "All",
+    "anyArea": "Min - Max m²",
+    "submit": "Search",
+    "label": "Property search",
+    "areaRanges": {
+      "lt1000": "Under 1,000 m²",
+      "1000-5000": "1,000 - 5,000 m²",
+      "gt5000": "Over 5,000 m²"
+    }
+  },
+  "home": {
+    "banner": {
+      "eyebrow": "Wilson Real Estate",
+      "title": "Where investment meets the sea and the mountains.",
+      "primaryCta": "View properties",
+      "secondaryCta": "Contact Wilson"
+    },
+    "highlights": [
+      "Legal verification and secure documentation",
+      "Guidance from first contact to closing",
+      "Offices in Tale, Tirana and Kosovo"
+    ],
+    "featured": {
+      "title": "Featured properties",
+      "viewAll": "View all properties"
+    },
+    "zones": {
+      "title": "Zones",
+      "viewAll": "View all zones",
+      "count": "{count} properties",
+      "description": "Placeholder text about this zone. Keep it short and simple."
+    },
+    "process": {
+      "statement": "We don't just offer properties. We offer opportunities that are analysed, verified and structured.",
+      "stepImage": "Step {number} image",
+      "steps": [
+        { "title": "Local market knowledge", "text": "Detailed market analysis and strategic property selection." },
+        { "title": "Property verification", "text": "Full legal verification and secure documentation." },
+        { "title": "Investment opportunities", "text": "Real, secure investment opportunities in the Albanian property market." },
+        { "title": "Transparency", "text": "Clear communication with every client, at every stage." },
+        { "title": "Long-term value", "text": "Focus on value growth and long-term development." },
+        { "title": "Support to the end", "text": "Full management of the process from first contact to closing." }
+      ]
+    },
+    "services": {
+      "eyebrow": "What do we offer?",
+      "title": "Wilson services",
+      "text": "Four services, one standard: transparency and clear communication with every client, from first contact to closing.",
+      "viewAll": "All services"
+    },
+    "about": {
+      "eyebrow": "About us",
+      "title": "About Wilson",
+      "text": "Placeholder teaser about Wilson Real Estate. Two or three sentences about who we are and why clients trust us.",
+      "cta": "Read more"
+    }
+  },
+  "services": [
+    { "slug": "sales", "title": "Property sales", "text": "Placeholder description of the property sales service." },
+    { "slug": "purchase", "title": "Property purchase", "text": "Placeholder description of the property purchase service." },
+    { "slug": "development", "title": "Development and construction", "text": "Placeholder description of the development and construction service." },
+    { "slug": "consulting", "title": "Investment consulting", "text": "Placeholder description of the investment consulting service." }
+  ],
+  "propertiesPage": {
+    "eyebrow": "Properties",
+    "title": "Land and properties in Albania",
+    "intro": "Placeholder intro. Browse every listing on the map or in the list below.",
+    "results": "{count} properties",
+    "resultsOne": "1 property",
+    "empty": "No properties match these filters.",
+    "reset": "Clear filters",
+    "mapLabel": "Map of properties in Albania"
+  },
+  "property": {
+    "back": "Back to properties",
+    "overview": "Overview",
+    "description": "Description",
+    "location": "Location",
+    "price": "Price",
+    "area": "Area",
+    "type": "Type",
+    "status": "Status",
+    "zone": "Zone",
+    "reference": "Reference",
+    "contactTitle": "Interested in this property?",
+    "contactText": "Placeholder text. Contact Wilson for documents, a site visit or more details.",
+    "contactCta": "Contact Wilson",
+    "more": "More properties"
+  },
+  "servicesPage": {
+    "eyebrow": "Services",
+    "title": "Wilson services",
+    "intro": "Placeholder intro for the services page.",
+    "cta": "Talk to us"
+  },
+  "aboutPage": {
+    "eyebrow": "About Wilson",
+    "title": "About Wilson Real Estate",
+    "intro": "Placeholder intro for the About page.",
+    "storyTitle": "Our story",
+    "storyText": "Placeholder paragraph about the company's history, team and approach to land investment in Albania.",
+    "valuesTitle": "How we work",
+    "officesTitle": "Our offices",
+    "offices": [
+      { "name": "Tale", "text": "Placeholder office address." },
+      { "name": "Tirana", "text": "Placeholder office address." },
+      { "name": "Kosovo", "text": "Placeholder office address." }
+    ]
+  },
+  "contactPage": {
+    "eyebrow": "Contact",
+    "title": "Contact Wilson",
+    "intro": "Placeholder intro. Send us a message and we will get back to you.",
+    "formTitle": "Send a message",
+    "infoTitle": "Contact details",
+    "mapLabel": "Map showing the Wilson office",
+    "form": {
+      "name": "Full name",
+      "email": "Email",
+      "phone": "Phone (optional)",
+      "subject": "Subject",
+      "subjects": {
+        "general": "General question",
+        "buying": "Buying a property",
+        "selling": "Selling a property",
+        "investment": "Investment consulting"
+      },
+      "message": "Message",
+      "consent": "I agree that Wilson Real Estate may contact me about this request.",
+      "submit": "Send message",
+      "notConnected": "The form is not connected yet. Submissions are coming in the next phase."
+    }
+  },
+  "footer": {
+    "navigation": "Navigation",
+    "contact": "Contact",
+    "social": "Social media",
+    "rights": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The page you are looking for does not exist or has moved.",
+    "cta": "Back to home"
+  },
+  "map": {
+    "loading": "Loading map…",
+    "viewProperty": "View property"
+  }
+}

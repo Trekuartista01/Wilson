@@ -1,26 +1,72 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * THEME TOKENS (Phase 1 placeholders)
+ * Everything here is neutral gray until the brand is finished.
+ * Components use these semantic tokens (bg-brand-dark, text-ink, ...) instead of raw
+ * neutral-* classes, so rebranding means editing this block only.
+ */
+@theme {
+  /* TODO: brand color. Primary action color (buttons, active states, map pins). */
+  --color-brand-primary: #111111;
+  /* TODO: brand color. Dark surface used by the header and Banner (Figma #3d3d3d). */
+  --color-brand-dark: #3d3d3d;
+  /* TODO: brand color. Footer background (Figma black). */
+  --color-brand-darker: #000000;
+  /* TODO: brand color. Secondary accent. */
+  --color-brand-secondary: #8c8c8c;
+  /* TODO: brand color. Highlight accent. */
+  --color-brand-accent: #5c5c5c;
+
+  /* Neutral surfaces and text (keep unless the brand says otherwise). */
+  --color-surface: #ffffff;
+  --color-surface-muted: #d9d9d9; /* Services band background in Figma */
+  --color-surface-subtle: #f4f4f4;
+  --color-placeholder: #dedede; /* Gray image boxes */
+  --color-ink: #111111;
+  --color-ink-muted: #5c5c5c;
+  --color-ink-subtle: #a3a3a3;
+  --color-line: #e5e5e5;
+
+  /* TODO: brand font. System stack until the brand font is chosen.
+     If it isn't on Google Fonts, self-host it under public/fonts (see CLAUDE.md). */
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Leaflet popups: match the site font and keep links readable. */
+.leaflet-container {
+  font-family: var(--font-sans);
+}
+.leaflet-container .leaflet-popup-content a {
+  color: var(--color-ink);
+}
+
+/* Map pin (Leaflet divIcon). TODO: brand color. */
+.map-pin {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: var(--color-brand-primary);
+  border: 3px solid var(--color-surface);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.35);
 }
