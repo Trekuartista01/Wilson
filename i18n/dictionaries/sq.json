@@ -1,0 +1,215 @@
+{
+  "_note": "PLACEHOLDER COPY. Albanian strings come from the Figma wireframes; EN/DE are draft translations. Replace with approved copy.",
+  "meta": {
+    "siteName": "Wilson Real Estate",
+    "defaultDescription": "Toka dhe prona në Shqipëri, të verifikuara dhe të strukturuara për investim.",
+    "home": {
+      "title": "Wilson Real Estate | Toka dhe prona në Shqipëri",
+      "description": "Toka dhe prona në Shqipëri, të verifikuara dhe të strukturuara për investim."
+    },
+    "properties": {
+      "title": "Pronat",
+      "description": "Shikoni toka dhe prona në të gjithë Shqipërinë në hartë."
+    },
+    "services": {
+      "title": "Shërbimet",
+      "description": "Shitje, blerje, zhvillim pronash dhe konsulencë investimi."
+    },
+    "about": {
+      "title": "Rreth Wilson",
+      "description": "Kush jemi dhe si punon Wilson Real Estate."
+    },
+    "contact": {
+      "title": "Kontakti",
+      "description": "Na kontaktoni në Wilson Real Estate."
+    },
+    "notFound": {
+      "title": "Faqja nuk u gjet"
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "properties": "Pronat",
+    "services": "Shërbimet",
+    "about": "Rreth Wilson",
+    "contact": "Kontakti",
+    "cta": "Shiko Pronat",
+    "openMenu": "Hap menunë",
+    "closeMenu": "Mbyll menunë",
+    "language": "Gjuha",
+    "skipToContent": "Kalo te përmbajtja",
+    "mainNavigation": "Navigimi kryesor"
+  },
+  "common": {
+    "imagePlaceholder": "Vend për imazh",
+    "details": "Detajet",
+    "view": "Shiko",
+    "priceOnRequest": "Çmimi me kërkesë",
+    "backToTop": "Kthehu lart",
+    "sqm": "m²"
+  },
+  "propertyTypes": {
+    "land": "Tokë",
+    "residential": "Rezidenciale",
+    "commercial": "Komerciale"
+  },
+  "propertyStatus": {
+    "sale": "Shitje",
+    "rent": "Qira"
+  },
+  "search": {
+    "zone": "Zona",
+    "type": "Lloji",
+    "area": "Sipërfaqja",
+    "status": "Statusi",
+    "all": "Të gjitha",
+    "anyArea": "Min - Max m²",
+    "submit": "Kërko",
+    "label": "Kërkimi i pronave",
+    "areaRanges": {
+      "lt1000": "Nën 1,000 m²",
+      "1000-5000": "1,000 - 5,000 m²",
+      "gt5000": "Mbi 5,000 m²"
+    }
+  },
+  "home": {
+    "banner": {
+      "eyebrow": "Wilson Real Estate",
+      "title": "Aty ku investimi takohet me detin dhe malin.",
+      "primaryCta": "Shiko pronat",
+      "secondaryCta": "Kontakto Wilson"
+    },
+    "highlights": [
+      "Verifikim ligjor dhe dokumentacion i sigurt",
+      "Përcjellje nga kontakti deri në finalizim",
+      "Zyra në Tale, Tiranë dhe Kosovë"
+    ],
+    "featured": {
+      "title": "Pronat e veçanta",
+      "viewAll": "Shiko të gjitha pronat"
+    },
+    "zones": {
+      "title": "Zonat",
+      "viewAll": "Shiko të gjitha zonat",
+      "count": "{count} prona",
+      "description": "Tekst i përkohshëm për këtë zonë. Mbajeni të shkurtër dhe të thjeshtë."
+    },
+    "process": {
+      "statement": "Nuk ofrojmë thjeshtë prona. Ofrojmë mundësi të analizuara, të verifikuara dhe të strukturuara.",
+      "stepImage": "Imazhi i hapit {number}",
+      "steps": [
+        { "title": "Njohje e tregut lokal", "text": "Analizë e detajuar e tregut dhe përzgjedhje strategjike e pronave." },
+        { "title": "Verifikim i pronës", "text": "Verifikim i plotë ligjor dhe dokumentacion i sigurt." },
+        { "title": "Mundësi investimi", "text": "Mundësi reale dhe të sigurta investimi në tregun imobiliar shqiptar." },
+        { "title": "Transparencë", "text": "Komunikim i qartë me çdo klient, në çdo fazë." },
+        { "title": "Vlerë afatgjatë", "text": "Fokus në rritjen e vlerës dhe zhvillim afatgjatë." },
+        { "title": "Përcjellje deri në fund", "text": "Menaxhim i plotë i procesit nga kontakti deri në finalizim." }
+      ]
+    },
+    "services": {
+      "eyebrow": "Çfarë ofrojmë?",
+      "title": "Shërbimet Wilson",
+      "text": "Katër shërbime, një standard; transparencë dhe komunikim i qartë me çdo klient, nga kontakti i parë deri në finalizim.",
+      "viewAll": "Të gjitha shërbimet"
+    },
+    "about": {
+      "eyebrow": "Rreth nesh",
+      "title": "Rreth Wilson",
+      "text": "Tekst i përkohshëm për Wilson Real Estate. Dy ose tre fjali për kush jemi dhe pse klientët na besojnë.",
+      "cta": "Lexo më shumë"
+    }
+  },
+  "services": [
+    { "slug": "sales", "title": "Shitje pronash", "text": "Përshkrim i përkohshëm i shërbimit të shitjes së pronave." },
+    { "slug": "purchase", "title": "Blerje pronash", "text": "Përshkrim i përkohshëm i shërbimit të blerjes së pronave." },
+    { "slug": "development", "title": "Zhvillim dhe ndërtim", "text": "Përshkrim i përkohshëm i shërbimit të zhvillimit dhe ndërtimit." },
+    { "slug": "consulting", "title": "Konsulencë investimi", "text": "Përshkrim i përkohshëm i shërbimit të konsulencës për investime." }
+  ],
+  "propertiesPage": {
+    "eyebrow": "Pronat",
+    "title": "Toka dhe prona në Shqipëri",
+    "intro": "Tekst i përkohshëm. Shikoni çdo pronë në hartë ose në listën më poshtë.",
+    "results": "{count} prona",
+    "resultsOne": "1 pronë",
+    "empty": "Asnjë pronë nuk përputhet me këto filtra.",
+    "reset": "Pastro filtrat",
+    "mapLabel": "Harta e pronave në Shqipëri"
+  },
+  "property": {
+    "back": "Kthehu te pronat",
+    "overview": "Përmbledhje",
+    "description": "Përshkrimi",
+    "location": "Vendndodhja",
+    "price": "Çmimi",
+    "area": "Sipërfaqja",
+    "type": "Lloji",
+    "status": "Statusi",
+    "zone": "Zona",
+    "reference": "Referenca",
+    "contactTitle": "Të interesuar për këtë pronë?",
+    "contactText": "Tekst i përkohshëm. Kontaktoni Wilson për dokumente, vizitë në terren ose më shumë detaje.",
+    "contactCta": "Kontakto Wilson",
+    "more": "Prona të tjera"
+  },
+  "servicesPage": {
+    "eyebrow": "Shërbimet",
+    "title": "Shërbimet Wilson",
+    "intro": "Tekst i përkohshëm për faqen e shërbimeve.",
+    "cta": "Na kontaktoni"
+  },
+  "aboutPage": {
+    "eyebrow": "Rreth Wilson",
+    "title": "Rreth Wilson Real Estate",
+    "intro": "Tekst i përkohshëm për faqen Rreth Wilson.",
+    "storyTitle": "Historia jonë",
+    "storyText": "Paragraf i përkohshëm për historinë e kompanisë, ekipin dhe qasjen ndaj investimeve në tokë në Shqipëri.",
+    "valuesTitle": "Si punojmë",
+    "officesTitle": "Zyrat tona",
+    "offices": [
+      { "name": "Tale", "text": "Adresë e përkohshme e zyrës." },
+      { "name": "Tiranë", "text": "Adresë e përkohshme e zyrës." },
+      { "name": "Kosovë", "text": "Adresë e përkohshme e zyrës." }
+    ]
+  },
+  "contactPage": {
+    "eyebrow": "Kontakti",
+    "title": "Kontakto Wilson",
+    "intro": "Tekst i përkohshëm. Na dërgoni një mesazh dhe do t'ju kthejmë përgjigje.",
+    "formTitle": "Dërgo një mesazh",
+    "infoTitle": "Të dhënat e kontaktit",
+    "mapLabel": "Harta me zyrën e Wilson",
+    "form": {
+      "name": "Emri i plotë",
+      "email": "Email",
+      "phone": "Telefoni (opsional)",
+      "subject": "Tema",
+      "subjects": {
+        "general": "Pyetje e përgjithshme",
+        "buying": "Blerje prone",
+        "selling": "Shitje prone",
+        "investment": "Konsulencë investimi"
+      },
+      "message": "Mesazhi",
+      "consent": "Pranoj që Wilson Real Estate të më kontaktojë për këtë kërkesë.",
+      "submit": "Dërgo mesazhin",
+      "notConnected": "Formulari ende nuk është i lidhur. Dërgimi vjen në fazën e ardhshme."
+    }
+  },
+  "footer": {
+    "navigation": "Navigimi",
+    "contact": "Kontakti",
+    "social": "Rrjetet sociale",
+    "rights": "Të gjitha të drejtat e rezervuara.",
+    "privacy": "Politika e Privatësisë",
+    "terms": "Kushtet e Përdorimit"
+  },
+  "notFound": {
+    "title": "Faqja nuk u gjet",
+    "text": "Faqja që kërkoni nuk ekziston ose është zhvendosur.",
+    "cta": "Kthehu në faqen kryesore"
+  },
+  "map": {
+    "loading": "Harta po ngarkohet…",
+    "viewProperty": "Shiko pronën"
+  }
+}
