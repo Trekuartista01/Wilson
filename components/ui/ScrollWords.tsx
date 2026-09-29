@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
 
 type ScrollWordsProps = {
   text: string;
@@ -10,15 +10,19 @@ type ScrollWordsProps = {
 };
 
 /**
- * Scroll-linked word reveal: each word fades and rises into place in turn as the text
- * scrolls up through the viewport, and reverses when scrolling back.
- * Transforms only, so no layout shift. Reduced motion renders the plain text.
+ * Scroll-linked word reveal: the text is always readable, starting light gray and faint,
+ * and each word darkens to full ink in turn as the text scrolls up the screen (reverses
+ * when scrolling back). Opacity and color only, so no layout shift and no blur.
+ * Reduced motion renders the plain text.
  */
 export default function ScrollWords({ text, className, as = "h2" }: ScrollWordsProps) {
   const ref = useRef<HTMLHeadingElement>(null);
   const reduceMotion = useReducedMotion();
-  // 0 when the top of the text enters the lower part of the screen, 1 when its bottom passes the middle.
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.9", "end 0.5"] });
+  // 0 when the top of the text enters the bottom of the screen, 1 when its bottom reaches
+  // the upper third: a long stretch of scrolling, so the words fill in slowly.
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.95", "end 0.35"] });
+  // Ease the progress so fast wheel flicks still darken the words gradually.
+  const progress = useSpring(scrollYProgress, { stiffness: 60, damping: 20, restDelta: 0.001 });
   const Tag = as;
 
   if (reduceMotion) {
@@ -34,7 +38,7 @@ export default function ScrollWords({ text, className, as = "h2" }: ScrollWordsP
   return (
     <Tag ref={ref} className={className}>
       {words.map((word, i) => (
-        <Word key={i} progress={scrollYProgress} range={[i / words.length, (i + 1) / words.length]}>
+        <Word key={i} progress={progress} range={[i / words.length, (i + 1) / words.length]}>
           {word}
         </Word>
       ))}
@@ -52,16 +56,15 @@ function Word({
   range: [number, number];
 }) {
   // Start each word a little before its slot so neighbours overlap into one smooth wave.
-  const start = Math.max(0, range[0] - (range[1] - range[0]) * 1.5);
-  const opacity = useTransform(progress, [start, range[1]], [0.12, 1]);
-  const y = useTransform(progress, [start, range[1]], ["0.4em", "0em"]);
-  const filter = useTransform(progress, [start, range[1]], ["blur(6px)", "blur(0px)"]);
+  const start = Math.max(0, range[0] - (range[1] - range[0]) * 2);
+  const opacity = useTransform(progress, [start, range[1]], [0.35, 1]);
+  // Light gray -> ink, mixed from the theme tokens so a rebrand carries through.
+  const inkPercent = useTransform(progress, [start, range[1]], [0, 100]);
+  const color = useTransform(inkPercent, (v) => `color-mix(in srgb, var(--color-ink) ${v}%, var(--color-ink-subtle))`);
 
   return (
     <>
-      <motion.span className="inline-block will-change-transform" style={{ opacity, y, filter }}>
-        {children}
-      </motion.span>{" "}
+      <motion.span style={{ opacity, color }}>{children}</motion.span>{" "}
     </>
   );
 }

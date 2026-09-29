@@ -70,7 +70,22 @@
       "lt1000": "Nën 1,000 m²",
       "1000-5000": "1,000 - 5,000 m²",
       "gt5000": "Mbi 5,000 m²"
-    }
+    },
+    "price": "Çmimi",
+    "priceRanges": {
+      "lt100k": "Nën 100,000 €",
+      "100k-250k": "100,000 - 250,000 €",
+      "gt250k": "Mbi 250,000 €"
+    },
+    "sort": "Renditja",
+    "sortDefault": "Të rekomanduara",
+    "sortOrders": {
+      "newest": "Më të rejat",
+      "priceAsc": "Çmimi: nga më i ulëti",
+      "priceDesc": "Çmimi: nga më i larti",
+      "areaDesc": "Sipërfaqja më e madhe"
+    },
+    "more": "Më shumë"
   },
   "home": {
     "banner": {
@@ -126,30 +141,42 @@
     { "slug": "consulting", "title": "Konsulencë investimi", "text": "Përshkrim i përkohshëm i shërbimit të konsulencës për investime." }
   ],
   "propertiesPage": {
-    "eyebrow": "Pronat",
     "title": "Toka dhe prona në Shqipëri",
-    "intro": "Tekst i përkohshëm. Shikoni çdo pronë në hartë ose në listën më poshtë.",
     "results": "{count} prona",
     "resultsOne": "1 pronë",
     "empty": "Asnjë pronë nuk përputhet me këto filtra.",
     "reset": "Pastro filtrat",
-    "mapLabel": "Harta e pronave në Shqipëri"
+    "mapLabel": "Harta e pronave në Shqipëri",
+    "filtersLabel": "Filtro pronat",
+    "showMore": "Shfaq më shumë",
+    "showing": "{shown} nga {count} prona"
   },
   "property": {
-    "back": "Kthehu te pronat",
-    "overview": "Përmbledhje",
-    "description": "Përshkrimi",
+    "description": "Përshkrim",
     "location": "Vendndodhja",
     "price": "Çmimi",
     "area": "Sipërfaqja",
     "type": "Lloji",
     "status": "Statusi",
     "zone": "Zona",
-    "reference": "Referenca",
     "contactTitle": "Të interesuar për këtë pronë?",
     "contactText": "Tekst i përkohshëm. Kontaktoni Wilson për dokumente, vizitë në terren ose më shumë detaje.",
     "contactCta": "Kontakto Wilson",
-    "more": "Prona të tjera"
+    "feature": "Cilësi shtesë",
+    "details": "Detaje",
+    "propertyId": "ID e pronës",
+    "landArea": "Sipërfaqja e tokës",
+    "propertyType": "Lloji i pronës",
+    "municipality": "Komuna",
+    "updated": "Përditësuar",
+    "ari": "{count} ari",
+    "similar": "Prona të ngjashme",
+    "gallery": "Galeria e pronës",
+    "showPhotos": "Fotot",
+    "showMap": "Harta",
+    "previous": "Imazhi i mëparshëm",
+    "next": "Imazhi tjetër",
+    "photo": "Foto {n} nga {total}"
   },
   "servicesPage": {
     "eyebrow": "Shërbimet",
@@ -211,5 +238,13 @@
   "map": {
     "loading": "Harta po ngarkohet…",
     "viewProperty": "Shiko pronën"
+  },
+  "propertyFeatures": {
+    "seaView": "Pamje nga deti",
+    "roadAccess": "Qasje në rrugë",
+    "buildingPermit": "Me leje ndërtimi",
+    "utilities": "Ujë dhe energji",
+    "flatTerrain": "Terren i sheshtë",
+    "cityView": "Pamje nga qyteti"
   }
 }

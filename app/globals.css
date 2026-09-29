@@ -7,7 +7,7 @@
  * neutral-* classes, so rebranding means editing this block only.
  */
 @theme {
-  /* TODO: brand color. Primary action color (buttons, active states, map pins). */
+  /* TODO: brand color. Primary action color (buttons). */
   --color-brand-primary: #111111;
   /* TODO: brand color. Dark surface used by the header and Banner (Figma #3d3d3d). */
   --color-brand-dark: #3d3d3d;
@@ -15,28 +15,66 @@
   --color-brand-darker: #000000;
   /* TODO: brand color. Secondary accent. */
   --color-brand-secondary: #8c8c8c;
-  /* TODO: brand color. Highlight accent. */
-  --color-brand-accent: #5c5c5c;
+  /* Brand yellow, from the logo. Highlights only (pins, active states, hovers); pair it
+     with dark text, white on yellow is unreadable. */
+  --color-brand-accent: #ffb500;
 
   /* Neutral surfaces and text (keep unless the brand says otherwise). */
   --color-surface: #ffffff;
   --color-surface-muted: #d9d9d9; /* Services band background in Figma */
+  --color-surface-page: #c3c3c3; /* Property list/detail page background in Figma */
   --color-surface-subtle: #f4f4f4;
   --color-placeholder: #dedede; /* Gray image boxes */
   --color-ink: #111111;
   --color-ink-muted: #5c5c5c;
   --color-ink-subtle: #a3a3a3;
   --color-line: #e5e5e5;
+}
 
-  /* TODO: brand font. System stack until the brand font is chosen.
-     If it isn't on Google Fonts, self-host it under public/fonts (see CLAUDE.md). */
+/* Brand fonts, loaded with next/font/local in app/[lang]/layout.tsx (files in public/fonts).
+   `inline` so utilities point at the next/font variables directly. */
+@theme inline {
+  /* Gilmer: body and UI text (400 / 700 / 800). */
   --font-sans:
-    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
-    "Noto Sans", sans-serif;
+    var(--font-gilmer), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  /* Ego: wide display face for headings (400 only). */
+  --font-display: var(--font-ego), var(--font-gilmer), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Page and section headings use the display face. Ego has one weight, so don't let the
+   browser fake a bold from font-medium / font-semibold. Override with `font-sans`.
+   Ego is wide: long words (German especially) hyphenate instead of overflowing. Only
+   words of 12+ letters, so ordinary words ("takohet") never get split. */
+@layer base {
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    font-synthesis-weight: none;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    hyphenate-limit-chars: 12 5 5;
+  }
+}
+
+/* Height of the sticky header (h-16 / sm:h-20 / lg:h-24 in Navbar). Anything else that
+   pins to the top of the screen offsets itself by this, and anchor jumps clear it. */
+:root {
+  --header-h: 4rem;
+}
+@media (min-width: 40rem) {
+  :root {
+    --header-h: 5rem;
+  }
+}
+@media (min-width: 64rem) {
+  :root {
+    --header-h: 6rem;
+  }
 }
 
 html {
   -webkit-text-size-adjust: 100%;
+  scroll-padding-top: var(--header-h);
 }
 
 body {
@@ -59,14 +97,20 @@ body {
   color: var(--color-ink);
 }
 
-/* Map pin (Leaflet divIcon). TODO: brand color. */
+/* Text selection in brand yellow. */
+::selection {
+  background: var(--color-brand-accent);
+  color: var(--color-ink);
+}
+
+/* Map pin (Leaflet divIcon), brand yellow. */
 .map-pin {
   display: block;
   width: 28px;
   height: 28px;
   border-radius: 50% 50% 50% 0;
   transform: rotate(-45deg);
-  background: var(--color-brand-primary);
+  background: var(--color-brand-accent);
   border: 3px solid var(--color-surface);
   box-shadow: 0 2px 6px rgb(0 0 0 / 0.35);
 }
