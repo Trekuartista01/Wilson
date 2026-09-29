@@ -1,6 +1,7 @@
 import "server-only";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import type { Locale } from "@/i18n/config";
+import { PROPERTIES_TAG } from "./catalog";
 import { ApiError, badRequest, notFound } from "./errors";
 import type { PropertyInput, PropertyPatch } from "./schemas";
 import { PROPERTY_IMAGES_BUCKET, supabaseAdmin } from "./supabase";
@@ -95,7 +96,7 @@ export function dbError(error: { code?: string; message: string }): Error {
   }
 }
 
-/** URL slug from the Albanian title: "Tokë në Tale" -> "toke-ne-tale". */
+/** URL slug from the Albanian title: "Parcelë në Tale" -> "parcele-ne-tale". */
 export function slugify(title: string): string {
   const slug = title
     .normalize("NFKD")
@@ -125,8 +126,10 @@ function toDbData(input: PropertyInput | (Omit<PropertyInput, "translations"> & 
   };
 }
 
-// Public pages are statically rendered; refresh them after any change.
+// After any change: drop the cached listings (next visitor gets fresh data, not a stale
+// copy) and the statically rendered pages built from them.
 export function refreshSite() {
+  revalidateTag(PROPERTIES_TAG, { expire: 0 });
   revalidatePath("/", "layout");
 }
 

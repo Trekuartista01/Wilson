@@ -71,20 +71,29 @@
 
 - [x] API route structure (app/api/...)  
 - [x] Contact form endpoint \+ nodemailer delivery (destination: `CONTACT_TO`, still TBD with the client)  
-- [x] CRUD endpoints for properties (written; not yet run against a real Supabase project)  
+- [x] CRUD endpoints for properties (tested end to end against the real Supabase project)  
 - [x] Admin login endpoint (env-sourced credentials, signed token in an httpOnly cookie, no fallbacks)  
-- [x] Image upload to Supabase Storage with server-side type/size validation (Storage upload not yet run against real Supabase)  
+- [x] Image upload to Supabase Storage with server-side type/size validation (tested against real Supabase)  
 - [x] Input validation/sanitization on every route  
 - [x] Rate limiting on the contact form and login  
 - [x] Centralized error handling that never leaks internals
 
 ### Milestone 3: Database (Supabase)
 
-- [ ] Tables for properties (with translations for the three languages) and image references (migration written and tested in PGlite; not yet applied to a Supabase project)  
-- [ ] Storage bucket \+ policies for property images (same migration)  
-- [ ] Indexes for anything queried often (same migration)  
-- [ ] Seed data for local development only, gated behind NODE\_ENV \!== 'production'  
+- [x] Tables for properties (with translations for the three languages) and image references (applied to project `rrxttjllwedwynvjwuhi`, 2026-09-29)  
+- [x] Storage bucket \+ policies for property images  
+- [x] Indexes for anything queried often  
+- [x] Seed data for local development only, gated behind NODE\_ENV \!== 'production' (`npm run seed:demo`; 24 demo listings currently loaded, see launch checklist)  
 - [x] Env vars for all keys, none hardcoded, none with fallbacks (`.env.example`)
+- [x] Public site reads listings from Supabase (`lib/server/catalog.ts`)
+
+### Before launch (checklist)
+
+- [ ] Remove the demo listings: `npm run seed:demo -- --clear` (there is only one Supabase database, so they show on every deployment until cleared)  
+- [ ] Reset the reference counter so the first real listing is WRE-001 (Supabase SQL Editor, once the table is empty): `alter sequence public.property_reference_seq restart with 1;`  
+- [ ] Zoho SMTP details + `CONTACT_TO` in the environment (contact form)  
+- [ ] Stronger admin password (`npm run hash-password`)  
+- [ ] All env vars from `.env.example` set in the Vercel project
 
 ### Milestone 4: Admin panel
 
@@ -102,8 +111,10 @@
 - Figma UI reference images are provided per section; follow them for structure, not for final styling.
 - Phase 1 (2026-09-28): i18n is hand-rolled per the Next.js 16 guide (`app/[lang]`, `proxy.ts`, JSON dictionaries in `i18n/dictionaries/`), no i18n library. Default locale `sq` (switcher label "AL"); `/` redirects by cookie, then Accept-Language, then `sq`.
 - Phase 1: maps use Leaflet + react-leaflet with OpenStreetMap tiles (no API key). Pick a production tile provider before launch.
-- Phase 1: property data is hardcoded in `data/properties.ts` (replaced by Supabase in Milestone 3). The search bar filters it via query params on `/[lang]/properties`.
+- Phase 1: property data was hardcoded in `data/properties.ts`. Since 2026-09-29 it comes from Supabase; that file now only holds the catalog definitions (types, zones, filters) and the demo listings live in `scripts/seed/demo-properties.ts`.
 - 2026-09-29: Properties list + SinglePageOfProperty rebuilt to the Figma ("Pronat", "Pronat Desc"). Header is sticky on every page (`--header-h` in globals.css, anything pinned to the top offsets by it) and turns light gray on the property pages to match Figma.
 - 2026-09-29: Properties list shows 10 listings, "Shfaq më shumë" adds 10 more via `?show=`. On desktop the cards scroll inside a box exactly as tall as the map (never past its bottom). "Më shumë" holds a price filter and sorting (a guess, Figma doesn't say).
 - 2026-09-29: Brand yellow `#ffb500` (from the logo) is `--color-brand-accent`, used for highlights only: map pins, active nav underline, scroll-to-top, active step circle, service tile hover, text selection. Always with dark text. Favicon set (`app/favicon.ico`, `icon.png`, `apple-icon.png`) is the yellow W, Logo-04.
 - 2026-09-29: Backend (Milestone 2). Route handlers in `app/api` (contact, admin login/logout/session, admin properties + images); shared server code in `lib/server` (`server-only`). Supabase is used server-side only, with the service role key. Schema, RLS, storage bucket and SQL functions live in `supabase/migrations`. Rate limits are counted in Postgres (`hit_rate_limit`), so they hold across Vercel instances. Admin auth: one account from env (`ADMIN_USERNAME` + bcrypt `ADMIN_PASSWORD_HASH`), 8-hour JWT in an httpOnly SameSite=Strict cookie, Origin check on every write. Uploads: JPEG/PNG/WebP up to 4 MB (Vercel's body limit is 4.5 MB, so the admin panel must downscale big photos in the browser), re-encoded to WebP ≤ 2560 px with all metadata (including GPS) stripped. Missing env vars stop the server in production (`instrumentation.ts`).
+- 2026-09-29: The public site reads listings from Supabase with the publishable key (`lib/server/catalog.ts`), so row level security limits it to published listings. Cached for an hour in production and refreshed immediately by every admin API change (`revalidateTag("properties")`); in development it always reads fresh data. Changes made outside the API (Supabase dashboard, seed script) appear on production within the hour. Listing photos render through `next/image`, allowed only from this project's `property-images` bucket.
+- 2026-09-29: Albanian wording: "tokë" is "parcelë" everywhere (type label, titles, meta, "Sipërfaqja e parcelës"). English "land" and German "Grundstück" unchanged.

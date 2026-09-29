@@ -22,6 +22,17 @@ export function supabaseEnv() {
   };
 }
 
+/**
+ * Public (publishable) key, used for what visitors see. Row level security then guarantees
+ * only published listings are readable, whatever the code asks for.
+ */
+export function supabasePublicEnv() {
+  return {
+    url: required("SUPABASE_URL"),
+    publishableKey: required("SUPABASE_PUBLISHABLE_KEY"),
+  };
+}
+
 export function authEnv() {
   const jwtSecret = required("JWT_SECRET");
   if (jwtSecret.length < 32) {
@@ -59,7 +70,7 @@ export function mailEnv() {
 /** Throws with every missing or invalid setting at once. */
 export function assertServerEnv(): void {
   const problems: string[] = [];
-  for (const check of [supabaseEnv, authEnv, mailEnv]) {
+  for (const check of [supabaseEnv, supabasePublicEnv, authEnv, mailEnv]) {
     try {
       check();
     } catch (error) {

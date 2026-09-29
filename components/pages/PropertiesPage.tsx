@@ -14,6 +14,7 @@ import {
   type PropertyFilters,
 } from "@/data/properties";
 import { formatArea } from "@/lib/format";
+import { getPublishedProperties } from "@/lib/server/catalog";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import Map from "@/components/map/Map";
@@ -37,11 +38,11 @@ type PropertiesPageProps = {
  * of Albania with every result pinned on the right. On desktop the cards scroll inside a box
  * exactly as tall as the map; "Shfaq më shumë" below it loads the next 10.
  */
-export default function PropertiesPage({ lang, dict, filters, show }: PropertiesPageProps) {
+export default async function PropertiesPage({ lang, dict, filters, show }: PropertiesPageProps) {
   const t = dict.propertiesPage;
   const s = dict.search;
   const action = localePath(lang, "/properties");
-  const results = filterProperties(filters);
+  const results = filterProperties(await getPublishedProperties(), filters);
   const visible = results.slice(0, show);
 
   const activeFilters = Object.entries(filters).filter(([, v]) => v) as [string, string][];

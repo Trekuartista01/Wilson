@@ -2,14 +2,14 @@
   "_note": "PLACEHOLDER COPY. Albanian strings come from the Figma wireframes; EN/DE are draft translations. Replace with approved copy.",
   "meta": {
     "siteName": "Wilson Real Estate",
-    "defaultDescription": "Toka dhe prona në Shqipëri, të verifikuara dhe të strukturuara për investim.",
+    "defaultDescription": "Parcela dhe prona në Shqipëri, të verifikuara dhe të strukturuara për investim.",
     "home": {
-      "title": "Wilson Real Estate | Toka dhe prona në Shqipëri",
-      "description": "Toka dhe prona në Shqipëri, të verifikuara dhe të strukturuara për investim."
+      "title": "Wilson Real Estate | Parcela dhe prona në Shqipëri",
+      "description": "Parcela dhe prona në Shqipëri, të verifikuara dhe të strukturuara për investim."
     },
     "properties": {
       "title": "Pronat",
-      "description": "Shikoni toka dhe prona në të gjithë Shqipërinë në hartë."
+      "description": "Shikoni parcela dhe prona në të gjithë Shqipërinë në hartë."
     },
     "services": {
       "title": "Shërbimet",
@@ -49,7 +49,7 @@
     "sqm": "m²"
   },
   "propertyTypes": {
-    "land": "Tokë",
+    "land": "Parcelë",
     "residential": "Rezidenciale",
     "commercial": "Komerciale"
   },
@@ -141,7 +141,7 @@
     { "slug": "consulting", "title": "Konsulencë investimi", "text": "Përshkrim i përkohshëm i shërbimit të konsulencës për investime." }
   ],
   "propertiesPage": {
-    "title": "Toka dhe prona në Shqipëri",
+    "title": "Parcela dhe prona në Shqipëri",
     "results": "{count} prona",
     "resultsOne": "1 pronë",
     "empty": "Asnjë pronë nuk përputhet me këto filtra.",
@@ -165,7 +165,7 @@
     "feature": "Cilësi shtesë",
     "details": "Detaje",
     "propertyId": "ID e pronës",
-    "landArea": "Sipërfaqja e tokës",
+    "landArea": "Sipërfaqja e parcelës",
     "propertyType": "Lloji i pronës",
     "municipality": "Komuna",
     "updated": "Përditësuar",
@@ -189,7 +189,7 @@
     "title": "Rreth Wilson Real Estate",
     "intro": "Tekst i përkohshëm për faqen Rreth Wilson.",
     "storyTitle": "Historia jonë",
-    "storyText": "Paragraf i përkohshëm për historinë e kompanisë, ekipin dhe qasjen ndaj investimeve në tokë në Shqipëri.",
+    "storyText": "Paragraf i përkohshëm për historinë e kompanisë, ekipin dhe qasjen ndaj investimeve në parcela në Shqipëri.",
     "valuesTitle": "Si punojmë",
     "officesTitle": "Zyrat tona",
     "offices": [

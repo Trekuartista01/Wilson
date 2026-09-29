@@ -1,15 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiChevronLeft, FiChevronRight, FiImage, FiMap } from "react-icons/fi";
+import type { PropertyImage } from "@/data/properties";
 import type { MapMarker } from "@/components/map/LeafletMap";
 import Container from "@/components/ui/Container";
 import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 import Map from "@/components/map/Map";
 
 type PropertyGalleryProps = {
-  imageCount: number;
+  images: PropertyImage[];
+  /** Listing title, used in each photo's alt text. */
+  title: string;
   marker: MapMarker;
   labels: {
     gallery: string;
@@ -30,12 +34,12 @@ const pad = (n: number) => String(n).padStart(2, "0");
  * Full-width hero on the property page (Figma "Pronat Desc"): photo slider with a
  * photos / map toggle bottom left and a "01 — 05" counter bottom right.
  * Swipe, the arrow buttons or the keyboard arrows change the photo.
- * TODO: real photos from Supabase Storage (Milestone 3) with next/image, sizes="100vw".
+ * Photos come from Supabase Storage; a listing without photos shows one gray placeholder.
  */
-export default function PropertyGallery({ imageCount, marker, labels }: PropertyGalleryProps) {
+export default function PropertyGallery({ images, title, marker, labels }: PropertyGalleryProps) {
   const [view, setView] = useState<"photos" | "map">("photos");
   const [[index, direction], setSlide] = useState<[number, 1 | -1]>([0, 1]);
-  const total = Math.max(imageCount, 1);
+  const total = Math.max(images.length, 1);
 
   const go = (dir: 1 | -1) => setSlide(([i]) => [(i + dir + total) % total, dir]);
   const photoLabel = labels.photo.replace("{n}", String(index + 1)).replace("{total}", String(total));
@@ -76,7 +80,19 @@ export default function PropertyGallery({ imageCount, marker, labels }: Property
               }}
               className="absolute inset-0 touch-pan-y"
             >
-              <ImagePlaceholder aspect="h-full" label={photoLabel} />
+              {images[index] ? (
+                <Image
+                  src={images[index].url}
+                  alt={`${title}: ${photoLabel}`}
+                  fill
+                  sizes="100vw"
+                  priority={index === 0}
+                  draggable={false}
+                  className="object-cover select-none"
+                />
+              ) : (
+                <ImagePlaceholder aspect="h-full" label={photoLabel} />
+              )}
             </motion.div>
           </AnimatePresence>
 
