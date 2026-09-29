@@ -31,7 +31,7 @@ export default function FifthPart({ lang, dict }: { lang: Locale; dict: Dictiona
               {/* TODO: brand imagery. Gray tile stands in for the service photo. */}
               <Link
                 href={`${localePath(lang, "/services")}#${service.slug}`}
-                className="flex aspect-[4/3] items-start justify-center bg-brand-secondary p-5 text-center text-lg font-medium transition-colors hover:bg-brand-accent hover:text-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary sm:aspect-[4/5]"
+                className="flex aspect-[4/3] items-start justify-center bg-brand-secondary p-5 text-center text-lg font-medium transition-colors hover:bg-brand-accent hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary sm:aspect-[4/5]"
               >
                 {service.title}
               </Link>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import { notFound } from "next/navigation";
 import "../globals.css";
 import { hasLocale, locales } from "@/i18n/config";
@@ -8,9 +9,24 @@ import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import MotionProvider from "@/components/layout/MotionProvider";
 
-// TODO: brand font. The system font stack is set in globals.css (--font-sans).
-// Load the brand font here with next/font (Google) or next/font/local (public/fonts)
-// once it is chosen.
+// Brand fonts, self-hosted from public/fonts (not on Google Fonts).
+// Gilmer: all body and UI text. Ego: wide display face for h1/h2 (see globals.css).
+const gilmer = localFont({
+  src: [
+    { path: "../../public/fonts/gilmer-regular.otf", weight: "400", style: "normal" },
+    { path: "../../public/fonts/gilmer-bold.otf", weight: "700", style: "normal" },
+    { path: "../../public/fonts/gilmer-heavy.otf", weight: "800", style: "normal" },
+  ],
+  variable: "--font-gilmer",
+  display: "swap",
+});
+
+const ego = localFont({
+  src: "../../public/fonts/ego-regular.otf",
+  weight: "400",
+  variable: "--font-ego",
+  display: "swap",
+});
 
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -35,7 +51,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   const dict = await getDictionary(lang);
 
   return (
-    <html lang={lang} className="h-full antialiased">
+    <html lang={lang} className={`${gilmer.variable} ${ego.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col overflow-x-clip">
         <a
           href="#main"

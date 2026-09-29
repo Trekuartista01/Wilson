@@ -24,7 +24,7 @@ export default function Footer({ lang, dict }: FooterProps) {
 
         <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:mt-14 lg:grid-cols-[1fr_1.2fr_auto] lg:gap-16">
           <div>
-            <h2 className="text-sm font-semibold">{t.navigation}</h2>
+            <h2 className="font-sans text-sm font-semibold">{t.navigation}</h2>
             <ul className="mt-3 grid max-w-xs grid-cols-2 gap-x-8">
               {navItems.map((item) => (
                 <li key={item.key}>
@@ -40,7 +40,7 @@ export default function Footer({ lang, dict }: FooterProps) {
           </div>
 
           <div>
-            <h2 className="text-sm font-semibold">{t.contact}</h2>
+            <h2 className="font-sans text-sm font-semibold">{t.contact}</h2>
             <ul className="mt-3 space-y-1">
               <li>
                 <a
@@ -74,7 +74,7 @@ export default function Footer({ lang, dict }: FooterProps) {
           </div>
 
           <div>
-            <h2 className="text-sm font-semibold">{t.social}</h2>
+            <h2 className="font-sans text-sm font-semibold">{t.social}</h2>
             <ul className="mt-3">
               <li>
                 <a

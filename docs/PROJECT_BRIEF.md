@@ -42,9 +42,9 @@
 ## Placeholders (Phase 1\)
 
 - Tailwind theme: neutral gray palette with clearly marked `TODO: brand color` tokens (e.g. `brand-primary`, `brand-secondary`, `brand-accent`).  
-- Fonts: system font stack with a `TODO: brand font` note in layout.tsx.  
-- Logo: a text placeholder "LOGO" component.  
-- Images: gray boxes with a fixed aspect ratio. No stock photos.  
+- Fonts: ~~system stack~~ done 2026-09-29, Gilmer (text) + Ego (h1/h2), self-hosted in `public/fonts`.  
+- Logo: ~~text placeholder~~ done 2026-09-29, Logo-01 from the brand materials (`public/images/wilson-logo.png`).  
+- Images: gray boxes with a fixed aspect ratio. No stock photos. Exception (2026-09-29): homepage hero uses the client photo `public/images/hero.jpg`.  
 - Copy: short neutral placeholder text, marked as placeholder.
 
 ---
@@ -103,3 +103,6 @@
 - Phase 1 (2026-09-28): i18n is hand-rolled per the Next.js 16 guide (`app/[lang]`, `proxy.ts`, JSON dictionaries in `i18n/dictionaries/`), no i18n library. Default locale `sq` (switcher label "AL"); `/` redirects by cookie, then Accept-Language, then `sq`.
 - Phase 1: maps use Leaflet + react-leaflet with OpenStreetMap tiles (no API key). Pick a production tile provider before launch.
 - Phase 1: property data is hardcoded in `data/properties.ts` (replaced by Supabase in Milestone 3). The search bar filters it via query params on `/[lang]/properties`.
+- 2026-09-29: Properties list + SinglePageOfProperty rebuilt to the Figma ("Pronat", "Pronat Desc"). Header is sticky on every page (`--header-h` in globals.css, anything pinned to the top offsets by it) and turns light gray on the property pages to match Figma.
+- 2026-09-29: Properties list shows 10 listings, "Shfaq më shumë" adds 10 more via `?show=`. On desktop the cards scroll inside a box exactly as tall as the map (never past its bottom). "Më shumë" holds a price filter and sorting (a guess, Figma doesn't say).
+- 2026-09-29: Brand yellow `#ffb500` (from the logo) is `--color-brand-accent`, used for highlights only: map pins, active nav underline, scroll-to-top, active step circle, service tile hover, text selection. Always with dark text. Favicon set (`app/favicon.ico`, `icon.png`, `apple-icon.png`) is the yellow W, Logo-04.

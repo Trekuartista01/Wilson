@@ -36,7 +36,7 @@ export default function Card({
     >
       <ImagePlaceholder aspect="aspect-[3/2]" label={imageLabel} />
       <div className="flex flex-1 flex-col p-4 sm:p-5">
-        <Heading className="text-base font-semibold">{headline}</Heading>
+        <Heading className="font-sans text-base font-semibold">{headline}</Heading>
         <p className="mt-0.5 text-sm text-ink-muted">{subhead}</p>
         {body && <p className="mt-3 line-clamp-2 text-sm text-ink-muted">{body}</p>}
         {tags.length > 0 && (

@@ -17,8 +17,6 @@ type SearchFormProps = {
   values: Partial<Record<SearchField["name"], string>>;
   submitLabel: string;
   ariaLabel: string;
-  /** Apply each change straight away (properties page) instead of waiting for the button. */
-  applyOnChange?: boolean;
   className?: string;
 };
 
@@ -33,7 +31,6 @@ export default function SearchForm({
   values: initialValues,
   submitLabel,
   ariaLabel,
-  applyOnChange = false,
   className = "",
 }: SearchFormProps) {
   const router = useRouter();
@@ -56,8 +53,7 @@ export default function SearchForm({
     const query = params.toString();
     const url = `${action}${query ? `?${query}` : ""}`;
     startTransition(() => {
-      if (applyOnChange) router.replace(url, { scroll: false });
-      else router.push(`${url}#results`);
+      router.push(`${url}#results`);
     });
   }
 
@@ -88,9 +84,7 @@ export default function SearchForm({
               name={field.name}
               value={values[field.name] ?? ""}
               onChange={(event) => {
-                const next = { ...values, [field.name]: event.target.value };
-                setValues(next);
-                if (applyOnChange) go(next);
+                setValues({ ...values, [field.name]: event.target.value });
               }}
               className={`min-h-11 w-full cursor-pointer appearance-none bg-transparent pr-8 text-base outline-none focus-visible:ring-2 focus-visible:ring-brand-primary ${
                 values[field.name] ? "text-ink" : "text-ink-muted"

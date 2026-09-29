@@ -30,7 +30,7 @@ const ALBANIA_BOUNDS: L.LatLngBoundsExpression = [
 ];
 
 // CSS-only pin (styled in globals.css) avoids Leaflet's default marker image paths,
-// which break under bundlers. TODO: brand color. Pin uses --color-brand-primary.
+// which break under bundlers. Pin uses --color-brand-accent.
 const pinIcon = L.divIcon({
   className: "",
   html: '<span class="map-pin"></span>',

@@ -39,13 +39,29 @@ export default function Navbar({ lang, labels }: NavbarProps) {
     return href === "/" ? pathname === full : pathname === full || pathname.startsWith(`${full}/`);
   };
 
+  // The property pages sit on the light gray page background in Figma, and so does the header.
+  const light = isActive("/properties");
+  const theme = light
+    ? {
+        bar: "bg-surface-page text-ink",
+        link: "text-ink/65 hover:text-ink",
+        activeLink: "text-ink",
+        divider: "border-ink/10",
+      }
+    : {
+        bar: "bg-brand-dark text-surface",
+        link: "text-surface/75 hover:text-surface",
+        activeLink: "text-surface",
+        divider: "border-surface/10",
+      };
+
   const toggle = () => {
     setOpenedAt(pathname);
     setOpen((v) => !v);
   };
 
   return (
-    <header className="relative z-50 bg-brand-dark text-surface">
+    <header className={`sticky top-0 z-50 ${theme.bar}`}>
       <Container className="flex h-16 items-center justify-between gap-4 sm:h-20 lg:h-24">
         <Logo href={localePath(lang)} />
 
@@ -59,10 +75,10 @@ export default function Navbar({ lang, labels }: NavbarProps) {
                   <Link
                     href={localePath(lang, item.href)}
                     aria-current={active ? "page" : undefined}
-                    className={`inline-flex min-h-11 items-center text-[15px] transition-colors ${
+                    className={`inline-flex min-h-11 min-w-11 items-center justify-center text-[15px] transition-colors ${
                       active
-                        ? "font-medium text-surface underline decoration-1 underline-offset-8"
-                        : "text-surface/75 hover:text-surface"
+                        ? `font-medium underline decoration-brand-accent decoration-2 underline-offset-8 ${theme.activeLink}`
+                        : theme.link
                     }`}
                   >
                     {labels[item.key]}
@@ -104,19 +120,19 @@ export default function Navbar({ lang, labels }: NavbarProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="absolute inset-x-0 top-full max-h-[calc(100svh-4rem)] overflow-y-auto border-t border-surface/10 bg-brand-dark shadow-xl lg:hidden"
+            className={`absolute inset-x-0 top-full max-h-[calc(100svh-var(--header-h))] overflow-y-auto border-t shadow-xl lg:hidden ${theme.divider} ${theme.bar}`}
           >
             <Container className="py-4">
               <ul className="flex flex-col">
                 {navItems.map((item) => {
                   const active = isActive(item.href);
                   return (
-                    <li key={item.key} className="border-b border-surface/10 last:border-b-0">
+                    <li key={item.key} className={`border-b last:border-b-0 ${theme.divider}`}>
                       <Link
                         href={localePath(lang, item.href)}
                         aria-current={active ? "page" : undefined}
                         onClick={() => setOpen(false)}
-                        className={`flex min-h-12 items-center text-lg ${active ? "font-medium text-surface" : "text-surface/75"}`}
+                        className={`flex min-h-12 items-center text-lg ${active ? `font-medium ${theme.activeLink}` : theme.link}`}
                       >
                         {labels[item.key]}
                       </Link>

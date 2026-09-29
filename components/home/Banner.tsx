@@ -1,9 +1,11 @@
+import Image from "next/image";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 import { localePath, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import Container from "@/components/ui/Container";
 import SearchBar from "@/components/properties/SearchBar";
+import heroImage from "@/public/images/hero.jpg";
 
 type BannerProps = {
   lang: Locale;
@@ -11,17 +13,34 @@ type BannerProps = {
 };
 
 /**
- * Homepage hero (Figma "Hero"): dark band with eyebrow, headline and two CTAs,
+ * Homepage hero (Figma "Hero"): aerial coast photo with eyebrow, headline and two CTAs,
  * plus the property search bar straddling the bottom edge.
- * TODO: hero background image/video once brand assets exist.
+ * The photo sits behind the whole section and the search row paints white over its own
+ * lower half, so the bar is half on the photo and half on the page at any bar height.
  */
 export default function Banner({ lang, dict }: BannerProps) {
   const t = dict.home.banner;
 
   return (
-    <section aria-labelledby="banner-title">
-      <div className="bg-brand-dark text-surface">
-        <Container className="pt-12 pb-16 sm:pt-20 sm:pb-24 lg:pt-24 lg:pb-36">
+    <section aria-labelledby="banner-title" className="relative isolate">
+      <Image
+        src={heroImage}
+        alt=""
+        fill
+        priority
+        placeholder="blur"
+        sizes="100vw"
+        className="-z-20 object-cover object-[center_40%]"
+      />
+      {/* Darkens the photo behind the text: even on phones (text runs full width),
+          heavier on the left from sm up, where the text sits. */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-black/50 sm:bg-transparent sm:bg-linear-to-r sm:from-black/70 sm:via-black/40 sm:to-black/10"
+      />
+
+      <div className="text-surface">
+        <Container className="pt-12 pb-16 sm:pt-20 sm:pb-24 lg:pt-28 lg:pb-40">
           <p className="text-lg font-light sm:text-xl">{t.eyebrow}</p>
           <h1
             id="banner-title"
@@ -48,8 +67,8 @@ export default function Banner({ lang, dict }: BannerProps) {
         </Container>
       </div>
 
-      {/* Search bar sits half over the dark band and half over the white page. */}
-      <div className="bg-[linear-gradient(to_bottom,var(--color-brand-dark)_50%,var(--color-surface)_50%)]">
+      {/* Search bar: top half over the photo, bottom half over the white page. */}
+      <div className="bg-[linear-gradient(to_bottom,transparent_50%,var(--color-surface)_50%)]">
         <Container>
           <div className="mx-auto max-w-5xl">
             <SearchBar lang={lang} dict={dict} />
