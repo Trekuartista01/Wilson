@@ -297,6 +297,7 @@ export const propertyStatuses: PropertyStatus[] = ["sale", "rent"];
 export const areaRanges: AreaRange[] = ["lt1000", "1000-5000", "gt5000"];
 export const priceRanges: PriceRange[] = ["lt100k", "100k-250k", "gt250k"];
 export const sortOrders: SortOrder[] = ["newest", "priceAsc", "priceDesc", "areaDesc"];
+export const propertyFeatures: PropertyFeature[] = ["seaView", "roadAccess", "buildingPermit", "utilities", "flatTerrain", "cityView"];
 
 export function getProperty(slug: string): Property | undefined {
   return properties.find((p) => p.slug === slug);

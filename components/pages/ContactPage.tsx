@@ -11,7 +11,7 @@ import PageBanner from "@/components/ui/PageBanner";
  * Contact page: ContactForm + contact details + embedded Map of the office.
  * TODO: awaiting Figma. Neutral placeholder layout.
  */
-export default function ContactPage({ dict }: { lang: Locale; dict: Dictionary }) {
+export default function ContactPage({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const t = dict.contactPage;
 
   return (
@@ -24,7 +24,7 @@ export default function ContactPage({ dict }: { lang: Locale; dict: Dictionary }
             {t.formTitle}
           </h2>
           <div className="mt-6">
-            <ContactForm labels={t.form} />
+            <ContactForm lang={lang} labels={t.form} />
           </div>
         </section>
 

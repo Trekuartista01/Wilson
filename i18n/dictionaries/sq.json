@@ -219,7 +219,11 @@
       "message": "Mesazhi",
       "consent": "Pranoj që Wilson Real Estate të më kontaktojë për këtë kërkesë.",
       "submit": "Dërgo mesazhin",
-      "notConnected": "Formulari ende nuk është i lidhur. Dërgimi vjen në fazën e ardhshme."
+      "sending": "Po dërgohet…",
+      "success": "Faleminderit! Mesazhi u dërgua. Do t'ju kontaktojmë së shpejti.",
+      "invalid": "Kontrolloni fushat e shënuara dhe provoni përsëri.",
+      "rateLimited": "Keni dërguar shumë mesazhe. Provoni përsëri pas pak minutash.",
+      "error": "Mesazhi nuk u dërgua. Provoni përsëri ose na telefononi."
     }
   },
   "footer": {

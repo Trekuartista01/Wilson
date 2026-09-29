@@ -69,22 +69,22 @@
 
 ### Milestone 2: Backend
 
-- [ ] API route structure (app/api/...)  
-- [ ] Contact form endpoint \+ nodemailer delivery (destination TBD)  
-- [ ] CRUD endpoints for properties  
-- [ ] Admin login endpoint (env-sourced credentials, signed token in an httpOnly cookie, no fallbacks)  
-- [ ] Image upload to Supabase Storage with server-side type/size validation  
-- [ ] Input validation/sanitization on every route  
-- [ ] Rate limiting on the contact form and login  
-- [ ] Centralized error handling that never leaks internals
+- [x] API route structure (app/api/...)  
+- [x] Contact form endpoint \+ nodemailer delivery (destination: `CONTACT_TO`, still TBD with the client)  
+- [x] CRUD endpoints for properties (written; not yet run against a real Supabase project)  
+- [x] Admin login endpoint (env-sourced credentials, signed token in an httpOnly cookie, no fallbacks)  
+- [x] Image upload to Supabase Storage with server-side type/size validation (Storage upload not yet run against real Supabase)  
+- [x] Input validation/sanitization on every route  
+- [x] Rate limiting on the contact form and login  
+- [x] Centralized error handling that never leaks internals
 
 ### Milestone 3: Database (Supabase)
 
-- [ ] Tables for properties (with translations for the three languages) and image references  
-- [ ] Storage bucket \+ policies for property images  
-- [ ] Indexes for anything queried often  
+- [ ] Tables for properties (with translations for the three languages) and image references (migration written and tested in PGlite; not yet applied to a Supabase project)  
+- [ ] Storage bucket \+ policies for property images (same migration)  
+- [ ] Indexes for anything queried often (same migration)  
 - [ ] Seed data for local development only, gated behind NODE\_ENV \!== 'production'  
-- [ ] Env vars for all keys, none hardcoded, none with fallbacks
+- [x] Env vars for all keys, none hardcoded, none with fallbacks (`.env.example`)
 
 ### Milestone 4: Admin panel
 
@@ -106,3 +106,4 @@
 - 2026-09-29: Properties list + SinglePageOfProperty rebuilt to the Figma ("Pronat", "Pronat Desc"). Header is sticky on every page (`--header-h` in globals.css, anything pinned to the top offsets by it) and turns light gray on the property pages to match Figma.
 - 2026-09-29: Properties list shows 10 listings, "Shfaq më shumë" adds 10 more via `?show=`. On desktop the cards scroll inside a box exactly as tall as the map (never past its bottom). "Më shumë" holds a price filter and sorting (a guess, Figma doesn't say).
 - 2026-09-29: Brand yellow `#ffb500` (from the logo) is `--color-brand-accent`, used for highlights only: map pins, active nav underline, scroll-to-top, active step circle, service tile hover, text selection. Always with dark text. Favicon set (`app/favicon.ico`, `icon.png`, `apple-icon.png`) is the yellow W, Logo-04.
+- 2026-09-29: Backend (Milestone 2). Route handlers in `app/api` (contact, admin login/logout/session, admin properties + images); shared server code in `lib/server` (`server-only`). Supabase is used server-side only, with the service role key. Schema, RLS, storage bucket and SQL functions live in `supabase/migrations`. Rate limits are counted in Postgres (`hit_rate_limit`), so they hold across Vercel instances. Admin auth: one account from env (`ADMIN_USERNAME` + bcrypt `ADMIN_PASSWORD_HASH`), 8-hour JWT in an httpOnly SameSite=Strict cookie, Origin check on every write. Uploads: JPEG/PNG/WebP up to 4 MB (Vercel's body limit is 4.5 MB, so the admin panel must downscale big photos in the browser), re-encoded to WebP ≤ 2560 px with all metadata (including GPS) stripped. Missing env vars stop the server in production (`instrumentation.ts`).

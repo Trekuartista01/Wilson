@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Node-only libraries (raw sockets / TLS): load with Node's require instead of bundling.
+  serverExternalPackages: ["nodemailer"],
 };
 
 export default nextConfig;

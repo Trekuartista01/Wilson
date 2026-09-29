@@ -219,7 +219,11 @@
       "message": "Message",
       "consent": "I agree that Wilson Real Estate may contact me about this request.",
       "submit": "Send message",
-      "notConnected": "The form is not connected yet. Submissions are coming in the next phase."
+      "sending": "Sending…",
+      "success": "Thank you! Your message has been sent. We'll be in touch soon.",
+      "invalid": "Please check the highlighted fields and try again.",
+      "rateLimited": "You've sent too many messages. Please try again in a few minutes.",
+      "error": "Your message couldn't be sent. Please try again or call us."
     }
   },
   "footer": {
