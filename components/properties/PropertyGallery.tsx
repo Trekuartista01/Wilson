@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiChevronLeft, FiChevronRight, FiImage, FiMap } from "react-icons/fi";
@@ -30,6 +30,29 @@ type PropertyGalleryProps = {
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
+// A photo whose shape is within 25% of the gallery box fills it edge to edge (a little is
+// cropped). Anything more different (panoramas, portrait shots) is shown whole, on a
+// blurred copy of itself, so nothing looks cut off or zoomed in.
+const FILL_TOLERANCE = 1.25;
+
+function fitsBox(image: PropertyImage, boxRatio: number | null): boolean {
+  if (!boxRatio) return true;
+  const ratio = image.width / image.height / boxRatio;
+  return ratio < FILL_TOLERANCE && ratio > 1 / FILL_TOLERANCE;
+}
+
+function GalleryPhoto({ image, alt, fill, priority }: { image: PropertyImage; alt: string; fill: boolean; priority: boolean }) {
+  const common = { src: image.url, sizes: "100vw", draggable: false, ...(priority ? { priority: true } : { loading: "eager" as const }) };
+  if (fill) return <Image {...common} alt={alt} fill className="object-cover select-none" />;
+  return (
+    <>
+      {/* Same file as the photo, so no extra download: a soft background for the empty sides. */}
+      <Image {...common} alt="" aria-hidden fill className="scale-110 object-cover opacity-70 blur-2xl select-none" />
+      <Image {...common} alt={alt} fill className="object-contain select-none" />
+    </>
+  );
+}
+
 /**
  * Full-width hero on the property page (Figma "Pronat Desc"): photo slider with a
  * photos / map toggle bottom left and a "01 — 05" counter bottom right.
@@ -42,12 +65,28 @@ export default function PropertyGallery({ images, title, marker, labels }: Prope
   const total = Math.max(images.length, 1);
 
   const go = (dir: 1 | -1) => setSlide(([i]) => [(i + dir + total) % total, dir]);
+
+  // Shape of the gallery box (it changes with the screen), to choose fill vs. whole photo.
+  const boxRef = useRef<HTMLElement>(null);
+  const [boxRatio, setBoxRatio] = useState<number | null>(null);
+  useEffect(() => {
+    const box = boxRef.current;
+    if (!box) return;
+    const observer = new ResizeObserver(([entry]) => setBoxRatio(entry.contentRect.width / entry.contentRect.height));
+    observer.observe(box);
+    return () => observer.disconnect();
+  }, []);
+
+  // The photos either side of the current one, loaded ahead so a slide never shows an empty box.
+  const neighbours = images.length > 1 ? [...new Set([(index + 1) % images.length, (index - 1 + images.length) % images.length])] : [];
   const photoLabel = labels.photo.replace("{n}", String(index + 1)).replace("{total}", String(total));
 
   return (
     <section
+      ref={boxRef}
       aria-label={labels.gallery}
-      className="relative h-[50svh] min-h-64 overflow-hidden bg-surface-muted sm:h-[60svh] lg:h-[clamp(28rem,calc(100svh-var(--header-h)-9rem),40rem)]"
+      // Phones and tablets: a normal photo shape. Desktop: the wide Figma hero.
+      className="relative aspect-[4/3] overflow-hidden bg-surface-muted sm:aspect-[16/10] lg:aspect-auto lg:h-[clamp(28rem,calc(100svh-var(--header-h)-9rem),40rem)]"
     >
       {view === "photos" ? (
         <div
@@ -81,20 +120,24 @@ export default function PropertyGallery({ images, title, marker, labels }: Prope
               className="absolute inset-0 touch-pan-y"
             >
               {images[index] ? (
-                <Image
-                  src={images[index].url}
+                <GalleryPhoto
+                  image={images[index]}
                   alt={`${title}: ${photoLabel}`}
-                  fill
-                  sizes="100vw"
+                  fill={fitsBox(images[index], boxRatio)}
                   priority={index === 0}
-                  draggable={false}
-                  className="object-cover select-none"
                 />
               ) : (
                 <ImagePlaceholder aspect="h-full" label={photoLabel} />
               )}
             </motion.div>
           </AnimatePresence>
+
+          {/* Preload the neighbours with the same sizes, so the browser reuses the download. */}
+          <div aria-hidden className="pointer-events-none invisible absolute inset-0">
+            {neighbours.map((i) => (
+              <Image key={images[i].url} src={images[i].url} alt="" fill sizes="100vw" loading="eager" />
+            ))}
+          </div>
 
           {total > 1 && (
             <>

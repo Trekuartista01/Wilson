@@ -1,32 +1,13 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import { notFound } from "next/navigation";
 import "../globals.css";
 import { hasLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { ego, gilmer } from "@/lib/fonts";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import MotionProvider from "@/components/layout/MotionProvider";
-
-// Brand fonts, self-hosted from public/fonts (not on Google Fonts).
-// Gilmer: all body and UI text. Ego: wide display face for h1/h2 (see globals.css).
-const gilmer = localFont({
-  src: [
-    { path: "../../public/fonts/gilmer-regular.otf", weight: "400", style: "normal" },
-    { path: "../../public/fonts/gilmer-bold.otf", weight: "700", style: "normal" },
-    { path: "../../public/fonts/gilmer-heavy.otf", weight: "800", style: "normal" },
-  ],
-  variable: "--font-gilmer",
-  display: "swap",
-});
-
-const ego = localFont({
-  src: "../../public/fonts/ego-regular.otf",
-  weight: "400",
-  variable: "--font-ego",
-  display: "swap",
-});
 
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));

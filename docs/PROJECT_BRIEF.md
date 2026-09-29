@@ -92,16 +92,18 @@
 - [ ] Remove the demo listings: `npm run seed:demo -- --clear` (there is only one Supabase database, so they show on every deployment until cleared)  
 - [ ] Reset the reference counter so the first real listing is WRE-001 (Supabase SQL Editor, once the table is empty): `alter sequence public.property_reference_seq restart with 1;`  
 - [ ] Zoho SMTP details + `CONTACT_TO` in the environment (contact form)  
-- [ ] Stronger admin password (`npm run hash-password`)  
+- [ ] Stronger admin password (`npm run hash-password`); the current one is 8 digits  
+- [ ] To log every admin session out at once (e.g. a lost laptop): change `JWT_SECRET` (sessions are signed tokens, logout only clears the cookie on that device)  
 - [ ] All env vars from `.env.example` set in the Vercel project
 
 ### Milestone 4: Admin panel
 
-- [ ] Auth-gated admin routes (page-level and API-level checks)  
-- [ ] PropertyManager (create/edit/delete listings, all three languages)  
-- [ ] Media/image manager tied to Supabase Storage  
-- [ ] Admin screens verified responsive on mobile and tablet  
-- [ ] Final security pass
+- [x] Auth-gated admin routes (page-level and API-level checks)  
+- [x] PropertyManager (create/edit/delete listings, all three languages)  
+- [x] Media/image manager tied to Supabase Storage  
+- [x] Admin screens verified responsive on mobile and tablet  
+- [x] Final security pass (2026-09-29; open items in the launch checklist)  
+- [ ] Restyle to the admin reference images once they arrive (current design is a neutral placeholder)
 
 ---
 
@@ -118,3 +120,6 @@
 - 2026-09-29: Backend (Milestone 2). Route handlers in `app/api` (contact, admin login/logout/session, admin properties + images); shared server code in `lib/server` (`server-only`). Supabase is used server-side only, with the service role key. Schema, RLS, storage bucket and SQL functions live in `supabase/migrations`. Rate limits are counted in Postgres (`hit_rate_limit`), so they hold across Vercel instances. Admin auth: one account from env (`ADMIN_USERNAME` + bcrypt `ADMIN_PASSWORD_HASH`), 8-hour JWT in an httpOnly SameSite=Strict cookie, Origin check on every write. Uploads: JPEG/PNG/WebP up to 4 MB (Vercel's body limit is 4.5 MB, so the admin panel must downscale big photos in the browser), re-encoded to WebP ≤ 2560 px with all metadata (including GPS) stripped. Missing env vars stop the server in production (`instrumentation.ts`).
 - 2026-09-29: The public site reads listings from Supabase with the publishable key (`lib/server/catalog.ts`), so row level security limits it to published listings. Cached for an hour in production and refreshed immediately by every admin API change (`revalidateTag("properties")`); in development it always reads fresh data. Changes made outside the API (Supabase dashboard, seed script) appear on production within the hour. Listing photos render through `next/image`, allowed only from this project's `property-images` bucket.
 - 2026-09-29: Albanian wording: "tokë" is "parcelë" everywhere (type label, titles, meta, "Sipërfaqja e parcelës"). English "land" and German "Grundstück" unchanged.
+- 2026-09-29: Admin panel (Milestone 4) at `/admin`: its own root layout (no locale prefix, no public header/footer, noindex; `robots.txt` disallows `/admin` and `/api`). UI text in Albanian, all in `components/admin/strings.ts`. Three layers of access control: proxy.ts sends visitors without a session cookie to `/admin/login` (quick check only), every admin page calls `requireAdminPage()` (verifies the JWT), every admin API route calls `requireAdmin()`. Pages read data server-side; all changes go through the admin API. Big photos are shrunk in the browser (max 2560 px, under 4 MB) before upload. Design is provisional until the admin reference images arrive.
+- 2026-09-29: Security pass. Checked: no secret fallbacks, no debug/test/seed routes, no secrets in git history, `npm audit` clean, every admin page and API handler checks the session, RLS and storage refuse the public key (read of unpublished rows, uploads, deletes, bucket listing), errors never leak internals. Added: security headers on every response (`next.config.ts`: frame-ancestors/X-Frame-Options against clickjacking, nosniff, Referrer-Policy, Permissions-Policy, HSTS; `X-Powered-By` off), and forms (login, contact, listing) render with the submit button disabled and `method="post"` until their JavaScript is ready, so an early click can't put a password or personal data into a URL. Not done (needs nonces from proxy.ts): a script-src Content Security Policy.
+- 2026-09-29: Admin price field shows thousands separators while typing ("185,000", `components/admin/GroupedNumberInput.tsx`). Property gallery: photos close to the box's shape fill it, very different ones (panoramas, portraits) are shown whole on a blurred copy of themselves; phones/tablets use a 4:3 / 16:10 box; neighbouring photos preload.

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useHydrated } from "@/lib/use-hydrated";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 
@@ -21,6 +22,7 @@ const inputClass =
 export default function ContactForm({ lang, labels }: ContactFormProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [invalid, setInvalid] = useState<Set<string>>(new Set());
+  const hydrated = useHydrated();
 
   async function submit(form: HTMLFormElement) {
     const data = new FormData(form);
@@ -65,7 +67,9 @@ export default function ContactForm({ lang, labels }: ContactFormProps) {
   const sending = status === "sending";
 
   return (
+    // POST, and the button waits for JavaScript: personal data never goes into a URL.
     <form
+      method="post"
       onSubmit={(e) => {
         e.preventDefault();
         if (!sending) void submit(e.currentTarget);
@@ -141,7 +145,7 @@ export default function ContactForm({ lang, labels }: ContactFormProps) {
       <div className="sm:col-span-2">
         <button
           type="submit"
-          disabled={sending}
+          disabled={sending || !hydrated}
           className="inline-flex min-h-12 w-full items-center justify-center bg-brand-primary px-6 text-surface transition-colors hover:bg-black disabled:opacity-60 sm:w-auto"
         >
           {sending ? labels.sending : labels.submit}

@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { LOCALE_COOKIE, defaultLocale, hasLocale, locales, type Locale } from "@/i18n/config";
+import { SESSION_COOKIE } from "@/lib/session-cookie";
 
 /** Picks the best supported locale from the Accept-Language header. */
 function localeFromHeader(header: string | null): Locale | null {
@@ -17,8 +18,23 @@ function localeFromHeader(header: string | null): Locale | null {
   return null;
 }
 
+/**
+ * Admin panel (/admin, no locale prefix): a quick first check only. Without a session
+ * cookie, go straight to the login page. The real verification (signature, expiry) happens
+ * in every admin page (requireAdminPage) and API route (requireAdmin).
+ */
+function adminGate(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  if (pathname === "/admin/login") return;
+  if (!request.cookies.has(SESSION_COOKIE)) {
+    return NextResponse.redirect(new URL("/admin/login", request.url));
+  }
+}
+
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if (pathname === "/admin" || pathname.startsWith("/admin/")) return adminGate(request);
 
   const hasPrefix = locales.some(
     (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`),
