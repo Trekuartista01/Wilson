@@ -3,6 +3,8 @@ import { createHash, timingSafeEqual } from "node:crypto";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { SESSION_COOKIE } from "@/lib/session-cookie";
 import { authEnv } from "./env";
 import { unauthorized } from "./errors";
 import { assertSameOrigin } from "./request";
@@ -13,7 +15,7 @@ import { assertSameOrigin } from "./request";
  * SameSite=Strict cookie; nothing is ever stored in localStorage.
  */
 
-export const SESSION_COOKIE = "wilson_admin_session";
+export { SESSION_COOKIE };
 const SESSION_SECONDS = 8 * 60 * 60; // one working day
 const ISSUER = "wilson-real-estate";
 const AUDIENCE = "wilson-admin";
@@ -63,7 +65,11 @@ export type AdminSession = { username: string; expiresAt: number };
 
 /** The current admin session, or null if there is none or it's invalid/expired. */
 export async function getAdminSession(): Promise<AdminSession | null> {
-  const token = (await cookies()).get(SESSION_COOKIE)?.value;
+  return verifySessionToken((await cookies()).get(SESSION_COOKIE)?.value);
+}
+
+/** Checks a session token (also used by proxy.ts, which reads the cookie from the request). */
+export function verifySessionToken(token: string | undefined): AdminSession | null {
   if (!token) return null;
   const { jwtSecret, username } = authEnv();
   try {
@@ -88,5 +94,16 @@ export async function requireAdmin(request: Request): Promise<AdminSession> {
   if (!["GET", "HEAD"].includes(request.method)) assertSameOrigin(request);
   const session = await getAdminSession();
   if (!session) throw unauthorized();
+  return session;
+}
+
+/**
+ * Gate for every admin page (in addition to proxy.ts): without a valid session, go to the
+ * login page. Pages check for themselves because a proxy matcher can silently stop covering
+ * a route after a refactor.
+ */
+export async function requireAdminPage(): Promise<AdminSession> {
+  const session = await getAdminSession();
+  if (!session) redirect("/admin/login");
   return session;
 }

@@ -7,7 +7,8 @@ import Container from "@/components/ui/Container";
 /** Localized 404, rendered inside the shared Header/Footer layout. */
 export default async function NotFound() {
   const current = await lang();
-  const locale = hasLocale(current) ? current : defaultLocale;
+  // undefined outside the [lang] root layout (e.g. under /admin).
+  const locale = current && hasLocale(current) ? current : defaultLocale;
   const t = (await getDictionary(locale)).notFound;
 
   return (
