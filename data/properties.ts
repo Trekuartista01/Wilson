@@ -1,6 +1,6 @@
-// HARDCODED PLACEHOLDER DATA (Phase 1).
-// Milestone 3 replaces this with Supabase tables (properties + translations + images).
-// Coordinates are approximate town locations, not real parcels.
+// Property catalog definitions shared by the site, the API and the demo seed: types, zones,
+// option lists, and the list filtering/sorting used by the properties page.
+// The listings themselves live in Supabase (read through lib/server/catalog.ts).
 
 import type { Locale } from "@/i18n/config";
 
@@ -19,6 +19,10 @@ export type ZoneSlug =
 export type PropertyType = "land" | "residential" | "commercial";
 export type PropertyStatus = "sale" | "rent";
 export type AreaRange = "lt1000" | "1000-5000" | "gt5000";
+export type PriceRange = "lt100k" | "100k-250k" | "gt250k";
+export type SortOrder = "newest" | "priceAsc" | "priceDesc" | "areaDesc";
+/** "Cilësi shtesë" on the detail page: the listing's standout extra. Translated in the dictionaries. */
+export type PropertyFeature = "seaView" | "roadAccess" | "buildingPermit" | "utilities" | "flatTerrain" | "cityView";
 
 export type Property = {
   slug: string;
@@ -34,7 +38,16 @@ export type Property = {
   lat: number;
   lng: number;
   featured: boolean;
+  /** Municipality (Komuna). A proper name, the same in every language. */
+  municipality: string;
+  feature: PropertyFeature;
+  /** Last update, ISO date. */
+  updatedAt: string;
+  /** Photos in display order (Supabase Storage). Empty: the gray placeholder is shown. */
+  images: PropertyImage[];
 };
+
+export type PropertyImage = { url: string; width: number; height: number };
 
 export type Zone = {
   slug: ZoneSlug;
@@ -55,134 +68,12 @@ export const zones: Zone[] = [
 /** Zones shown in the homepage "Zonat" section (Figma shows four cards). */
 export const homepageZones: ZoneSlug[] = ["tirana", "durres", "tale", "vlore"];
 
-const placeholderDescription: Localized = {
-  sq: "Përshkrim i përkohshëm i pronës. Vendndodhja, qasja, dokumentacioni dhe potenciali i zhvillimit do të shtohen këtu.",
-  en: "Placeholder property description. Location, access, documentation and development potential will go here.",
-  de: "Platzhalterbeschreibung der Immobilie. Lage, Zugang, Unterlagen und Entwicklungspotenzial folgen hier.",
-};
-
-export const properties: Property[] = [
-  {
-    slug: "toke-ne-tale",
-    reference: "WRE-001",
-    title: { sq: "Tokë pranë detit në Tale", en: "Seaside land in Tale", de: "Grundstück am Meer in Tale" },
-    description: placeholderDescription,
-    zone: "tale",
-    type: "land",
-    status: "sale",
-    areaSqm: 12000,
-    price: null,
-    lat: 41.868,
-    lng: 19.585,
-    featured: true,
-  },
-  {
-    slug: "truall-ne-farke",
-    reference: "WRE-002",
-    title: { sq: "Truall në Farkë, Tiranë", en: "Building plot in Farka, Tirana", de: "Baugrundstück in Farka, Tirana" },
-    description: placeholderDescription,
-    zone: "tirana",
-    type: "land",
-    status: "sale",
-    areaSqm: 2400,
-    price: 180000,
-    lat: 41.302,
-    lng: 19.878,
-    featured: true,
-  },
-  {
-    slug: "toke-ne-golem",
-    reference: "WRE-003",
-    title: { sq: "Tokë në Golem, Durrës", en: "Land in Golem, Durrës", de: "Grundstück in Golem, Durrës" },
-    description: placeholderDescription,
-    zone: "durres",
-    type: "land",
-    status: "sale",
-    areaSqm: 1500,
-    price: 150000,
-    lat: 41.244,
-    lng: 19.518,
-    featured: true,
-  },
-  {
-    slug: "toke-bregdetare-vlore",
-    reference: "WRE-004",
-    title: { sq: "Tokë bregdetare në Vlorë", en: "Coastal land in Vlora", de: "Küstengrundstück in Vlora" },
-    description: placeholderDescription,
-    zone: "vlore",
-    type: "land",
-    status: "sale",
-    areaSqm: 5000,
-    price: 320000,
-    lat: 40.425,
-    lng: 19.49,
-    featured: false,
-  },
-  {
-    slug: "toke-ne-kodrat-e-sarandes",
-    reference: "WRE-005",
-    title: { sq: "Tokë në kodrat e Sarandës", en: "Hillside land in Saranda", de: "Hanggrundstück in Saranda" },
-    description: placeholderDescription,
-    zone: "sarande",
-    type: "land",
-    status: "sale",
-    areaSqm: 3200,
-    price: 210000,
-    lat: 39.878,
-    lng: 20.012,
-    featured: false,
-  },
-  {
-    slug: "parcele-ne-himare",
-    reference: "WRE-006",
-    title: { sq: "Parcelë për vilë në Himarë", en: "Villa plot in Himara", de: "Villengrundstück in Himara" },
-    description: placeholderDescription,
-    zone: "himare",
-    type: "residential",
-    status: "sale",
-    areaSqm: 600,
-    price: 95000,
-    lat: 40.102,
-    lng: 19.745,
-    featured: false,
-  },
-  {
-    slug: "toke-ne-shkoder",
-    reference: "WRE-007",
-    title: { sq: "Tokë bujqësore në Shkodër", en: "Agricultural land in Shkodra", de: "Agrarland in Shkodra" },
-    description: placeholderDescription,
-    zone: "shkoder",
-    type: "land",
-    status: "sale",
-    areaSqm: 8000,
-    price: 120000,
-    lat: 42.068,
-    lng: 19.512,
-    featured: false,
-  },
-  {
-    slug: "ambient-komercial-korce",
-    reference: "WRE-008",
-    title: { sq: "Ambient komercial në Korçë", en: "Commercial space in Korça", de: "Gewerbefläche in Korça" },
-    description: placeholderDescription,
-    zone: "korce",
-    type: "commercial",
-    status: "rent",
-    areaSqm: 900,
-    price: null,
-    lat: 40.618,
-    lng: 20.781,
-    featured: false,
-  },
-];
-
 export const propertyTypes: PropertyType[] = ["land", "residential", "commercial"];
 export const propertyStatuses: PropertyStatus[] = ["sale", "rent"];
 export const areaRanges: AreaRange[] = ["lt1000", "1000-5000", "gt5000"];
-
-export function getProperty(slug: string): Property | undefined {
-  return properties.find((p) => p.slug === slug);
-}
+export const priceRanges: PriceRange[] = ["lt100k", "100k-250k", "gt250k"];
+export const sortOrders: SortOrder[] = ["newest", "priceAsc", "priceDesc", "areaDesc"];
+export const propertyFeatures: PropertyFeature[] = ["seaView", "roadAccess", "buildingPermit", "utilities", "flatTerrain", "cityView"];
 
 export function getZone(slug: ZoneSlug): Zone {
   const zone = zones.find((z) => z.slug === slug);
@@ -196,20 +87,58 @@ function inAreaRange(area: number, range: AreaRange): boolean {
   return area >= 1000 && area <= 5000;
 }
 
+function inPriceRange(price: number | null, range: PriceRange): boolean {
+  if (price === null) return false; // "price on request" fits no range
+  if (range === "lt100k") return price < 100_000;
+  if (range === "gt250k") return price > 250_000;
+  return price >= 100_000 && price <= 250_000;
+}
+
 export type PropertyFilters = {
   zone?: string;
   type?: string;
   area?: string;
   status?: string;
+  price?: string;
+  sort?: string;
 };
 
-/** Filters the placeholder list by the search bar's query params. Unknown values are ignored. */
-export function filterProperties(filters: PropertyFilters): Property[] {
-  return properties.filter((p) => {
+/** Filters and sorts listings by the search query params. Unknown values are ignored. */
+export function filterProperties(list: Property[], filters: PropertyFilters): Property[] {
+  const results = list.filter((p) => {
     if (filters.zone && zones.some((z) => z.slug === filters.zone) && p.zone !== filters.zone) return false;
     if (filters.type && propertyTypes.includes(filters.type as PropertyType) && p.type !== filters.type) return false;
     if (filters.status && propertyStatuses.includes(filters.status as PropertyStatus) && p.status !== filters.status) return false;
     if (filters.area && areaRanges.includes(filters.area as AreaRange) && !inAreaRange(p.areaSqm, filters.area as AreaRange)) return false;
+    if (filters.price && priceRanges.includes(filters.price as PriceRange) && !inPriceRange(p.price, filters.price as PriceRange)) return false;
     return true;
   });
+  return sortProperties(results, filters.sort);
+}
+
+// "Price on request" listings go last whichever way prices are sorted.
+const priceKey = (p: Property, dir: 1 | -1) => (p.price === null ? Infinity : p.price * dir);
+
+function sortProperties(list: Property[], sort: string | undefined): Property[] {
+  switch (sort) {
+    case "newest":
+      return list.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+    case "priceAsc":
+      return list.sort((a, b) => priceKey(a, 1) - priceKey(b, 1));
+    case "priceDesc":
+      return list.sort((a, b) => priceKey(a, -1) - priceKey(b, -1));
+    case "areaDesc":
+      return list.sort((a, b) => b.areaSqm - a.areaSqm);
+    default:
+      return list;
+  }
+}
+
+/** "Prona të ngjashme": same zone first, then same type, never the listing itself. */
+export function getSimilarProperties(list: Property[], property: Property, count = 3): Property[] {
+  const score = (p: Property) => (p.zone === property.zone ? 2 : 0) + (p.type === property.type ? 1 : 0);
+  return list
+    .filter((p) => p.slug !== property.slug)
+    .sort((a, b) => score(b) - score(a))
+    .slice(0, count);
 }

@@ -1,6 +1,7 @@
 import { format, localePath, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { getZone, homepageZones, properties } from "@/data/properties";
+import { getZone, homepageZones } from "@/data/properties";
+import { getPublishedProperties } from "@/lib/server/catalog";
 import Container from "@/components/ui/Container";
 import Card from "@/components/ui/Card";
 import Reveal from "@/components/ui/Reveal";
@@ -10,8 +11,9 @@ import SectionHeader from "@/components/ui/SectionHeader";
  * Homepage section 3: zones, four cards (Figma "Body", top).
  * Each card opens the properties list filtered by that zone.
  */
-export default function ThirdPart({ lang, dict }: { lang: Locale; dict: Dictionary }) {
+export default async function ThirdPart({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const t = dict.home.zones;
+  const properties = await getPublishedProperties();
 
   return (
     <section className="py-12 sm:py-16 lg:py-24">

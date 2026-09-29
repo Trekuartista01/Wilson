@@ -7,8 +7,6 @@ type SearchBarProps = {
   lang: Locale;
   dict: Dictionary;
   defaults?: PropertyFilters;
-  /** Apply filters as soon as a select changes (used on the properties page itself). */
-  applyOnChange?: boolean;
   className?: string;
 };
 
@@ -17,7 +15,7 @@ type SearchBarProps = {
  * Builds the translated options here on the server and hands only those to the client form,
  * which sends the visitor to the filtered properties list.
  */
-export default function SearchBar({ lang, dict, defaults = {}, applyOnChange, className }: SearchBarProps) {
+export default function SearchBar({ lang, dict, defaults = {}, className }: SearchBarProps) {
   const t = dict.search;
 
   const fields: SearchField[] = [
@@ -54,7 +52,6 @@ export default function SearchBar({ lang, dict, defaults = {}, applyOnChange, cl
       values={defaults}
       submitLabel={t.submit}
       ariaLabel={t.label}
-      applyOnChange={applyOnChange}
       className={className}
     />
   );

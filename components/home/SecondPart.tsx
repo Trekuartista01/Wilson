@@ -1,14 +1,15 @@
 import { localePath, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { properties } from "@/data/properties";
+import { getPublishedProperties } from "@/lib/server/catalog";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeader from "@/components/ui/SectionHeader";
 import PropertyCard from "@/components/properties/PropertyCard";
 
 /** Homepage section 2: featured properties, three cards (Figma "Hero", bottom). */
-export default function SecondPart({ lang, dict }: { lang: Locale; dict: Dictionary }) {
-  const featured = properties.filter((p) => p.featured).slice(0, 3);
+export default async function SecondPart({ lang, dict }: { lang: Locale; dict: Dictionary }) {
+  const featured = (await getPublishedProperties()).filter((p) => p.featured).slice(0, 3);
+  if (!featured.length) return null;
 
   return (
     <section className="py-12 sm:py-16 lg:py-24">

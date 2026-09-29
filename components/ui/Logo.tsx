@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import logo from "@/public/images/wilson-logo.png";
 
 type LogoProps = {
   href: string;
@@ -6,19 +8,24 @@ type LogoProps = {
   className?: string;
 };
 
-/** TODO: brand logo. Text placeholder until the logo file is delivered. */
+/**
+ * Wilson Real Estate logo (Logo-01 from the brand materials: yellow W, white wordmark).
+ * Made for dark and gray backgrounds; the white wordmark disappears on white.
+ */
 export default function Logo({ href, size = "sm", className = "" }: LogoProps) {
   const sizes = {
-    sm: "text-xl sm:text-2xl",
-    lg: "text-4xl sm:text-5xl lg:text-6xl",
+    sm: "h-6 sm:h-7 lg:h-8",
+    lg: "h-10 sm:h-12 lg:h-16",
   };
   return (
-    <Link
-      href={href}
-      aria-label="Wilson Real Estate, home"
-      className={`inline-flex min-h-11 items-center font-bold tracking-tight ${sizes[size]} ${className}`}
-    >
-      LOGO
+    <Link href={href} aria-label="Wilson Real Estate, home" className={`inline-flex min-h-11 items-center ${className}`}>
+      <Image
+        src={logo}
+        alt=""
+        priority={size === "sm"}
+        sizes={size === "sm" ? "200px" : "400px"}
+        className={`w-auto ${sizes[size]}`}
+      />
     </Link>
   );
 }

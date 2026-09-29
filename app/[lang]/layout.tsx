@@ -3,14 +3,11 @@ import { notFound } from "next/navigation";
 import "../globals.css";
 import { hasLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { ego, gilmer } from "@/lib/fonts";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import MotionProvider from "@/components/layout/MotionProvider";
-
-// TODO: brand font. The system font stack is set in globals.css (--font-sans).
-// Load the brand font here with next/font (Google) or next/font/local (public/fonts)
-// once it is chosen.
 
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -35,7 +32,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   const dict = await getDictionary(lang);
 
   return (
-    <html lang={lang} className="h-full antialiased">
+    <html lang={lang} className={`${gilmer.variable} ${ego.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col overflow-x-clip">
         <a
           href="#main"

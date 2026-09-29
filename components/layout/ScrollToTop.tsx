@@ -27,7 +27,7 @@ export default function ScrollToTop({ label }: { label: string }) {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.2 }}
-          className="fixed right-4 bottom-4 z-40 inline-flex size-12 items-center justify-center rounded-full bg-brand-primary text-surface shadow-lg transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary sm:right-6 sm:bottom-6"
+          className="fixed right-4 bottom-4 z-40 inline-flex size-12 items-center justify-center rounded-full bg-brand-accent text-ink shadow-lg transition-colors hover:bg-ink hover:text-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary sm:right-6 sm:bottom-6"
         >
           <FiArrowUp aria-hidden className="size-5" />
         </motion.button>

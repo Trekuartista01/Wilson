@@ -70,7 +70,22 @@
       "lt1000": "Under 1,000 m²",
       "1000-5000": "1,000 - 5,000 m²",
       "gt5000": "Over 5,000 m²"
-    }
+    },
+    "price": "Price",
+    "priceRanges": {
+      "lt100k": "Under €100,000",
+      "100k-250k": "€100,000 - €250,000",
+      "gt250k": "Over €250,000"
+    },
+    "sort": "Sort by",
+    "sortDefault": "Recommended",
+    "sortOrders": {
+      "newest": "Newest",
+      "priceAsc": "Price: low to high",
+      "priceDesc": "Price: high to low",
+      "areaDesc": "Largest area"
+    },
+    "more": "More"
   },
   "home": {
     "banner": {
@@ -126,18 +141,17 @@
     { "slug": "consulting", "title": "Investment consulting", "text": "Placeholder description of the investment consulting service." }
   ],
   "propertiesPage": {
-    "eyebrow": "Properties",
     "title": "Land and properties in Albania",
-    "intro": "Placeholder intro. Browse every listing on the map or in the list below.",
     "results": "{count} properties",
     "resultsOne": "1 property",
     "empty": "No properties match these filters.",
     "reset": "Clear filters",
-    "mapLabel": "Map of properties in Albania"
+    "mapLabel": "Map of properties in Albania",
+    "filtersLabel": "Filter properties",
+    "showMore": "Show more",
+    "showing": "{shown} of {count} properties"
   },
   "property": {
-    "back": "Back to properties",
-    "overview": "Overview",
     "description": "Description",
     "location": "Location",
     "price": "Price",
@@ -145,11 +159,24 @@
     "type": "Type",
     "status": "Status",
     "zone": "Zone",
-    "reference": "Reference",
     "contactTitle": "Interested in this property?",
     "contactText": "Placeholder text. Contact Wilson for documents, a site visit or more details.",
     "contactCta": "Contact Wilson",
-    "more": "More properties"
+    "feature": "Extra features",
+    "details": "Details",
+    "propertyId": "Property ID",
+    "landArea": "Land area",
+    "propertyType": "Property type",
+    "municipality": "Municipality",
+    "updated": "Updated",
+    "ari": "{count} ares",
+    "similar": "Similar properties",
+    "gallery": "Property gallery",
+    "showPhotos": "Photos",
+    "showMap": "Map",
+    "previous": "Previous image",
+    "next": "Next image",
+    "photo": "Photo {n} of {total}"
   },
   "servicesPage": {
     "eyebrow": "Services",
@@ -192,7 +219,11 @@
       "message": "Message",
       "consent": "I agree that Wilson Real Estate may contact me about this request.",
       "submit": "Send message",
-      "notConnected": "The form is not connected yet. Submissions are coming in the next phase."
+      "sending": "Sending…",
+      "success": "Thank you! Your message has been sent. We'll be in touch soon.",
+      "invalid": "Please check the highlighted fields and try again.",
+      "rateLimited": "You've sent too many messages. Please try again in a few minutes.",
+      "error": "Your message couldn't be sent. Please try again or call us."
     }
   },
   "footer": {
@@ -211,5 +242,13 @@
   "map": {
     "loading": "Loading map…",
     "viewProperty": "View property"
+  },
+  "propertyFeatures": {
+    "seaView": "Sea view",
+    "roadAccess": "Road access",
+    "buildingPermit": "Building permit",
+    "utilities": "Water and power",
+    "flatTerrain": "Flat terrain",
+    "cityView": "City view"
   }
 }

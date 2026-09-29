@@ -70,7 +70,22 @@
       "lt1000": "Unter 1.000 m²",
       "1000-5000": "1.000 - 5.000 m²",
       "gt5000": "Über 5.000 m²"
-    }
+    },
+    "price": "Preis",
+    "priceRanges": {
+      "lt100k": "Unter 100.000 €",
+      "100k-250k": "100.000 - 250.000 €",
+      "gt250k": "Über 250.000 €"
+    },
+    "sort": "Sortieren",
+    "sortDefault": "Empfohlen",
+    "sortOrders": {
+      "newest": "Neueste",
+      "priceAsc": "Preis: aufsteigend",
+      "priceDesc": "Preis: absteigend",
+      "areaDesc": "Größte Fläche"
+    },
+    "more": "Mehr"
   },
   "home": {
     "banner": {
@@ -126,18 +141,17 @@
     { "slug": "consulting", "title": "Investitionsberatung", "text": "Platzhalterbeschreibung der Leistung Investitionsberatung." }
   ],
   "propertiesPage": {
-    "eyebrow": "Immobilien",
     "title": "Grundstücke und Immobilien in Albanien",
-    "intro": "Platzhaltertext. Alle Angebote auf der Karte oder in der Liste unten ansehen.",
     "results": "{count} Immobilien",
     "resultsOne": "1 Immobilie",
     "empty": "Keine Immobilien entsprechen diesen Filtern.",
     "reset": "Filter zurücksetzen",
-    "mapLabel": "Karte der Immobilien in Albanien"
+    "mapLabel": "Karte der Immobilien in Albanien",
+    "filtersLabel": "Immobilien filtern",
+    "showMore": "Mehr anzeigen",
+    "showing": "{shown} von {count} Immobilien"
   },
   "property": {
-    "back": "Zurück zu den Immobilien",
-    "overview": "Überblick",
     "description": "Beschreibung",
     "location": "Lage",
     "price": "Preis",
@@ -145,11 +159,24 @@
     "type": "Typ",
     "status": "Status",
     "zone": "Region",
-    "reference": "Referenz",
     "contactTitle": "Interesse an dieser Immobilie?",
     "contactText": "Platzhaltertext. Kontaktieren Sie Wilson für Unterlagen, eine Besichtigung oder weitere Details.",
     "contactCta": "Wilson kontaktieren",
-    "more": "Weitere Immobilien"
+    "feature": "Besonderheiten",
+    "details": "Details",
+    "propertyId": "Objekt-ID",
+    "landArea": "Grundstücksfläche",
+    "propertyType": "Objektart",
+    "municipality": "Gemeinde",
+    "updated": "Aktualisiert",
+    "ari": "{count} Ar",
+    "similar": "Ähnliche Immobilien",
+    "gallery": "Bildergalerie",
+    "showPhotos": "Fotos",
+    "showMap": "Karte",
+    "previous": "Vorheriges Bild",
+    "next": "Nächstes Bild",
+    "photo": "Foto {n} von {total}"
   },
   "servicesPage": {
     "eyebrow": "Leistungen",
@@ -192,7 +219,11 @@
       "message": "Nachricht",
       "consent": "Ich bin einverstanden, dass Wilson Real Estate mich zu dieser Anfrage kontaktiert.",
       "submit": "Nachricht senden",
-      "notConnected": "Das Formular ist noch nicht verbunden. Der Versand folgt in der nächsten Phase."
+      "sending": "Wird gesendet…",
+      "success": "Vielen Dank! Ihre Nachricht wurde gesendet. Wir melden uns in Kürze.",
+      "invalid": "Bitte prüfen Sie die markierten Felder und versuchen Sie es erneut.",
+      "rateLimited": "Sie haben zu viele Nachrichten gesendet. Bitte versuchen Sie es in einigen Minuten erneut.",
+      "error": "Ihre Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder rufen Sie uns an."
     }
   },
   "footer": {
@@ -211,5 +242,13 @@
   "map": {
     "loading": "Karte wird geladen…",
     "viewProperty": "Immobilie ansehen"
+  },
+  "propertyFeatures": {
+    "seaView": "Meerblick",
+    "roadAccess": "Straßenzugang",
+    "buildingPermit": "Baugenehmigung",
+    "utilities": "Wasser und Strom",
+    "flatTerrain": "Ebenes Gelände",
+    "cityView": "Stadtblick"
   }
 }

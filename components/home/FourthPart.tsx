@@ -63,7 +63,7 @@ function PinnedSteps({ steps, stepImageLabel }: Omit<FourthPartProps, "statement
 
   return (
     <div ref={ref} className="relative" style={{ height: `${100 + steps.length * SCROLL_PER_STEP_SVH}svh` }}>
-      <div className="sticky top-0 h-svh overflow-hidden">
+      <div className="sticky top-(--header-h) h-[calc(100svh-var(--header-h))] overflow-hidden">
         <Container className="flex h-full flex-col gap-6 py-6 sm:py-10 lg:grid lg:grid-cols-2 lg:gap-16 lg:py-16">
           {/* Step image (top on mobile, right column on desktop) */}
           <div className="relative shrink-0 lg:order-2 lg:h-full">
@@ -132,7 +132,7 @@ function StepItem({
       <motion.span
         animate={{ scale: active ? 1 : 0.85 }}
         className={`relative z-10 inline-flex size-12 shrink-0 items-center justify-center rounded-full text-xl font-semibold transition-colors duration-500 ${
-          active ? "bg-brand-primary text-surface" : "bg-ink-subtle/60 text-surface"
+          active ? "bg-brand-accent text-ink" : "bg-ink-subtle/60 text-surface"
         }`}
       >
         {index + 1}
@@ -151,7 +151,7 @@ function StaticSteps({ steps, stepImageLabel }: Omit<FourthPartProps, "statement
       <ol className="space-y-8">
         {steps.map((step, i) => (
           <li key={step.title} className="flex gap-5">
-            <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-brand-primary text-xl font-semibold text-surface">
+            <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-brand-accent text-xl font-semibold text-ink">
               {i + 1}
             </span>
             <div className="pt-1">
