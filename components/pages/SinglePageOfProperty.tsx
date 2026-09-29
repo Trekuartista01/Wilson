@@ -2,7 +2,7 @@ import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 import { format, localePath, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { getSimilarProperties, getZone, type Property } from "@/data/properties";
+import { getZone, type Property } from "@/data/properties";
 import { formatArea, formatAres, formatDate, formatPrice } from "@/lib/format";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
@@ -12,6 +12,8 @@ import PropertyGallery from "@/components/properties/PropertyGallery";
 
 type SinglePageOfPropertyProps = {
   property: Property;
+  /** "Prona të ngjashme", picked by the route from the published listings. */
+  similar: Property[];
   lang: Locale;
   dict: Dictionary;
 };
@@ -21,14 +23,13 @@ type SinglePageOfPropertyProps = {
  * photo/map hero, title, key facts, description + details table + location map, contact
  * card, and similar properties.
  */
-export default function SinglePageOfProperty({ property, lang, dict }: SinglePageOfPropertyProps) {
+export default function SinglePageOfProperty({ property, similar, lang, dict }: SinglePageOfPropertyProps) {
   const t = dict.property;
   const zoneName = getZone(property.zone).name[lang];
   const typeName = dict.propertyTypes[property.type];
   const statusName = dict.propertyStatus[property.status];
   const area = formatArea(lang, property.areaSqm);
   const price = property.price === null ? dict.common.priceOnRequest : formatPrice(lang, property.price);
-  const similar = getSimilarProperties(property);
 
   const facts = [
     { label: t.area, value: area },
@@ -53,7 +54,8 @@ export default function SinglePageOfProperty({ property, lang, dict }: SinglePag
   return (
     <div className="bg-surface-page">
       <PropertyGallery
-        imageCount={property.imageCount}
+        images={property.images}
+        title={property.title[lang]}
         marker={marker}
         labels={{
           gallery: t.gallery,
@@ -146,16 +148,18 @@ export default function SinglePageOfProperty({ property, lang, dict }: SinglePag
           </aside>
         </div>
 
-        <section className="mt-20 sm:mt-24 lg:mt-32">
-          <h2 className="font-sans text-xl font-medium sm:text-2xl">{t.similar}</h2>
-          <ul className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10 xl:gap-16">
-            {similar.map((p, i) => (
-              <Reveal as="li" key={p.slug} delay={i * 0.08}>
-                <PropertyCard property={p} lang={lang} dict={dict} />
-              </Reveal>
-            ))}
-          </ul>
-        </section>
+        {similar.length > 0 && (
+          <section className="mt-20 sm:mt-24 lg:mt-32">
+            <h2 className="font-sans text-xl font-medium sm:text-2xl">{t.similar}</h2>
+            <ul className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10 xl:gap-16">
+              {similar.map((p, i) => (
+                <Reveal as="li" key={p.slug} delay={i * 0.08}>
+                  <PropertyCard property={p} lang={lang} dict={dict} />
+                </Reveal>
+              ))}
+            </ul>
+          </section>
+        )}
       </Container>
     </div>
   );

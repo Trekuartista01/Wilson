@@ -27,6 +27,7 @@ export default function PropertyCard({ property, lang, dict, headingLevel }: Pro
       ]}
       buttonLabel={dict.common.view}
       imageLabel={dict.common.imagePlaceholder}
+      imageUrl={property.images[0]?.url}
       headingLevel={headingLevel}
     />
   );
