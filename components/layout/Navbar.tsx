@@ -27,6 +27,23 @@ export default function Navbar({ lang, labels }: NavbarProps) {
     setOpen(false);
   }
 
+  // Homepage: the bar stays transparent over the hero photo ([data-hero], Banner) until the
+  // visitor has scrolled past half of it, then turns green like on every other page.
+  const [pastHero, setPastHero] = useState(false);
+  useEffect(() => {
+    const onScroll = () => {
+      const hero = document.querySelector<HTMLElement>("[data-hero]");
+      setPastHero(!hero || window.scrollY > hero.offsetHeight * 0.5);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [pathname]);
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
@@ -39,21 +56,18 @@ export default function Navbar({ lang, labels }: NavbarProps) {
     return href === "/" ? pathname === full : pathname === full || pathname.startsWith(`${full}/`);
   };
 
-  // The property pages sit on the light gray page background in Figma, and so does the header.
-  const light = isActive("/properties");
-  const theme = light
-    ? {
-        bar: "bg-surface-page text-ink",
-        link: "text-ink/65 hover:text-ink",
-        activeLink: "text-ink",
-        divider: "border-ink/10",
-      }
-    : {
-        bar: "bg-brand-dark text-surface",
-        link: "text-surface/75 hover:text-surface",
-        activeLink: "text-surface",
-        divider: "border-surface/10",
-      };
+  const overlay = isActive("/") && !pastHero && !open;
+  const theme = {
+    bar: "bg-brand-slate text-surface",
+    link: "text-surface/75 hover:text-surface",
+    activeLink: "text-surface",
+    divider: "border-surface/10",
+  };
+  // Over the hero photo: no background, a thin light underline under the active link.
+  const bar = overlay ? "bg-transparent text-surface" : theme.bar;
+  const activeLink = overlay
+    ? "font-medium text-surface underline decoration-surface/80 decoration-1 underline-offset-[10px]"
+    : `font-medium underline decoration-brand-accent decoration-2 underline-offset-8 ${theme.activeLink}`;
 
   const toggle = () => {
     setOpenedAt(pathname);
@@ -61,7 +75,7 @@ export default function Navbar({ lang, labels }: NavbarProps) {
   };
 
   return (
-    <header className={`sticky top-0 z-50 ${theme.bar}`}>
+    <header className={`sticky top-0 z-50 transition-colors duration-300 ${bar}`}>
       <Container className="flex h-16 items-center justify-between gap-4 sm:h-20 lg:h-24">
         <Logo href={localePath(lang)} />
 
@@ -75,10 +89,8 @@ export default function Navbar({ lang, labels }: NavbarProps) {
                   <Link
                     href={localePath(lang, item.href)}
                     aria-current={active ? "page" : undefined}
-                    className={`inline-flex min-h-11 min-w-11 items-center justify-center text-[15px] transition-colors ${
-                      active
-                        ? `font-medium underline decoration-brand-accent decoration-2 underline-offset-8 ${theme.activeLink}`
-                        : theme.link
+                    className={`inline-flex min-h-11 min-w-11 items-center justify-center text-[15px] transition-colors xl:text-base ${
+                      active ? activeLink : theme.link
                     }`}
                   >
                     {labels[item.key]}
@@ -92,7 +104,7 @@ export default function Navbar({ lang, labels }: NavbarProps) {
         <div className="flex items-center gap-2 sm:gap-4">
           <Link
             href={localePath(lang, "/properties")}
-            className="hidden min-h-11 items-center bg-brand-primary px-4 text-[15px] text-surface transition-colors hover:bg-black xl:inline-flex"
+            className="hidden min-h-11 items-center rounded border border-brand-accent px-4 text-[15px] transition-colors hover:bg-brand-accent hover:text-ink xl:inline-flex xl:text-base"
           >
             {labels.cta}
           </Link>
@@ -143,7 +155,7 @@ export default function Navbar({ lang, labels }: NavbarProps) {
               <Link
                 href={localePath(lang, "/properties")}
                 onClick={() => setOpen(false)}
-                className="mt-4 flex min-h-12 items-center justify-center bg-brand-primary px-4 text-surface"
+                className="mt-4 flex min-h-12 items-center justify-center rounded bg-brand-brown px-4 text-surface"
               >
                 {labels.cta}
               </Link>

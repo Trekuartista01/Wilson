@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FiExternalLink } from "react-icons/fi";
-import logo from "@/public/images/wilson-logo.png";
+import logo from "@/public/images/logo.png";
 import { a } from "./strings";
 import LogoutButton from "./LogoutButton";
 

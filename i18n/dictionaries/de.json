@@ -91,23 +91,24 @@
     "banner": {
       "eyebrow": "Wilson Real Estate",
       "title": "Wo Investition auf Meer und Berge trifft.",
-      "primaryCta": "Immobilien ansehen",
-      "secondaryCta": "Wilson kontaktieren"
+      "cta": "Finden Sie Ihre Immobilie"
     },
-    "highlights": [
-      "Rechtliche Prüfung und sichere Dokumentation",
-      "Begleitung vom Erstkontakt bis zum Abschluss",
-      "Büros in Tale, Tirana und im Kosovo"
-    ],
     "featured": {
+      "eyebrow": "Immobilien",
       "title": "Ausgewählte Immobilien",
       "viewAll": "Alle Immobilien ansehen"
     },
+    "about": {
+      "eyebrow": "Über Wilson",
+      "title": "Immobilien mit Sinn. Investitionen mit Bestand.",
+      "text": "Wilson findet, prüft und verwaltet Immobilien mit Investitionspotenzial in den Küsten- und Stadtregionen Albaniens — mit Transparenz bei jedem Schritt.",
+      "cta": "Über Wilson"
+    },
     "zones": {
-      "title": "Regionen",
-      "viewAll": "Alle Regionen ansehen",
+      "eyebrow": "Regionen",
+      "title": "Wo unsere Immobilien liegen",
       "count": "{count} Immobilien",
-      "description": "Platzhaltertext zu dieser Region. Kurz und einfach halten."
+      "comingSoon": "demnächst"
     },
     "process": {
       "statement": "Wir bieten nicht einfach Immobilien. Wir bieten analysierte, geprüfte und strukturierte Chancen.",
@@ -127,18 +128,18 @@
       "text": "Vier Leistungen, ein Standard: Transparenz und klare Kommunikation mit jedem Kunden, vom Erstkontakt bis zum Abschluss.",
       "viewAll": "Alle Leistungen"
     },
-    "about": {
-      "eyebrow": "Über uns",
-      "title": "Über Wilson",
-      "text": "Platzhaltertext über Wilson Real Estate. Zwei oder drei Sätze darüber, wer wir sind und warum Kunden uns vertrauen.",
-      "cta": "Mehr erfahren"
+    "cta": {
+      "eyebrow": "Warum Wilson Real Estate?",
+      "title": "Sie sind in sicheren Händen!",
+      "text": "Wilson ist direkter Eigentümer der angebotenen Immobilien. Das erspart Zwischenhändler und macht den Ablauf für Käufer klarer, transparenter und sicherer.",
+      "button": "Finden Sie Ihre Immobilie"
     }
   },
   "services": [
-    { "slug": "sales", "title": "Immobilienverkauf", "text": "Platzhalterbeschreibung der Leistung Immobilienverkauf." },
-    { "slug": "purchase", "title": "Immobilienkauf", "text": "Platzhalterbeschreibung der Leistung Immobilienkauf." },
-    { "slug": "development", "title": "Entwicklung und Bau", "text": "Platzhalterbeschreibung der Leistung Entwicklung und Bau." },
-    { "slug": "consulting", "title": "Investitionsberatung", "text": "Platzhalterbeschreibung der Leistung Investitionsberatung." }
+    { "slug": "sales", "title": "Immobilienverkauf", "text": "Geprüfte Immobilien an der Küste, mit vollständigen Unterlagen und einem transparenten Ablauf." },
+    { "slug": "purchase", "title": "Immobilienkauf", "text": "Suche und Prüfung der passenden Immobilie nach den Wünschen des Käufers." },
+    { "slug": "development", "title": "Entwicklung und Bau", "text": "Partnerschaften mit Investoren und Bauträgern bei Bauprojekten." },
+    { "slug": "consulting", "title": "Investitionsberatung", "text": "Marktanalyse und strategische Auswahl für Investoren." }
   ],
   "propertiesPage": {
     "title": "Grundstücke und Immobilien in Albanien",
@@ -149,7 +150,8 @@
     "mapLabel": "Karte der Immobilien in Albanien",
     "filtersLabel": "Immobilien filtern",
     "showMore": "Mehr anzeigen",
-    "showing": "{shown} von {count} Immobilien"
+    "previous": "Zurück",
+    "showing": "{from}–{to} von {count} Immobilien"
   },
   "property": {
     "description": "Beschreibung",
@@ -159,9 +161,6 @@
     "type": "Typ",
     "status": "Status",
     "zone": "Region",
-    "contactTitle": "Interesse an dieser Immobilie?",
-    "contactText": "Platzhaltertext. Kontaktieren Sie Wilson für Unterlagen, eine Besichtigung oder weitere Details.",
-    "contactCta": "Wilson kontaktieren",
     "feature": "Besonderheiten",
     "details": "Details",
     "propertyId": "Objekt-ID",
@@ -176,26 +175,49 @@
     "showMap": "Karte",
     "previous": "Vorheriges Bild",
     "next": "Nächstes Bild",
-    "photo": "Foto {n} von {total}"
+    "photo": "Foto {n} von {total}",
+    "inquiry": {
+      "reference": "Ref.",
+      "whatsapp": "WhatsApp",
+      "call": "Anrufen",
+      "name": "Name",
+      "phone": "Telefon",
+      "message": "Nachricht",
+      "messageDefault": "Ich interessiere mich für {property}.",
+      "whatsappText": "Hallo, ich interessiere mich für die Immobilie {property} (Ref. {ref}).",
+      "submit": "Informationen anfordern",
+      "sending": "Wird gesendet…",
+      "success": "Vielen Dank! Wir melden uns in Kürze.",
+      "invalid": "Bitte prüfen Sie die markierten Felder und versuchen Sie es erneut.",
+      "rateLimited": "Sie haben zu viele Anfragen gesendet. Bitte versuchen Sie es in einigen Minuten erneut.",
+      "error": "Ihre Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder rufen Sie uns an."
+    }
   },
   "servicesPage": {
     "eyebrow": "Leistungen",
     "title": "Wilson Leistungen",
-    "intro": "Platzhaltertext für die Leistungsseite.",
-    "cta": "Sprechen Sie mit uns"
+    "intro": "Vier Leistungen, ein Standard: Transparenz und klare Kommunikation mit jedem Kunden, vom ersten Kontakt bis zum Abschluss.",
+    "learnMore": "Mehr erfahren"
   },
   "aboutPage": {
     "eyebrow": "Über Wilson",
-    "title": "Über Wilson Real Estate",
-    "intro": "Platzhaltertext für die Seite Über Wilson.",
-    "storyTitle": "Unsere Geschichte",
-    "storyText": "Platzhalterabsatz über die Geschichte des Unternehmens, das Team und den Ansatz für Grundstücksinvestitionen in Albanien.",
-    "valuesTitle": "Wie wir arbeiten",
-    "officesTitle": "Unsere Büros",
+    "title": "Unsere Philosophie",
+    "intro": "Wilson Real Estate & Construction findet, prüft und verwaltet Immobilien mit Investitionspotenzial in den Küsten- und Stadtregionen Albaniens, für Käufer aus dem Kosovo, der Region, der Diaspora und internationale Investoren.",
+    "approachTitle": "Unser Ansatz",
+    "approach": ["Marktanalyse", "Rechtliche Prüfung", "Prozessmanagement", "Transparenz"],
+    "strengthEyebrow": "Unsere Stärke",
+    "strengthTitle": "Direkter Eigentümer, kein Vermittler.",
+    "strengthText": "Wilson ist direkter Eigentümer der angebotenen Immobilien. Das erspart Zwischenhändler und macht den Ablauf für Käufer klarer, transparenter und sicherer — mit genauerer Kenntnis der Immobilie, ihrer Unterlagen und ihres Umfelds.",
+    "missionEyebrow": "Mission & Vision",
+    "missionTitle": "Mission",
+    "missionText": "Echte, sichere Investitionsmöglichkeiten bieten, Kunden mit Immobilien mit Potenzial zusammenbringen und einen neuen Standard an Professionalität auf dem albanischen Immobilienmarkt setzen.",
+    "visionTitle": "Vision",
+    "visionText": "Ein Investitionsportfolio mit langfristiger Wirkung aufbauen, bekannt für Qualität, Seriosität und konkrete Ergebnisse, in jeder Region, in der Wilson vertreten ist.",
+    "officesTitle": "Büros",
     "offices": [
-      { "name": "Tale", "text": "Platzhalter-Büroadresse." },
-      { "name": "Tirana", "text": "Platzhalter-Büroadresse." },
-      { "name": "Kosovo", "text": "Platzhalter-Büroadresse." }
+      { "name": "Tale, Shëngjin", "address": "Wilson-Komplex" },
+      { "name": "Tirana", "address": "Rruga Pjetër Bogdani, Nr. 351/8270, Blloku, Tirana" },
+      { "name": "Kosovo", "address": "Rruga Agim Ramadani, Nr. 248" }
     ]
   },
   "contactPage": {

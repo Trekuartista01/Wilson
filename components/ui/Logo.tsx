@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@/public/images/wilson-logo.png";
+import logo from "@/public/images/logo.png";
 
 type LogoProps = {
   href: string;
@@ -9,7 +9,7 @@ type LogoProps = {
 };
 
 /**
- * Wilson Real Estate logo (Logo-01 from the brand materials: yellow W, white wordmark).
+ * Wilson Real Estate logo (1-01 from the brand materials, cropped: yellow W, white wordmark).
  * Made for dark and gray backgrounds; the white wordmark disappears on white.
  */
 export default function Logo({ href, size = "sm", className = "" }: LogoProps) {

@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { getAdminSession } from "@/lib/server/auth";
 import { a } from "@/components/admin/strings";
 import LoginForm from "@/components/admin/LoginForm";
-import logo from "@/public/images/wilson-logo.png";
+import logo from "@/public/images/logo.png";
 
 export const metadata: Metadata = { title: a.login.title };
 

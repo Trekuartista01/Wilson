@@ -91,23 +91,24 @@
     "banner": {
       "eyebrow": "Wilson Real Estate",
       "title": "Where investment meets the sea and the mountains.",
-      "primaryCta": "View properties",
-      "secondaryCta": "Contact Wilson"
+      "cta": "Find your property"
     },
-    "highlights": [
-      "Legal verification and secure documentation",
-      "Guidance from first contact to closing",
-      "Offices in Tale, Tirana and Kosovo"
-    ],
     "featured": {
+      "eyebrow": "Properties",
       "title": "Featured properties",
       "viewAll": "View all properties"
     },
+    "about": {
+      "eyebrow": "About Wilson",
+      "title": "Properties that make sense. Investments that last.",
+      "text": "Wilson identifies, verifies and manages properties with investment potential in Albania's coastal and urban areas — with transparency at every step.",
+      "cta": "About Wilson"
+    },
     "zones": {
-      "title": "Zones",
-      "viewAll": "View all zones",
+      "eyebrow": "Zones",
+      "title": "Where our properties are",
       "count": "{count} properties",
-      "description": "Placeholder text about this zone. Keep it short and simple."
+      "comingSoon": "coming soon"
     },
     "process": {
       "statement": "We don't just offer properties. We offer opportunities that are analysed, verified and structured.",
@@ -127,18 +128,18 @@
       "text": "Four services, one standard: transparency and clear communication with every client, from first contact to closing.",
       "viewAll": "All services"
     },
-    "about": {
-      "eyebrow": "About us",
-      "title": "About Wilson",
-      "text": "Placeholder teaser about Wilson Real Estate. Two or three sentences about who we are and why clients trust us.",
-      "cta": "Read more"
+    "cta": {
+      "eyebrow": "Why Wilson Real Estate?",
+      "title": "You're in safe hands!",
+      "text": "Wilson directly owns the properties it offers, which cuts out intermediaries and makes the process clearer, more transparent and safer for the buyer.",
+      "button": "Find your property"
     }
   },
   "services": [
-    { "slug": "sales", "title": "Property sales", "text": "Placeholder description of the property sales service." },
-    { "slug": "purchase", "title": "Property purchase", "text": "Placeholder description of the property purchase service." },
-    { "slug": "development", "title": "Development and construction", "text": "Placeholder description of the development and construction service." },
-    { "slug": "consulting", "title": "Investment consulting", "text": "Placeholder description of the investment consulting service." }
+    { "slug": "sales", "title": "Property sales", "text": "Verified coastal properties, with complete documentation and a transparent process." },
+    { "slug": "purchase", "title": "Property purchase", "text": "Finding and verifying a property to match the buyer's requirements." },
+    { "slug": "development", "title": "Development and construction", "text": "Partnerships with investors and developers on construction projects." },
+    { "slug": "consulting", "title": "Investment consulting", "text": "Market analysis and strategic selection for investors." }
   ],
   "propertiesPage": {
     "title": "Land and properties in Albania",
@@ -149,7 +150,8 @@
     "mapLabel": "Map of properties in Albania",
     "filtersLabel": "Filter properties",
     "showMore": "Show more",
-    "showing": "{shown} of {count} properties"
+    "previous": "Previous",
+    "showing": "{from}–{to} of {count} properties"
   },
   "property": {
     "description": "Description",
@@ -159,9 +161,6 @@
     "type": "Type",
     "status": "Status",
     "zone": "Zone",
-    "contactTitle": "Interested in this property?",
-    "contactText": "Placeholder text. Contact Wilson for documents, a site visit or more details.",
-    "contactCta": "Contact Wilson",
     "feature": "Extra features",
     "details": "Details",
     "propertyId": "Property ID",
@@ -176,26 +175,49 @@
     "showMap": "Map",
     "previous": "Previous image",
     "next": "Next image",
-    "photo": "Photo {n} of {total}"
+    "photo": "Photo {n} of {total}",
+    "inquiry": {
+      "reference": "Ref.",
+      "whatsapp": "WhatsApp",
+      "call": "Call",
+      "name": "Name",
+      "phone": "Phone",
+      "message": "Message",
+      "messageDefault": "I'm interested in {property}.",
+      "whatsappText": "Hello, I'm interested in the property {property} (Ref. {ref}).",
+      "submit": "Request information",
+      "sending": "Sending…",
+      "success": "Thank you! We'll be in touch soon.",
+      "invalid": "Please check the highlighted fields and try again.",
+      "rateLimited": "You've sent too many requests. Please try again in a few minutes.",
+      "error": "Your request couldn't be sent. Please try again or call us."
+    }
   },
   "servicesPage": {
     "eyebrow": "Services",
     "title": "Wilson services",
-    "intro": "Placeholder intro for the services page.",
-    "cta": "Talk to us"
+    "intro": "Four services, one standard: transparency and clear communication with every client, from first contact to closing.",
+    "learnMore": "Learn more"
   },
   "aboutPage": {
     "eyebrow": "About Wilson",
-    "title": "About Wilson Real Estate",
-    "intro": "Placeholder intro for the About page.",
-    "storyTitle": "Our story",
-    "storyText": "Placeholder paragraph about the company's history, team and approach to land investment in Albania.",
-    "valuesTitle": "How we work",
-    "officesTitle": "Our offices",
+    "title": "Our philosophy",
+    "intro": "Wilson Real Estate & Construction identifies, verifies and manages properties with investment potential in Albania's coastal and urban areas, for buyers from Kosovo, the region, the diaspora and international investors.",
+    "approachTitle": "Our approach",
+    "approach": ["Market analysis", "Legal verification", "Process management", "Transparency"],
+    "strengthEyebrow": "Our key strength",
+    "strengthTitle": "A direct owner, not an intermediary.",
+    "strengthText": "Wilson directly owns the properties it offers, which cuts out intermediaries and makes the process clearer, more transparent and safer for the buyer — with better knowledge of the property, its documents and its context.",
+    "missionEyebrow": "Mission & vision",
+    "missionTitle": "Mission",
+    "missionText": "To offer real, secure investment opportunities, connecting clients with properties that have potential and setting a new standard of professionalism in Albania's real estate market.",
+    "visionTitle": "Vision",
+    "visionText": "To build a portfolio of investments with long-term impact, known for quality, reliability and concrete results in every area where Wilson is present.",
+    "officesTitle": "Offices",
     "offices": [
-      { "name": "Tale", "text": "Placeholder office address." },
-      { "name": "Tirana", "text": "Placeholder office address." },
-      { "name": "Kosovo", "text": "Placeholder office address." }
+      { "name": "Tale, Shëngjin", "address": "Wilson Complex" },
+      { "name": "Tirana", "address": "Rruga Pjetër Bogdani, no. 351/8270, Blloku, Tirana" },
+      { "name": "Kosovo", "address": "Rruga Agim Ramadani, no. 248" }
     ]
   },
   "contactPage": {

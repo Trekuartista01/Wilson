@@ -53,6 +53,26 @@ export const contactSchema = z.strictObject({
 
 export type ContactInput = z.infer<typeof contactSchema>;
 
+// ---------- Property enquiry (contact card on a listing page) ----------
+
+export const inquirySchema = z.strictObject({
+  /** Listing slug; the route checks it is a published listing. */
+  property: z.string().regex(/^[a-z0-9-]{1,120}$/),
+  name: line(100),
+  phone: z
+    .string()
+    .trim()
+    .min(6)
+    .max(30)
+    .regex(/^[0-9+()\s.-]+$/, "Invalid phone number"),
+  message: text(1, 3000),
+  locale: localeEnum,
+  /** Honeypot: hidden from people, bots fill it in. Must be empty. */
+  website: z.string().max(200).optional(),
+});
+
+export type InquiryInput = z.infer<typeof inquirySchema>;
+
 // ---------- Admin login ----------
 
 export const loginSchema = z.strictObject({

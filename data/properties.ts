@@ -13,6 +13,9 @@ export type ZoneSlug =
   | "sarande"
   | "shkoder"
   | "tale"
+  | "shengjin"
+  | "vain"
+  | "kune"
   | "korce"
   | "himare";
 
@@ -58,6 +61,9 @@ export const zones: Zone[] = [
   { slug: "tirana", name: { sq: "Tiranë", en: "Tirana", de: "Tirana" } },
   { slug: "durres", name: { sq: "Durrës", en: "Durrës", de: "Durrës" } },
   { slug: "tale", name: { sq: "Tale", en: "Tale", de: "Tale" } },
+  { slug: "shengjin", name: { sq: "Shëngjin", en: "Shëngjin", de: "Shëngjin" } },
+  { slug: "vain", name: { sq: "Vain", en: "Vain", de: "Vain" } },
+  { slug: "kune", name: { sq: "Kunë", en: "Kunë", de: "Kunë" } },
   { slug: "vlore", name: { sq: "Vlorë", en: "Vlora", de: "Vlora" } },
   { slug: "sarande", name: { sq: "Sarandë", en: "Saranda", de: "Saranda" } },
   { slug: "himare", name: { sq: "Himarë", en: "Himara", de: "Himara" } },
@@ -65,8 +71,8 @@ export const zones: Zone[] = [
   { slug: "korce", name: { sq: "Korçë", en: "Korça", de: "Korça" } },
 ];
 
-/** Zones shown in the homepage "Zonat" section (Figma shows four cards). */
-export const homepageZones: ZoneSlug[] = ["tirana", "durres", "tale", "vlore"];
+/** Zones listed in the homepage "Zonat" section, in order (from the homepage mockup). */
+export const homepageZones: ZoneSlug[] = ["tale", "shengjin", "vain", "kune"];
 
 export const propertyTypes: PropertyType[] = ["land", "residential", "commercial"];
 export const propertyStatuses: PropertyStatus[] = ["sale", "rent"];

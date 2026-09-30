@@ -9,7 +9,11 @@
 @theme {
   /* TODO: brand color. Primary action color (buttons). */
   --color-brand-primary: #111111;
-  /* TODO: brand color. Dark surface used by the header and Banner (Figma #3d3d3d). */
+  /* Client palette ("New Colors" mockups). */
+  --color-brand-slate: #2b3748; /* Navbar, homepage "Rreth Wilson" band */
+  --color-brand-olive: #6b6753; /* Active step in the homepage scroll section */
+  --color-brand-brown: #6e4639; /* Buttons, eyebrows and accents on cream, CTA band */
+  /* TODO: brand color. Dark surface used by the inner-page banner (Figma #3d3d3d). */
   --color-brand-dark: #3d3d3d;
   /* TODO: brand color. Footer background (Figma black). */
   --color-brand-darker: #000000;
@@ -21,10 +25,19 @@
 
   /* Neutral surfaces and text (keep unless the brand says otherwise). */
   --color-surface: #ffffff;
-  --color-surface-muted: #d9d9d9; /* Services band background in Figma */
-  --color-surface-page: #c3c3c3; /* Property list/detail page background in Figma */
+  --color-surface-muted: #d9d9d9; /* Gray boxes (gallery backdrop) */
   --color-surface-subtle: #f4f4f4;
   --color-placeholder: #dedede; /* Gray image boxes */
+  /* Warm neutrals, sampled from the "New Colors" mockups. */
+  --color-surface-cream: #fbf6ed; /* Page background */
+  --color-surface-cream-strong: #e5e1d6; /* Highlighted zone row */
+  --color-surface-card: #f4e9d7; /* Listing cards, homepage services band */
+  --color-surface-raised: #f9f5ef; /* Contact card on the property page */
+  /* Thin separator lines on light backgrounds: brand brown at 30%. Change the % to tune them all. */
+  --color-divider: color-mix(in srgb, #6e4639 30%, transparent);
+  --color-gold: #ac8e49; /* Detail-tag outlines on listing cards */
+  --color-gold-light: #e7d78f; /* Links and button text on dark backgrounds */
+  --color-gold-dark: #a07f31; /* "Misioni & vizioni" label and side lines on slate (About page) */
   --color-ink: #111111;
   --color-ink-muted: #5c5c5c;
   --color-ink-subtle: #a3a3a3;
@@ -77,10 +90,14 @@ html {
   scroll-padding-top: var(--header-h);
 }
 
-body {
-  background: var(--color-surface);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
+/* Every page sits on cream; white or gray bands are set per section. In the base layer so a
+   utility on <body> still wins (the admin layout sets its own gray). */
+@layer base {
+  body {
+    background: var(--color-surface-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

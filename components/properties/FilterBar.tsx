@@ -4,6 +4,7 @@ import { useId, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FiChevronDown } from "react-icons/fi";
+import Dropdown from "@/components/ui/Dropdown";
 
 export type FilterName = "zone" | "type" | "status" | "area" | "price" | "sort";
 
@@ -29,9 +30,8 @@ type FilterBarProps = {
 
 /**
  * Filter row on the properties page (Figma: outlined dropdowns). Each change updates the URL
- * straight away and resets "show more" back to the first page.
- * Each dropdown is a real <select> laid invisibly over the styled label, so phones get their
- * native picker and screen readers get a normal labelled select.
+ * straight away and goes back to the first page of results. The dropdowns are the site's own
+ * styled list (components/ui/Dropdown), not the browser's native one.
  */
 export default function FilterBar({
   action,
@@ -111,7 +111,7 @@ export default function FilterBar({
 
 // Figma: 1px dark outline, square corners, ~48px tall.
 const boxClass =
-  "relative inline-flex max-w-full min-h-12 items-center gap-2 border border-ink/80 px-3.5 py-1.5 text-left text-base transition-colors sm:text-lg";
+  "relative inline-flex max-w-full min-h-12 items-center gap-2 rounded border border-ink/80 px-3.5 py-1.5 text-left text-base transition-colors sm:text-lg";
 
 function FilterSelect({
   field,
@@ -124,27 +124,21 @@ function FilterSelect({
 }) {
   const selected = field.options.find((o) => o.value === value);
   return (
-    <div className={`${boxClass} has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ink hover:bg-ink/5`}>
-      {/* Visible text, e.g. "Zona: Tale". The select below is what's actually read out. */}
-      <span aria-hidden>
+    <Dropdown
+      name={field.name}
+      label={field.label}
+      placeholder={field.placeholder}
+      options={field.options}
+      value={value}
+      onChange={(v) => onChange(field.name, v)}
+      className={`group ${boxClass} cursor-pointer hover:bg-ink/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink data-[open]:bg-ink/5`}
+    >
+      {/* e.g. "Zona: Tale" */}
+      <span>
         {field.label}
         {selected && `: ${selected.label}`}
       </span>
-      <FiChevronDown aria-hidden className="size-5 shrink-0" />
-      <select
-        name={field.name}
-        aria-label={field.label}
-        value={value}
-        onChange={(event) => onChange(field.name, event.target.value)}
-        className="absolute inset-0 cursor-pointer appearance-none opacity-0"
-      >
-        <option value="">{field.placeholder}</option>
-        {field.options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </div>
+      <FiChevronDown aria-hidden className="size-5 shrink-0 transition-transform group-data-[open]:rotate-180" />
+    </Dropdown>
   );
 }

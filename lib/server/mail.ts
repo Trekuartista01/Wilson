@@ -23,7 +23,8 @@ function getTransporter(): Transporter {
 
 export type ContactMail = {
   subject: string;
-  replyTo: string;
+  /** Visitor's email, when the form asked for one (property enquiries only ask for a phone). */
+  replyTo?: string;
   text: string;
   html: string;
 };

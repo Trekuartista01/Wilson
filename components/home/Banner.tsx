@@ -13,68 +13,57 @@ type BannerProps = {
 };
 
 /**
- * Homepage hero (Figma "Hero"): aerial coast photo with eyebrow, headline and two CTAs,
- * plus the property search bar straddling the bottom edge.
- * The photo sits behind the whole section and the search row paints white over its own
- * lower half, so the bar is half on the photo and half on the page at any bar height.
+ * Homepage hero ("Wilson - Home Page" mockup): full-bleed aerial photo that runs up behind the
+ * transparent header, yellow eyebrow, display headline, one text link, and the frosted search
+ * bar at the bottom. The photo stops 1.5rem short of the section's bottom, so the bar hangs
+ * slightly over the cream section below.
  */
 export default function Banner({ lang, dict }: BannerProps) {
   const t = dict.home.banner;
 
   return (
-    <section aria-labelledby="banner-title" className="relative isolate">
-      <Image
-        src={heroImage}
-        alt=""
-        fill
-        priority
-        placeholder="blur"
-        sizes="100vw"
-        className="-z-20 object-cover object-[center_40%]"
-      />
-      {/* Darkens the photo behind the text: even on phones (text runs full width),
-          heavier on the left from sm up, where the text sits. */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-black/50 sm:bg-transparent sm:bg-linear-to-r sm:from-black/70 sm:via-black/40 sm:to-black/10"
-      />
-
-      <div className="text-surface">
-        <Container className="pt-12 pb-16 sm:pt-20 sm:pb-24 lg:pt-28 lg:pb-40">
-          <p className="text-lg font-light sm:text-xl">{t.eyebrow}</p>
-          <h1
-            id="banner-title"
-            className="mt-3 max-w-2xl text-[2rem] leading-tight font-semibold tracking-tight text-balance sm:text-5xl lg:max-w-3xl lg:text-6xl"
-          >
-            {t.title}
-          </h1>
-          <div className="mt-8 flex flex-col gap-3 sm:mt-12 sm:flex-row sm:gap-8">
-            <Link
-              href={localePath(lang, "/properties")}
-              className="inline-flex min-h-12 items-center justify-center gap-2 bg-surface px-4 text-base text-ink transition-colors hover:bg-surface-subtle"
-            >
-              {t.primaryCta}
-              <FiArrowRight aria-hidden />
-            </Link>
-            <Link
-              href={localePath(lang, "/contact")}
-              className="inline-flex min-h-12 items-center justify-center gap-6 border border-surface px-4 text-base transition-colors hover:bg-surface/10"
-            >
-              {t.secondaryCta}
-              <FiArrowRight aria-hidden />
-            </Link>
-          </div>
-        </Container>
+    <section
+      aria-labelledby="banner-title"
+      data-hero
+      className="relative isolate -mt-(--header-h) flex min-h-[36rem] flex-col justify-end bg-surface-cream sm:min-h-[40rem] lg:min-h-[max(44rem,min(100svh,56rem))]"
+    >
+      <div className="absolute inset-x-0 top-0 bottom-6 -z-10 overflow-hidden">
+        <Image
+          src={heroImage}
+          alt=""
+          fill
+          priority
+          placeholder="blur"
+          sizes="100vw"
+          className="object-cover object-[center_40%]"
+        />
+        {/* Even tint so the white nav and headline read on the bright sky and sea;
+            a bit heavier on phones, where the text runs full width. */}
+        <div aria-hidden className="absolute inset-0 bg-black/35 sm:bg-linear-to-r sm:from-black/35 sm:via-black/15 sm:to-black/5" />
       </div>
 
-      {/* Search bar: top half over the photo, bottom half over the white page. */}
-      <div className="bg-[linear-gradient(to_bottom,transparent_50%,var(--color-surface)_50%)]">
-        <Container>
-          <div className="mx-auto max-w-5xl">
-            <SearchBar lang={lang} dict={dict} />
-          </div>
-        </Container>
-      </div>
+      <Container className="pt-[calc(var(--header-h)+3rem)] pb-10 text-surface sm:pb-16 lg:pb-24">
+        <p className="text-lg text-brand-accent sm:text-2xl">{t.eyebrow}</p>
+        <h1
+          id="banner-title"
+          className="mt-2 max-w-[36rem] text-[1.9rem] leading-[1.1] text-balance sm:text-5xl lg:max-w-[48rem] lg:text-[3.25rem]"
+        >
+          {t.title}
+        </h1>
+        <Link
+          href={localePath(lang, "/properties")}
+          className="group mt-6 inline-flex min-h-11 items-center gap-3 text-lg text-gold-light sm:mt-10 sm:text-xl"
+        >
+          <span className="underline-offset-4 group-hover:underline">{t.cta}</span>
+          <FiArrowRight aria-hidden className="transition-transform group-hover:translate-x-1" />
+        </Link>
+      </Container>
+
+      <Container>
+        <div className="mx-auto max-w-[43rem]">
+          <SearchBar lang={lang} dict={dict} variant="hero" />
+        </div>
+      </Container>
     </section>
   );
 }

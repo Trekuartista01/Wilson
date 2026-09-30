@@ -91,23 +91,24 @@
     "banner": {
       "eyebrow": "Wilson Real Estate",
       "title": "Aty ku investimi takohet me detin dhe malin.",
-      "primaryCta": "Shiko pronat",
-      "secondaryCta": "Kontakto Wilson"
+      "cta": "Gjej pronën tënde"
     },
-    "highlights": [
-      "Verifikim ligjor dhe dokumentacion i sigurt",
-      "Përcjellje nga kontakti deri në finalizim",
-      "Zyra në Tale, Tiranë dhe Kosovë"
-    ],
     "featured": {
+      "eyebrow": "Pronat",
       "title": "Pronat e veçanta",
       "viewAll": "Shiko të gjitha pronat"
     },
+    "about": {
+      "eyebrow": "Rreth Wilson",
+      "title": "Prona që kanë kuptim. Investime që zgjasin.",
+      "text": "Wilson identifikon, verifikon dhe menaxhon prona me potencial investimi në zonat bregdetare dhe urbane të Shqipërisë — me transparencë në çdo hap.",
+      "cta": "Rreth Wilson"
+    },
     "zones": {
-      "title": "Zonat",
-      "viewAll": "Shiko të gjitha zonat",
+      "eyebrow": "Zonat",
+      "title": "Vendndodhja e pronave",
       "count": "{count} prona",
-      "description": "Tekst i përkohshëm për këtë zonë. Mbajeni të shkurtër dhe të thjeshtë."
+      "comingSoon": "së shpejti"
     },
     "process": {
       "statement": "Nuk ofrojmë thjeshtë prona. Ofrojmë mundësi të analizuara, të verifikuara dhe të strukturuara.",
@@ -127,18 +128,18 @@
       "text": "Katër shërbime, një standard; transparencë dhe komunikim i qartë me çdo klient, nga kontakti i parë deri në finalizim.",
       "viewAll": "Të gjitha shërbimet"
     },
-    "about": {
-      "eyebrow": "Rreth nesh",
-      "title": "Rreth Wilson",
-      "text": "Tekst i përkohshëm për Wilson Real Estate. Dy ose tre fjali për kush jemi dhe pse klientët na besojnë.",
-      "cta": "Lexo më shumë"
+    "cta": {
+      "eyebrow": "Pse Wilson Real Estate?",
+      "title": "Jeni në duar të sigurta!",
+      "text": "Wilson është pronar i drejtpërdrejtë i pronave që ofron, çka shmang ndërmjetësit dhe krijon një proces më të qartë, më transparent dhe më të sigurt për blerësin.",
+      "button": "Gjej pronën tënde"
     }
   },
   "services": [
-    { "slug": "sales", "title": "Shitje pronash", "text": "Përshkrim i përkohshëm i shërbimit të shitjes së pronave." },
-    { "slug": "purchase", "title": "Blerje pronash", "text": "Përshkrim i përkohshëm i shërbimit të blerjes së pronave." },
-    { "slug": "development", "title": "Zhvillim dhe ndërtim", "text": "Përshkrim i përkohshëm i shërbimit të zhvillimit dhe ndërtimit." },
-    { "slug": "consulting", "title": "Konsulencë investimi", "text": "Përshkrim i përkohshëm i shërbimit të konsulencës për investime." }
+    { "slug": "sales", "title": "Shitje pronash", "text": "Prona të verifikuara në bregdet, me dokumentacion të plotë dhe proces transparent." },
+    { "slug": "purchase", "title": "Blerje pronash", "text": "Identifikim dhe verifikim i pronës sipas kërkesave të blerësit." },
+    { "slug": "development", "title": "Zhvillim dhe ndërtim", "text": "Partneritet me investitorë dhe zhvillues në projekte ndërtimi." },
+    { "slug": "consulting", "title": "Konsulencë investimi", "text": "Analizë tregu dhe përzgjedhje strategjike për investitorë." }
   ],
   "propertiesPage": {
     "title": "Parcela dhe prona në Shqipëri",
@@ -149,7 +150,8 @@
     "mapLabel": "Harta e pronave në Shqipëri",
     "filtersLabel": "Filtro pronat",
     "showMore": "Shfaq më shumë",
-    "showing": "{shown} nga {count} prona"
+    "previous": "Më parë",
+    "showing": "{from}–{to} nga {count} prona"
   },
   "property": {
     "description": "Përshkrim",
@@ -159,9 +161,6 @@
     "type": "Lloji",
     "status": "Statusi",
     "zone": "Zona",
-    "contactTitle": "Të interesuar për këtë pronë?",
-    "contactText": "Tekst i përkohshëm. Kontaktoni Wilson për dokumente, vizitë në terren ose më shumë detaje.",
-    "contactCta": "Kontakto Wilson",
     "feature": "Cilësi shtesë",
     "details": "Detaje",
     "propertyId": "ID e pronës",
@@ -176,26 +175,49 @@
     "showMap": "Harta",
     "previous": "Imazhi i mëparshëm",
     "next": "Imazhi tjetër",
-    "photo": "Foto {n} nga {total}"
+    "photo": "Foto {n} nga {total}",
+    "inquiry": {
+      "reference": "Ref.",
+      "whatsapp": "WhatsApp",
+      "call": "Telefono",
+      "name": "Emri",
+      "phone": "Telefoni",
+      "message": "Mesazh",
+      "messageDefault": "Jam i interesuar për {property}.",
+      "whatsappText": "Përshëndetje, jam i interesuar për pronën {property} (Ref. {ref}).",
+      "submit": "Kërko informacion",
+      "sending": "Po dërgohet…",
+      "success": "Faleminderit! Do t'ju kontaktojmë së shpejti.",
+      "invalid": "Kontrolloni fushat e shënuara dhe provoni përsëri.",
+      "rateLimited": "Keni dërguar shumë kërkesa. Provoni përsëri pas pak minutash.",
+      "error": "Kërkesa nuk u dërgua. Provoni përsëri ose na telefononi."
+    }
   },
   "servicesPage": {
     "eyebrow": "Shërbimet",
     "title": "Shërbimet Wilson",
-    "intro": "Tekst i përkohshëm për faqen e shërbimeve.",
-    "cta": "Na kontaktoni"
+    "intro": "Katër shërbime, një standard; transparencë dhe komunikim i qartë me çdo klient, nga kontakti i parë deri në finalizim.",
+    "learnMore": "Mëso më shumë"
   },
   "aboutPage": {
     "eyebrow": "Rreth Wilson",
-    "title": "Rreth Wilson Real Estate",
-    "intro": "Tekst i përkohshëm për faqen Rreth Wilson.",
-    "storyTitle": "Historia jonë",
-    "storyText": "Paragraf i përkohshëm për historinë e kompanisë, ekipin dhe qasjen ndaj investimeve në parcela në Shqipëri.",
-    "valuesTitle": "Si punojmë",
-    "officesTitle": "Zyrat tona",
+    "title": "Filozofia jonë",
+    "intro": "Wilson Real Estate & Construction identifikon, verifikon dhe menaxhon prona me potencial investimi në zonat bregdetare dhe urbane të Shqipërisë, për blerës nga Kosova, rajoni, diaspora dhe investitorë ndërkombëtarë.",
+    "approachTitle": "Qasja jonë",
+    "approach": ["Analizë e tregut", "Verifikim ligjor", "Menaxhim i procesit", "Transparencë"],
+    "strengthEyebrow": "Forca kryesore",
+    "strengthTitle": "Pronar i drejtpërdrejtë, jo ndërmjetësues.",
+    "strengthText": "Wilson është pronare e drejtpërdrejtë e pronave që ofron, çka shmang ndërmjetësit dhe krijon një proces më të qartë, më transparent dhe më të sigurt për blerësin — njohje më e mirë e pronës, e dokumentacionit dhe e kontekstit të saj.",
+    "missionEyebrow": "Misioni & vizioni",
+    "missionTitle": "Misioni",
+    "missionText": "Të ofrojmë mundësi reale dhe të sigurta investimi, duke lidhur klientët me prona me potencial dhe duke vendosur një standard të ri profesionalizmi në tregun e patundshmërive në Shqipëri.",
+    "visionTitle": "Vizioni",
+    "visionText": "Të ndërtojmë një portofol investimesh me ndikim afatgjatë, të njohur për cilësi, seriozitet dhe rezultate konkrete, në çdo zonë ku Wilson është i pranishëm.",
+    "officesTitle": "Zyrat",
     "offices": [
-      { "name": "Tale", "text": "Adresë e përkohshme e zyrës." },
-      { "name": "Tiranë", "text": "Adresë e përkohshme e zyrës." },
-      { "name": "Kosovë", "text": "Adresë e përkohshme e zyrës." }
+      { "name": "Tale, Shëngjin", "address": "Kompleksi Wilson" },
+      { "name": "Tiranë", "address": "Rruga Pjetër Bogdani, nr. 351/8270, Blloku, Tiranë" },
+      { "name": "Kosovë", "address": "Rruga Agim Ramadani, nr. 248" }
     ]
   },
   "contactPage": {

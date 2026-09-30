@@ -4,6 +4,7 @@ import { unstable_cache } from "next/cache";
 import type { Locale } from "@/i18n/config";
 import { zones, type Localized, type Property } from "@/data/properties";
 import { supabasePublicEnv } from "./env";
+import { withExamplePhotos } from "./example-photos";
 
 /**
  * What visitors see: published listings, read with the publishable key. Row level security
@@ -101,11 +102,12 @@ async function fetchPublishedProperties(): Promise<Property[]> {
  * All published listings, newest first. The catalog is small enough to filter in memory.
  * Production: cached, refreshed hourly and immediately after any admin API change. Changes
  * made outside the API (seed script, Supabase dashboard) show up within the hour.
- * Development: always fresh, so seeding or editing in Supabase shows up on reload.
+ * Development: always fresh, so seeding or editing in Supabase shows up on reload, and
+ * listings without photos get stand-ins from public/images/listings (example-photos.ts).
  */
 export const getPublishedProperties =
   process.env.NODE_ENV === "development"
-    ? fetchPublishedProperties
+    ? async () => withExamplePhotos(await fetchPublishedProperties())
     : unstable_cache(fetchPublishedProperties, ["published-properties"], {
         tags: [PROPERTIES_TAG],
         revalidate: 3600,

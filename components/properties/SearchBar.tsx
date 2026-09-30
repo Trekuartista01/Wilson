@@ -7,6 +7,7 @@ type SearchBarProps = {
   lang: Locale;
   dict: Dictionary;
   defaults?: PropertyFilters;
+  variant?: "default" | "hero";
   className?: string;
 };
 
@@ -15,7 +16,7 @@ type SearchBarProps = {
  * Builds the translated options here on the server and hands only those to the client form,
  * which sends the visitor to the filtered properties list.
  */
-export default function SearchBar({ lang, dict, defaults = {}, className }: SearchBarProps) {
+export default function SearchBar({ lang, dict, defaults = {}, variant, className }: SearchBarProps) {
   const t = dict.search;
 
   const fields: SearchField[] = [
@@ -52,6 +53,7 @@ export default function SearchBar({ lang, dict, defaults = {}, className }: Sear
       values={defaults}
       submitLabel={t.submit}
       ariaLabel={t.label}
+      variant={variant}
       className={className}
     />
   );

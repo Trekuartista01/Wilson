@@ -36,7 +36,7 @@ export default function Card({
   return (
     <Link
       href={href}
-      className="group flex h-full flex-col overflow-hidden rounded-lg bg-surface shadow-[0_4px_24px_rgba(0,0,0,0.06)] ring-1 ring-line transition-shadow hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary"
+      className="group flex h-full flex-col overflow-hidden rounded-lg bg-surface-card shadow-[0_4px_24px_rgba(0,0,0,0.06)] ring-1 ring-line transition-shadow hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary"
     >
       {imageUrl ? (
         <div className="relative aspect-[3/2] overflow-hidden bg-placeholder">
@@ -57,11 +57,11 @@ export default function Card({
         <p className="mt-0.5 text-sm text-ink-muted">{subhead}</p>
         {body && <p className="mt-3 line-clamp-2 text-sm text-ink-muted">{body}</p>}
         {tags.length > 0 && (
-          <div className="mt-4 border-t border-line pt-3">
+          <div className="mt-4 border-t border-divider pt-3">
             {tagsTitle && <p className="text-sm font-medium">{tagsTitle}</p>}
             <ul className="mt-2 flex flex-wrap gap-1.5">
               {tags.map((tag) => (
-                <li key={tag} className="rounded-full border border-ink/40 px-2.5 py-0.5 text-xs">
+                <li key={tag} className="rounded-full border border-gold px-2.5 py-0.5 text-xs">
                   {tag}
                 </li>
               ))}
@@ -69,7 +69,7 @@ export default function Card({
           </div>
         )}
         <div className="mt-auto pt-4">
-          <span className="inline-flex min-h-9 items-center rounded-md bg-brand-primary px-3 text-xs text-surface group-hover:bg-black">
+          <span className="inline-flex min-h-9 min-w-24 items-center justify-center rounded bg-brand-brown px-6 text-xs text-surface">
             {buttonLabel}
           </span>
         </div>

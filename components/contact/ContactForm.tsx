@@ -146,7 +146,7 @@ export default function ContactForm({ lang, labels }: ContactFormProps) {
         <button
           type="submit"
           disabled={sending || !hydrated}
-          className="inline-flex min-h-12 w-full items-center justify-center bg-brand-primary px-6 text-surface transition-colors hover:bg-black disabled:opacity-60 sm:w-auto"
+          className="inline-flex min-h-12 w-full items-center justify-center rounded bg-brand-primary px-6 text-surface transition-colors hover:bg-black disabled:opacity-60 sm:w-auto"
         >
           {sending ? labels.sending : labels.submit}
         </button>
