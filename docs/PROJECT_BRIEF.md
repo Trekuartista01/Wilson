@@ -158,3 +158,4 @@
 - 2026-10-07: Contact map: switch Tirana / Prishtina / Tale moves the map and swaps the card address + Google Maps link; exact pins and links in `lib/offices.ts` (shared with About; `siteConfig.officeLocation` removed). Map band bottom-left corner black (footer) on desktop. Kosovo office renamed Prishtina in the dictionaries.
 - 2026-10-07: Hero slogan "Përtej tokës" / "Beyond Land" / "Jenseits des Landes", white with the land word gold (`home.banner.lead` / `highlight`), larger type.
 - 2026-10-07: Startup check split: missing Supabase settings still stop the server in production; admin-login and email problems only log `[config] Some features are disabled` (those features fail closed on their own). Lets the team preview run on Vercel while ADMIN_PASSWORD_HASH / SMTP are not final.
+- 2026-10-07: Stand-in listing photos (example-photos.ts) now also used in production, for the team preview. Remove before launch.

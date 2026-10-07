@@ -78,7 +78,11 @@ function toProperty(row: Row): Property {
     updatedAt: row.updated_at,
     images: row.property_images
       .toSorted((a, b) => a.position - b.position)
-      .map((img) => ({ url: storage.getPublicUrl(img.storage_path).data.publicUrl, width: img.width, height: img.height })),
+      .map((img) => ({
+        url: storage.getPublicUrl(img.storage_path).data.publicUrl,
+        width: img.width,
+        height: img.height,
+      })),
   };
 }
 
@@ -111,16 +115,20 @@ async function fetchPublishedProperties(): Promise<Property[]> {
  * All published listings, newest first. The catalog is small enough to filter in memory.
  * Production: cached, refreshed hourly and immediately after any admin API change. Changes
  * made outside the API (seed script, Supabase dashboard) show up within the hour.
- * Development: always fresh, so seeding or editing in Supabase shows up on reload, and
- * listings without photos get stand-ins from public/images/listings (example-photos.ts).
+ * Development: always fresh, so seeding or editing in Supabase shows up on reload.
+ * Both: listings without photos get stand-ins from public/images/listings (example-photos.ts);
+ * on in production too since 2026-10-07, for the team preview on Vercel.
  */
-export const getPublishedProperties =
-  process.env.NODE_ENV === "development"
-    ? async () => withExamplePhotos(await fetchPublishedProperties())
-    : unstable_cache(fetchPublishedProperties, ["published-properties"], {
-        tags: [PROPERTIES_TAG],
-        revalidate: 3600,
-      });
+const cachedPublishedProperties = unstable_cache(fetchPublishedProperties, ["published-properties"], {
+  tags: [PROPERTIES_TAG],
+  revalidate: 3600,
+});
+
+export async function getPublishedProperties(): Promise<Property[]> {
+  const listings =
+    process.env.NODE_ENV === "development" ? await fetchPublishedProperties() : await cachedPublishedProperties();
+  return withExamplePhotos(listings);
+}
 
 export async function getPublishedProperty(slug: string): Promise<Property | undefined> {
   return (await getPublishedProperties()).find((p) => p.slug === slug);
