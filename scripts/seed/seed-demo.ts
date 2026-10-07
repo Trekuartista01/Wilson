@@ -8,7 +8,7 @@
 
 import { loadEnvConfig } from "@next/env";
 import { createClient } from "@supabase/supabase-js";
-import { demoProperties } from "./demo-properties";
+import { demoDistances, demoNearby, demoProperties } from "./demo-properties";
 
 if (process.env.NODE_ENV === "production") {
   console.error("Refusing to seed demo data with NODE_ENV=production.");
@@ -73,6 +73,19 @@ async function seed() {
     added++;
   }
   console.log(`Added ${added} demo listings (${have.size} were already there).`);
+
+  // "Afër" places and distances (migrations 20261005120000_nearby.sql + 20261005140000_nearby_distances.sql),
+  // also for demo listings added before them.
+  for (const p of demoProperties) {
+    const nearby = demoNearby(p);
+    const distances = Object.fromEntries(nearby.map((a) => [a, demoDistances[a]]));
+    const { error: nearbyError } = await db
+      .from("properties")
+      .update({ nearby, nearby_distances: distances })
+      .eq("slug", p.slug);
+    if (nearbyError) throw nearbyError;
+  }
+  console.log("Set the close-by amenities on the demo listings.");
 }
 
 (process.argv.includes("--clear") ? clear() : seed()).catch((error) => {

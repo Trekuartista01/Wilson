@@ -38,7 +38,13 @@
     "closeMenu": "Mbyll menunë",
     "language": "Gjuha",
     "skipToContent": "Kalo te përmbajtja",
-    "mainNavigation": "Navigimi kryesor"
+    "mainNavigation": "Navigimi kryesor",
+    "search": "Kërko prona",
+    "searchPlaceholder": "Kërko parcela, zona, afër plazhit…",
+    "searchClose": "Mbyll kërkimin",
+    "searchFor": "Kërko “{query}”",
+    "searchSuggestions": "Sugjerime kërkimi",
+    "searchOpen": "Hap kërkimin"
   },
   "common": {
     "imagePlaceholder": "Vend për imazh",
@@ -85,48 +91,86 @@
       "priceDesc": "Çmimi: nga më i larti",
       "areaDesc": "Sipërfaqja më e madhe"
     },
-    "more": "Më shumë"
+    "more": "Më shumë",
+    "near": "Afër"
   },
   "home": {
     "banner": {
-      "eyebrow": "Wilson Real Estate",
-      "title": "Aty ku investimi takohet me detin dhe malin.",
-      "cta": "Gjej pronën tënde"
+      "lines": ["Aty ku investimi", "takohet me detin", "dhe malin."],
+      "highlight": 1
     },
     "featured": {
-      "eyebrow": "Pronat",
-      "title": "Pronat e veçanta",
-      "viewAll": "Shiko të gjitha pronat"
+      "eyebrow": "Pronat e veçuara",
+      "viewAll": "Shfaq të gjitha",
+      "view": "Shiko pronën",
+      "previous": "Prona e mëparshme",
+      "next": "Prona tjetër",
+      "show": "Shfaq: {title}"
     },
     "about": {
       "eyebrow": "Rreth Wilson",
-      "title": "Prona që kanë kuptim. Investime që zgjasin.",
-      "text": "Wilson identifikon, verifikon dhe menaxhon prona me potencial investimi në zonat bregdetare dhe urbane të Shqipërisë — me transparencë në çdo hap.",
-      "cta": "Rreth Wilson"
+      "statement": "Prona që kanë kuptim. Investime që zgjasin. Ne gjejmë, verifikojmë dhe zotërojmë prona me potencial real në të gjithë Shqipërinë.",
+      "stats": [
+        {
+          "value": "25+",
+          "label": "Prona në dispozicion"
+        },
+        {
+          "value": "6",
+          "label": "Zona bregdetare dhe urbane"
+        },
+        {
+          "value": "0",
+          "label": "Ndërmjetës — Wilson zotëron atë që shet"
+        }
+      ],
+      "statsLink": "Shiko pronat"
     },
     "zones": {
-      "eyebrow": "Zonat",
-      "title": "Vendndodhja e pronave",
+      "eyebrow": "Vendndodhja e zonave",
+      "title": "Vendi ku nis kapitulli juaj i ardhshëm",
       "count": "{count} prona",
-      "comingSoon": "së shpejti"
+      "comingSoon": "së shpejti",
+      "caption": "Prona në {zone}",
+      "details": "Detaje",
+      "viewAll": "Shiko të gjitha pronat",
+      "previous": "Zona e mëparshme",
+      "next": "Zona tjetër"
+    },
+    "why": {
+      "eyebrow": "Pse Wilson",
+      "lines": ["Njohje lokale.", "Tituj të verifikuar.", "Mundësi reale.", "Vlerë afatgjatë."],
+      "learnMore": "Mëso më shumë"
     },
     "process": {
       "statement": "Nuk ofrojmë thjeshtë prona. Ofrojmë mundësi të analizuara, të verifikuara dhe të strukturuara.",
       "stepImage": "Imazhi i hapit {number}",
       "steps": [
-        { "title": "Njohje e tregut lokal", "text": "Analizë e detajuar e tregut dhe përzgjedhje strategjike e pronave." },
-        { "title": "Verifikim i pronës", "text": "Verifikim i plotë ligjor dhe dokumentacion i sigurt." },
-        { "title": "Mundësi investimi", "text": "Mundësi reale dhe të sigurta investimi në tregun imobiliar shqiptar." },
-        { "title": "Transparencë", "text": "Komunikim i qartë me çdo klient, në çdo fazë." },
-        { "title": "Vlerë afatgjatë", "text": "Fokus në rritjen e vlerës dhe zhvillim afatgjatë." },
-        { "title": "Përcjellje deri në fund", "text": "Menaxhim i plotë i procesit nga kontakti deri në finalizim." }
+        {
+          "title": "Njohje e tregut lokal",
+          "text": "Analizë e detajuar e tregut dhe përzgjedhje strategjike e pronave."
+        },
+        {
+          "title": "Verifikim i pronës",
+          "text": "Verifikim i plotë ligjor dhe dokumentacion i sigurt."
+        },
+        {
+          "title": "Mundësi investimi",
+          "text": "Mundësi reale dhe të sigurta investimi në tregun imobiliar shqiptar."
+        },
+        {
+          "title": "Transparencë",
+          "text": "Komunikim i qartë me çdo klient, në çdo fazë."
+        },
+        {
+          "title": "Vlerë afatgjatë",
+          "text": "Fokus në rritjen e vlerës dhe zhvillim afatgjatë."
+        },
+        {
+          "title": "Përcjellje deri në fund",
+          "text": "Menaxhim i plotë i procesit nga kontakti deri në finalizim."
+        }
       ]
-    },
-    "services": {
-      "eyebrow": "Çfarë ofrojmë?",
-      "title": "Shërbimet Wilson",
-      "text": "Katër shërbime, një standard; transparencë dhe komunikim i qartë me çdo klient, nga kontakti i parë deri në finalizim.",
-      "viewAll": "Të gjitha shërbimet"
     },
     "cta": {
       "eyebrow": "Pse Wilson Real Estate?",
@@ -136,10 +180,26 @@
     }
   },
   "services": [
-    { "slug": "sales", "title": "Shitje pronash", "text": "Prona të verifikuara në bregdet, me dokumentacion të plotë dhe proces transparent." },
-    { "slug": "purchase", "title": "Blerje pronash", "text": "Identifikim dhe verifikim i pronës sipas kërkesave të blerësit." },
-    { "slug": "development", "title": "Zhvillim dhe ndërtim", "text": "Partneritet me investitorë dhe zhvillues në projekte ndërtimi." },
-    { "slug": "consulting", "title": "Konsulencë investimi", "text": "Analizë tregu dhe përzgjedhje strategjike për investitorë." }
+    {
+      "slug": "sales",
+      "title": "Shitje pronash",
+      "text": "Prona të verifikuara në bregdet, me dokumentacion të plotë dhe proces transparent."
+    },
+    {
+      "slug": "purchase",
+      "title": "Blerje pronash",
+      "text": "Identifikim dhe verifikim i pronës sipas kërkesave të blerësit."
+    },
+    {
+      "slug": "development",
+      "title": "Zhvillim dhe ndërtim",
+      "text": "Partneritet me investitorë dhe zhvillues në projekte ndërtimi."
+    },
+    {
+      "slug": "consulting",
+      "title": "Konsulencë investimi",
+      "text": "Analizë tregu dhe përzgjedhje strategjike për investitorë."
+    }
   ],
   "propertiesPage": {
     "title": "Parcela dhe prona në Shqipëri",
@@ -151,7 +211,9 @@
     "filtersLabel": "Filtro pronat",
     "showMore": "Shfaq më shumë",
     "previous": "Më parë",
-    "showing": "{from}–{to} nga {count} prona"
+    "showing": "{from}–{to} nga {count} prona",
+    "searchChip": "“{query}”",
+    "clearSearch": "Hiq kërkimin “{query}”"
   },
   "property": {
     "description": "Përshkrim",
@@ -171,8 +233,6 @@
     "ari": "{count} ari",
     "similar": "Prona të ngjashme",
     "gallery": "Galeria e pronës",
-    "showPhotos": "Fotot",
-    "showMap": "Harta",
     "previous": "Imazhi i mëparshëm",
     "next": "Imazhi tjetër",
     "photo": "Foto {n} nga {total}",
@@ -191,7 +251,15 @@
       "invalid": "Kontrolloni fushat e shënuara dhe provoni përsëri.",
       "rateLimited": "Keni dërguar shumë kërkesa. Provoni përsëri pas pak minutash.",
       "error": "Kërkesa nuk u dërgua. Provoni përsëri ose na telefononi."
-    }
+    },
+    "contact": "Kontakto Wilson",
+    "detailsPrevious": "Detajet e mëparshme",
+    "detailsNext": "Më shumë detaje",
+    "detailsPage": "Detajet {n} nga {total}",
+    "locationTitle": "Afër detit, afër qytetit.",
+    "openInMaps": "Hap në Google Maps",
+    "satelliteLabel": "Pamje satelitore e vendndodhjes",
+    "nearbySource": "Më i afërti nga secili, në vijë ajrore, sipas OpenStreetMap."
   },
   "servicesPage": {
     "eyebrow": "Shërbimet",
@@ -202,44 +270,81 @@
   "aboutPage": {
     "eyebrow": "Rreth Wilson",
     "title": "Filozofia jonë",
-    "intro": "Wilson Real Estate & Construction identifikon, verifikon dhe menaxhon prona me potencial investimi në zonat bregdetare dhe urbane të Shqipërisë, për blerës nga Kosova, rajoni, diaspora dhe investitorë ndërkombëtarë.",
+    "introTitle": "Wilson Real Estate",
+    "intro": "është kompani e fokusuar në prona dhe mundësi investimi në veriun e Shqipërisë, me përqendrim kryesor në Tale, Shëngjin dhe Kunë — prona pranë bregdetit të Adriatikut, të përshtatshme si për përdorim personal, ashtu edhe për zhvillime rezidenciale, turistike, komerciale dhe investime afatgjata.",
     "approachTitle": "Qasja jonë",
     "approach": ["Analizë e tregut", "Verifikim ligjor", "Menaxhim i procesit", "Transparencë"],
     "strengthEyebrow": "Forca kryesore",
     "strengthTitle": "Pronar i drejtpërdrejtë, jo ndërmjetësues.",
-    "strengthText": "Wilson është pronare e drejtpërdrejtë e pronave që ofron, çka shmang ndërmjetësit dhe krijon një proces më të qartë, më transparent dhe më të sigurt për blerësin — njohje më e mirë e pronës, e dokumentacionit dhe e kontekstit të saj.",
+    "strengthText": "Forca kryesore e Wilson-it është marrëdhënia e drejtpërdrejtë me pronën. Wilson është pronare e drejtpërdrejtë e pronave që ofron, çka shmang ndërmjetësit dhe krijon një proces më të qartë, më transparent dhe më të sigurt për blerësin — njohje më e mirë e pronës, dokumentacionit dhe kontekstit të saj.",
+    "strengthLink": "Shiko pronat",
     "missionEyebrow": "Misioni & vizioni",
     "missionTitle": "Misioni",
-    "missionText": "Të ofrojmë mundësi reale dhe të sigurta investimi, duke lidhur klientët me prona me potencial dhe duke vendosur një standard të ri profesionalizmi në tregun e patundshmërive në Shqipëri.",
+    "missionHeading": "Prona nuk shihet vetëm si sipërfaqe për shitje, por si një mundësi me potencial.",
+    "missionText": "Identifikojmë dhe prezantojmë prona me vlerë afatgjatë, duke lidhur lokacionin, afërsinë me detin, mundësinë e zhvillimit dhe sigurinë e procesit.",
     "visionTitle": "Vizioni",
-    "visionText": "Të ndërtojmë një portofol investimesh me ndikim afatgjatë, të njohur për cilësi, seriozitet dhe rezultate konkrete, në çdo zonë ku Wilson është i pranishëm.",
+    "visionHeading": "Një portofol investimesh me ndikim afatgjatë.",
+    "visionText": "Të njohur për cilësi, seriozitet dhe rezultate konkrete, në çdo zonë ku Wilson është i pranishëm.",
     "officesTitle": "Zyrat",
     "offices": [
-      { "name": "Tale, Shëngjin", "address": "Kompleksi Wilson" },
-      { "name": "Tiranë", "address": "Rruga Pjetër Bogdani, nr. 351/8270, Blloku, Tiranë" },
-      { "name": "Kosovë", "address": "Rruga Agim Ramadani, nr. 248" }
+      {
+        "name": "Tale, Shëngjin",
+        "address": "Kompleksi Wilson"
+      },
+      {
+        "name": "Tiranë",
+        "address": "Rruga Pjetër Bogdani, nr. 351/8270, Blloku, Tiranë"
+      },
+      {
+        "name": "Prishtinë, Kosovë",
+        "address": "Rruga Agim Ramadani, nr. 248, Prishtinë"
+      }
     ]
   },
   "contactPage": {
     "eyebrow": "Kontakti",
-    "title": "Kontakto Wilson",
-    "intro": "Tekst i përkohshëm. Na dërgoni një mesazh dhe do t'ju kthejmë përgjigje.",
-    "formTitle": "Dërgo një mesazh",
-    "infoTitle": "Të dhënat e kontaktit",
+    "title": "Le të flasim për tokë.",
+    "intro": "Pyetni për një parcelë, rezervoni një vizitë ose merrni këshilla se ku të investoni. Ju përgjigjemi brenda një dite pune — në shqip, anglisht ose gjermanisht.",
+    "formTitle": "Na dërgoni një mesazh",
     "mapLabel": "Harta me zyrën e Wilson",
+    "fasterTitle": "Doni diçka më të shpejtë?",
+    "faster": {
+      "call": {
+        "title": "Na telefononi",
+        "text": "Flisni me ekipin tani."
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "text": "Dërgoni foto, pyetje, mesazhe zanore.",
+        "action": "Hap bisedën"
+      },
+      "visit": {
+        "title": "Vizitoni një parcelë",
+        "text": "Ju çojmë ne deri te toka.",
+        "action": "Rezervo një vizitë"
+      }
+    },
+    "office": {
+      "eyebrow": "Vizitoni zyrën",
+      "directions": "Merr udhëzimet",
+      "switchLabel": "Zgjidh zyrën"
+    },
     "form": {
       "name": "Emri i plotë",
-      "email": "Email",
-      "phone": "Telefoni (opsional)",
-      "subject": "Tema",
+      "email": "Adresa e email-it",
+      "phone": "Numri i telefonit",
+      "subject": "Jam i interesuar për",
       "subjects": {
-        "general": "Pyetje e përgjithshme",
-        "buying": "Blerje prone",
-        "selling": "Shitje prone",
-        "investment": "Konsulencë investimi"
+        "buying": "Blerje toke",
+        "viewing": "Një vizitë",
+        "investment": "Këshillë investimi",
+        "general": "Diçka tjetër"
       },
+      "property": "Prona",
+      "propertyNone": "Asnjë pronë e caktuar",
       "message": "Mesazhi",
-      "consent": "Pranoj që Wilson Real Estate të më kontaktojë për këtë kërkesë.",
+      "messagePlaceholder": "Na tregoni si mund t'ju ndihmojmë",
+      "consent": "Pranoj të kontaktohem për këtë kërkesë.",
       "submit": "Dërgo mesazhin",
       "sending": "Po dërgohet…",
       "success": "Faleminderit! Mesazhi u dërgua. Do t'ju kontaktojmë së shpejti.",
@@ -272,5 +377,102 @@
     "utilities": "Ujë dhe energji",
     "flatTerrain": "Terren i sheshtë",
     "cityView": "Pamje nga qyteti"
+  },
+  "amenities": {
+    "beach": "Plazh",
+    "supermarket": "Dyqane & market",
+    "restaurant": "Restorante",
+    "hospital": "Spital / ambulancë",
+    "pharmacy": "Farmaci",
+    "school": "Shkollë",
+    "cityCentre": "Qendër qyteti",
+    "publicTransport": "Transport publik",
+    "airport": "Aeroport"
+  },
+  "searchSuggestions": {
+    "inZone": "Prona në {zone}",
+    "near": "Afër: {place}",
+    "groups": {
+      "popular": "Kërkimet më të shpeshta",
+      "zones": "Zonat",
+      "types": "Lloji",
+      "nearby": "Afër",
+      "budget": "Çmimi dhe sipërfaqja"
+    },
+    "amenityKeywords": {
+      "beach": "det bregdet bregdetare",
+      "supermarket": "dyqan market ushqimore",
+      "restaurant": "ushqim kafe bar",
+      "hospital": "ambulance mjek shendet urgjence klinike",
+      "pharmacy": "barna ilace",
+      "school": "kopsht arsim femije",
+      "cityCentre": "qender qyteti",
+      "publicTransport": "autobus stacion",
+      "airport": "aeroport fluturime"
+    },
+    "popular": [
+      {
+        "label": "Parcelë afër plazhit",
+        "params": {
+          "type": "land",
+          "near": "beach"
+        },
+        "keywords": "det bregdet toke toka"
+      },
+      {
+        "label": "Parcelë me pamje nga deti",
+        "params": {
+          "type": "land",
+          "q": "Pamje nga deti"
+        },
+        "keywords": "panorame det toke toka"
+      },
+      {
+        "label": "Parcelë ndërtimi në Tiranë",
+        "params": {
+          "zone": "tirana",
+          "type": "residential"
+        },
+        "keywords": "shtepi banim ndertim"
+      },
+      {
+        "label": "Parcelë në Tale",
+        "params": {
+          "zone": "tale",
+          "type": "land"
+        },
+        "keywords": "lezhe bregdet toke toka"
+      },
+      {
+        "label": "Parcelë nën 100.000 €",
+        "params": {
+          "type": "land",
+          "price": "lt100k"
+        },
+        "keywords": "lire buxhet cmim toke"
+      },
+      {
+        "label": "Parcela të mëdha mbi 5.000 m²",
+        "params": {
+          "area": "gt5000"
+        },
+        "keywords": "investim hektar toke"
+      },
+      {
+        "label": "Parcelë me leje ndërtimi",
+        "params": {
+          "q": "Me leje ndërtimi"
+        },
+        "keywords": "leje ndertim"
+      },
+      {
+        "label": "Ambient komercial me qira",
+        "params": {
+          "type": "commercial",
+          "status": "rent"
+        },
+        "keywords": "biznes zyre dyqan"
+      }
+    ]
   }
 }

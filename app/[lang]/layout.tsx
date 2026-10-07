@@ -8,6 +8,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import MotionProvider from "@/components/layout/MotionProvider";
+import { INTRO_SCRIPT } from "@/components/home/intro-script";
 
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -32,7 +33,12 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   const dict = await getDictionary(lang);
 
   return (
-    <html lang={lang} className={`${gilmer.variable} ${ego.variable} h-full antialiased`}>
+    <html lang={lang} suppressHydrationWarning className={`${gilmer.variable} ${ego.variable} h-full antialiased`}>
+      <head>
+        {/* Homepage logo intro: decides before the first paint whether it plays (sets
+            html[data-intro], hence suppressHydrationWarning above). No-op on other pages. */}
+        <script dangerouslySetInnerHTML={{ __html: INTRO_SCRIPT }} />
+      </head>
       <body className="flex min-h-full flex-col overflow-x-clip">
         <a
           href="#main"

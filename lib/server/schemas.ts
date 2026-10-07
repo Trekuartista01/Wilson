@@ -1,7 +1,7 @@
 import "server-only";
 import { z } from "zod";
 import { locales } from "@/i18n/config";
-import { propertyFeatures, propertyStatuses, propertyTypes, zones } from "@/data/properties";
+import { amenities, propertyFeatures, propertyStatuses, propertyTypes, zones } from "@/data/properties";
 
 /**
  * Server-side validation for everything the API accepts. Client-side checks are only UX;
@@ -31,7 +31,7 @@ const zoneSlugs = zones.map((z) => z.slug) as [string, ...string[]];
 
 // ---------- Contact form ----------
 
-export const contactSubjects = ["general", "buying", "selling", "investment"] as const;
+export const contactSubjects = ["buying", "viewing", "investment", "general"] as const;
 
 export const contactSchema = z.strictObject({
   name: line(100),
@@ -44,6 +44,12 @@ export const contactSchema = z.strictObject({
     .optional()
     .transform((v) => v || undefined),
   subject: z.enum(contactSubjects),
+  /** Listing slug picked in the "Property" select (optional); the route checks it is a published listing. */
+  property: z
+    .string()
+    .regex(/^([a-z0-9-]{1,120})?$/)
+    .optional()
+    .transform((v) => v || undefined),
   message: text(10, 3000),
   consent: z.literal(true),
   locale: localeEnum,
@@ -52,26 +58,6 @@ export const contactSchema = z.strictObject({
 });
 
 export type ContactInput = z.infer<typeof contactSchema>;
-
-// ---------- Property enquiry (contact card on a listing page) ----------
-
-export const inquirySchema = z.strictObject({
-  /** Listing slug; the route checks it is a published listing. */
-  property: z.string().regex(/^[a-z0-9-]{1,120}$/),
-  name: line(100),
-  phone: z
-    .string()
-    .trim()
-    .min(6)
-    .max(30)
-    .regex(/^[0-9+()\s.-]+$/, "Invalid phone number"),
-  message: text(1, 3000),
-  locale: localeEnum,
-  /** Honeypot: hidden from people, bots fill it in. Must be empty. */
-  website: z.string().max(200).optional(),
-});
-
-export type InquiryInput = z.infer<typeof inquirySchema>;
 
 // ---------- Admin login ----------
 
@@ -100,6 +86,13 @@ export const propertySchema = z.strictObject({
   lng: z.number().min(-180).max(180),
   municipality: line(80),
   feature: z.enum(propertyFeatures),
+  /** "Afër": amenities close by, each at most once. */
+  nearby: z
+    .array(z.enum(amenities))
+    .max(amenities.length)
+    .transform((list) => [...new Set(list)]),
+  /** Metres to each close-by place, optional per place (up to 500 km). */
+  nearbyDistances: z.partialRecord(z.enum(amenities), z.number().int().min(1).max(500_000)),
   featured: z.boolean(),
   published: z.boolean(),
 });

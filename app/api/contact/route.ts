@@ -1,4 +1,5 @@
 import { getDictionary } from "@/i18n/dictionaries";
+import { getPublishedProperty } from "@/lib/server/catalog";
 import { route } from "@/lib/server/errors";
 import { escapeHtml, sendContactMail } from "@/lib/server/mail";
 import { rateLimit } from "@/lib/server/rate-limit";
@@ -20,12 +21,15 @@ export const POST = route(async (request) => {
   // Subject labels in Albanian: the office reads the inbox in Albanian whatever the site language.
   const labels = (await getDictionary("sq")).contactPage.form;
   const subjectLabel = labels.subjects[input.subject];
+  // Only a published listing is named in the email; any other slug is ignored.
+  const property = input.property ? await getPublishedProperty(input.property) : null;
 
   const rows: [string, string][] = [
     [labels.name, input.name],
     [labels.email, input.email],
     [labels.phone, input.phone ?? "-"],
     [labels.subject, subjectLabel],
+    ...(property ? [[labels.property, `${property.title.sq} (${property.reference})`] as [string, string]] : []),
     ["Gjuha e faqes", input.locale.toUpperCase()],
   ];
 

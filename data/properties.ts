@@ -26,6 +26,17 @@ export type PriceRange = "lt100k" | "100k-250k" | "gt250k";
 export type SortOrder = "newest" | "priceAsc" | "priceDesc" | "areaDesc";
 /** "Cilësi shtesë" on the detail page: the listing's standout extra. Translated in the dictionaries. */
 export type PropertyFeature = "seaView" | "roadAccess" | "buildingPermit" | "utilities" | "flatTerrain" | "cityView";
+/** "Afër" filter: what is within easy reach of the listing. Translated in the dictionaries (`amenities`). */
+export type Amenity =
+  | "beach"
+  | "supermarket"
+  | "restaurant"
+  | "hospital"
+  | "pharmacy"
+  | "school"
+  | "cityCentre"
+  | "publicTransport"
+  | "airport";
 
 export type Property = {
   slug: string;
@@ -44,6 +55,16 @@ export type Property = {
   /** Municipality (Komuna). A proper name, the same in every language. */
   municipality: string;
   feature: PropertyFeature;
+  /** What is close by (beach, shops, hospital...). Set in the admin panel; empty if not filled in. */
+  nearby: Amenity[];
+  /** How far each close-by place is, in metres (only for some of `nearby`). */
+  nearbyDistances: NearbyDistances;
+  /**
+   * The nearest real place of each kind (beach, supermarket, hospital, town, airport...),
+   * looked up on OpenStreetMap from the pin when the listing is saved (lib/nearby-lookup.ts).
+   * Empty until the lookup has run; the page then falls back to `nearby`.
+   */
+  nearbyPlaces: NearbyPlace[];
   /** Last update, ISO date. */
   updatedAt: string;
   /** Photos in display order (Supabase Storage). Empty: the gray placeholder is shown. */
@@ -51,6 +72,68 @@ export type Property = {
 };
 
 export type PropertyImage = { url: string; width: number; height: number };
+
+export type NearbyDistances = Partial<Record<Amenity, number>>;
+
+/** One looked-up place: its kind, OpenStreetMap name (if any), position and straight-line distance. */
+export type NearbyPlace = {
+  amenity: Amenity;
+  /** Local name; `names` has the English/German ones where OpenStreetMap has them. */
+  name: string | null;
+  names?: Partial<Record<"sq" | "en" | "de", string>>;
+  lat: number;
+  lng: number;
+  metres: number;
+};
+
+/**
+ * How far a looked-up place may be for the listing to count as "close by" it in the "Afër"
+ * filter (straight line, metres). The Location section shows the nearest one whatever the distance.
+ */
+export const nearThreshold: Record<Amenity, number> = {
+  beach: 3000,
+  supermarket: 2000,
+  restaurant: 2000,
+  hospital: 15000,
+  pharmacy: 3000,
+  school: 3000,
+  cityCentre: 10000,
+  publicTransport: 1000,
+  airport: 60000,
+};
+
+/** The listing is close to this kind of place: ticked in the admin, or found within `nearThreshold`. */
+export function isNear(p: Pick<Property, "nearby" | "nearbyPlaces">, amenity: Amenity): boolean {
+  return p.nearby.includes(amenity) || p.nearbyPlaces.some((n) => n.amenity === amenity && n.metres <= nearThreshold[amenity]);
+}
+
+/** The stored `nearby_places` jsonb, cleaned up; anything malformed is dropped. */
+export function readNearbyPlaces(value: unknown): NearbyPlace[] {
+  if (!Array.isArray(value)) return [];
+  const out: NearbyPlace[] = [];
+  for (const v of value) {
+    if (!v || typeof v !== "object") continue;
+    const o = v as Record<string, unknown>;
+    if (!amenities.includes(o.amenity as Amenity)) continue;
+    if (![o.lat, o.lng, o.metres].every((n) => typeof n === "number" && Number.isFinite(n))) continue;
+    const names: NearbyPlace["names"] = {};
+    if (o.names && typeof o.names === "object") {
+      for (const l of ["sq", "en", "de"] as const) {
+        const n = (o.names as Record<string, unknown>)[l];
+        if (typeof n === "string" && n) names[l] = n.slice(0, 120);
+      }
+    }
+    out.push({
+      amenity: o.amenity as Amenity,
+      name: typeof o.name === "string" && o.name ? o.name.slice(0, 120) : null,
+      names,
+      lat: o.lat as number,
+      lng: o.lng as number,
+      metres: Math.round(o.metres as number),
+    });
+  }
+  return out.sort((a, b) => amenities.indexOf(a.amenity) - amenities.indexOf(b.amenity));
+}
 
 export type Zone = {
   slug: ZoneSlug;
@@ -80,6 +163,37 @@ export const areaRanges: AreaRange[] = ["lt1000", "1000-5000", "gt5000"];
 export const priceRanges: PriceRange[] = ["lt100k", "100k-250k", "gt250k"];
 export const sortOrders: SortOrder[] = ["newest", "priceAsc", "priceDesc", "areaDesc"];
 export const propertyFeatures: PropertyFeature[] = ["seaView", "roadAccess", "buildingPermit", "utilities", "flatTerrain", "cityView"];
+export const amenities: Amenity[] = [
+  "beach",
+  "supermarket",
+  "restaurant",
+  "hospital",
+  "pharmacy",
+  "school",
+  "cityCentre",
+  "publicTransport",
+  "airport",
+];
+
+/**
+ * The "close by" columns as stored (nearby text[], nearby_distances jsonb), cleaned up: unknown
+ * keys dropped, distances kept only for listed places and only as whole positive metres.
+ * Both columns are missing until their migrations run; that reads as "nothing close by".
+ */
+export function readNearby(
+  nearby: unknown,
+  distances: unknown,
+): { nearby: Amenity[]; nearbyDistances: NearbyDistances } {
+  const list = Array.isArray(nearby) ? nearby.filter((a): a is Amenity => amenities.includes(a as Amenity)) : [];
+  const nearbyDistances: NearbyDistances = {};
+  if (distances && typeof distances === "object") {
+    for (const a of list) {
+      const m = (distances as Record<string, unknown>)[a];
+      if (typeof m === "number" && Number.isFinite(m) && m > 0) nearbyDistances[a] = Math.round(m);
+    }
+  }
+  return { nearby: list, nearbyDistances };
+}
 
 export function getZone(slug: ZoneSlug): Zone {
   const zone = zones.find((z) => z.slug === slug);
@@ -106,10 +220,14 @@ export type PropertyFilters = {
   area?: string;
   status?: string;
   price?: string;
+  /** Amenity the listing must be close to ("Afër"). */
+  near?: string;
+  /** Free text from the navbar search, matched by lib/property-search.ts (needs the labels of a language). */
+  q?: string;
   sort?: string;
 };
 
-/** Filters and sorts listings by the search query params. Unknown values are ignored. */
+/** Filters and sorts listings by the search query params. Unknown values are ignored; `q` is applied separately (lib/property-search.ts). */
 export function filterProperties(list: Property[], filters: PropertyFilters): Property[] {
   const results = list.filter((p) => {
     if (filters.zone && zones.some((z) => z.slug === filters.zone) && p.zone !== filters.zone) return false;
@@ -117,6 +235,7 @@ export function filterProperties(list: Property[], filters: PropertyFilters): Pr
     if (filters.status && propertyStatuses.includes(filters.status as PropertyStatus) && p.status !== filters.status) return false;
     if (filters.area && areaRanges.includes(filters.area as AreaRange) && !inAreaRange(p.areaSqm, filters.area as AreaRange)) return false;
     if (filters.price && priceRanges.includes(filters.price as PriceRange) && !inPriceRange(p.price, filters.price as PriceRange)) return false;
+    if (filters.near && amenities.includes(filters.near as Amenity) && !isNear(p, filters.near as Amenity)) return false;
     return true;
   });
   return sortProperties(results, filters.sort);

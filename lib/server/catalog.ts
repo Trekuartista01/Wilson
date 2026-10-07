@@ -2,7 +2,7 @@ import "server-only";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { unstable_cache } from "next/cache";
 import type { Locale } from "@/i18n/config";
-import { zones, type Localized, type Property } from "@/data/properties";
+import { readNearby, readNearbyPlaces, zones, type Localized, type Property } from "@/data/properties";
 import { supabasePublicEnv } from "./env";
 import { withExamplePhotos } from "./example-photos";
 
@@ -37,6 +37,11 @@ type Row = {
   lng: number;
   municipality: string;
   feature: Property["feature"];
+  /** Missing until migrations 20261005120000_nearby.sql / 20261005140000_nearby_distances.sql have run. */
+  nearby?: unknown;
+  nearby_distances?: unknown;
+  /** Missing until migration 20261006120000_nearby_places.sql has run. */
+  nearby_places?: unknown;
   featured: boolean;
   updated_at: string;
   property_translations: { locale: Locale; title: string; description: string }[];
@@ -68,6 +73,8 @@ function toProperty(row: Row): Property {
     featured: row.featured,
     municipality: row.municipality,
     feature: row.feature,
+    ...readNearby(row.nearby, row.nearby_distances),
+    nearbyPlaces: readNearbyPlaces(row.nearby_places),
     updatedAt: row.updated_at,
     images: row.property_images
       .toSorted((a, b) => a.position - b.position)
@@ -79,7 +86,9 @@ async function fetchPublishedProperties(): Promise<Property[]> {
   const { data, error } = await publicClient()
     .from("properties")
     .select(
-      `slug, reference, zone, type, status, area_sqm, price, lat, lng, municipality, feature, featured, updated_at,
+      // "*" rather than a column list, so the "nearby" column is read once it exists and the
+      // page still works before its migration has run.
+      `*,
        property_translations ( locale, title, description ),
        property_images ( storage_path, width, height, position )`,
     )

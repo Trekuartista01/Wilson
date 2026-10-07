@@ -38,7 +38,13 @@
     "closeMenu": "Menü schließen",
     "language": "Sprache",
     "skipToContent": "Zum Inhalt springen",
-    "mainNavigation": "Hauptnavigation"
+    "mainNavigation": "Hauptnavigation",
+    "search": "Immobilien suchen",
+    "searchPlaceholder": "Grundstücke, Regionen, Strandnähe suchen…",
+    "searchClose": "Suche schließen",
+    "searchFor": "Nach „{query}“ suchen",
+    "searchSuggestions": "Suchvorschläge",
+    "searchOpen": "Suche öffnen"
   },
   "common": {
     "imagePlaceholder": "Bildplatzhalter",
@@ -85,48 +91,86 @@
       "priceDesc": "Preis: absteigend",
       "areaDesc": "Größte Fläche"
     },
-    "more": "Mehr"
+    "more": "Mehr",
+    "near": "In der Nähe"
   },
   "home": {
     "banner": {
-      "eyebrow": "Wilson Real Estate",
-      "title": "Wo Investition auf Meer und Berge trifft.",
-      "cta": "Finden Sie Ihre Immobilie"
+      "lines": ["Wo Investition", "auf Meer", "und Berge trifft."],
+      "highlight": 1
     },
     "featured": {
-      "eyebrow": "Immobilien",
-      "title": "Ausgewählte Immobilien",
-      "viewAll": "Alle Immobilien ansehen"
+      "eyebrow": "Ausgewählte Immobilien",
+      "viewAll": "Alle anzeigen",
+      "view": "Immobilie ansehen",
+      "previous": "Vorherige Immobilie",
+      "next": "Nächste Immobilie",
+      "show": "Anzeigen: {title}"
     },
     "about": {
       "eyebrow": "Über Wilson",
-      "title": "Immobilien mit Sinn. Investitionen mit Bestand.",
-      "text": "Wilson findet, prüft und verwaltet Immobilien mit Investitionspotenzial in den Küsten- und Stadtregionen Albaniens — mit Transparenz bei jedem Schritt.",
-      "cta": "Über Wilson"
+      "statement": "Immobilien mit Sinn. Investitionen mit Bestand. Wir finden, prüfen und besitzen Grundstücke mit echtem Potenzial in ganz Albanien.",
+      "stats": [
+        {
+          "value": "25+",
+          "label": "Verfügbare Immobilien"
+        },
+        {
+          "value": "6",
+          "label": "Küsten- und Stadtregionen"
+        },
+        {
+          "value": "0",
+          "label": "Zwischenhändler — Wilson besitzt, was es verkauft"
+        }
+      ],
+      "statsLink": "Immobilien ansehen"
     },
     "zones": {
-      "eyebrow": "Regionen",
-      "title": "Wo unsere Immobilien liegen",
+      "eyebrow": "Lage der Regionen",
+      "title": "Grundstücke, auf denen Ihr nächstes Kapitel beginnt",
       "count": "{count} Immobilien",
-      "comingSoon": "demnächst"
+      "comingSoon": "demnächst",
+      "caption": "Immobilien in {zone}",
+      "details": "Details",
+      "viewAll": "Alle Immobilien ansehen",
+      "previous": "Vorherige Region",
+      "next": "Nächste Region"
+    },
+    "why": {
+      "eyebrow": "Warum Wilson",
+      "lines": ["Lokale Kenntnis.", "Geprüfte Titel.", "Echte Chancen.", "Langfristiger Wert."],
+      "learnMore": "Mehr erfahren"
     },
     "process": {
       "statement": "Wir bieten nicht einfach Immobilien. Wir bieten analysierte, geprüfte und strukturierte Chancen.",
       "stepImage": "Bild zu Schritt {number}",
       "steps": [
-        { "title": "Kenntnis des lokalen Marktes", "text": "Detaillierte Marktanalyse und strategische Auswahl von Immobilien." },
-        { "title": "Prüfung der Immobilie", "text": "Vollständige rechtliche Prüfung und sichere Dokumentation." },
-        { "title": "Investitionsmöglichkeiten", "text": "Reale und sichere Investitionsmöglichkeiten auf dem albanischen Immobilienmarkt." },
-        { "title": "Transparenz", "text": "Klare Kommunikation mit jedem Kunden, in jeder Phase." },
-        { "title": "Langfristiger Wert", "text": "Fokus auf Wertsteigerung und langfristige Entwicklung." },
-        { "title": "Begleitung bis zum Schluss", "text": "Vollständige Betreuung des Prozesses vom Erstkontakt bis zum Abschluss." }
+        {
+          "title": "Kenntnis des lokalen Marktes",
+          "text": "Detaillierte Marktanalyse und strategische Auswahl von Immobilien."
+        },
+        {
+          "title": "Prüfung der Immobilie",
+          "text": "Vollständige rechtliche Prüfung und sichere Dokumentation."
+        },
+        {
+          "title": "Investitionsmöglichkeiten",
+          "text": "Reale und sichere Investitionsmöglichkeiten auf dem albanischen Immobilienmarkt."
+        },
+        {
+          "title": "Transparenz",
+          "text": "Klare Kommunikation mit jedem Kunden, in jeder Phase."
+        },
+        {
+          "title": "Langfristiger Wert",
+          "text": "Fokus auf Wertsteigerung und langfristige Entwicklung."
+        },
+        {
+          "title": "Begleitung bis zum Schluss",
+          "text": "Vollständige Betreuung des Prozesses vom Erstkontakt bis zum Abschluss."
+        }
       ]
-    },
-    "services": {
-      "eyebrow": "Was bieten wir?",
-      "title": "Wilson Leistungen",
-      "text": "Vier Leistungen, ein Standard: Transparenz und klare Kommunikation mit jedem Kunden, vom Erstkontakt bis zum Abschluss.",
-      "viewAll": "Alle Leistungen"
     },
     "cta": {
       "eyebrow": "Warum Wilson Real Estate?",
@@ -136,10 +180,26 @@
     }
   },
   "services": [
-    { "slug": "sales", "title": "Immobilienverkauf", "text": "Geprüfte Immobilien an der Küste, mit vollständigen Unterlagen und einem transparenten Ablauf." },
-    { "slug": "purchase", "title": "Immobilienkauf", "text": "Suche und Prüfung der passenden Immobilie nach den Wünschen des Käufers." },
-    { "slug": "development", "title": "Entwicklung und Bau", "text": "Partnerschaften mit Investoren und Bauträgern bei Bauprojekten." },
-    { "slug": "consulting", "title": "Investitionsberatung", "text": "Marktanalyse und strategische Auswahl für Investoren." }
+    {
+      "slug": "sales",
+      "title": "Immobilienverkauf",
+      "text": "Geprüfte Immobilien an der Küste, mit vollständigen Unterlagen und einem transparenten Ablauf."
+    },
+    {
+      "slug": "purchase",
+      "title": "Immobilienkauf",
+      "text": "Suche und Prüfung der passenden Immobilie nach den Wünschen des Käufers."
+    },
+    {
+      "slug": "development",
+      "title": "Entwicklung und Bau",
+      "text": "Partnerschaften mit Investoren und Bauträgern bei Bauprojekten."
+    },
+    {
+      "slug": "consulting",
+      "title": "Investitionsberatung",
+      "text": "Marktanalyse und strategische Auswahl für Investoren."
+    }
   ],
   "propertiesPage": {
     "title": "Grundstücke und Immobilien in Albanien",
@@ -151,7 +211,9 @@
     "filtersLabel": "Immobilien filtern",
     "showMore": "Mehr anzeigen",
     "previous": "Zurück",
-    "showing": "{from}–{to} von {count} Immobilien"
+    "showing": "{from}–{to} von {count} Immobilien",
+    "searchChip": "„{query}“",
+    "clearSearch": "Suche „{query}“ entfernen"
   },
   "property": {
     "description": "Beschreibung",
@@ -171,8 +233,6 @@
     "ari": "{count} Ar",
     "similar": "Ähnliche Immobilien",
     "gallery": "Bildergalerie",
-    "showPhotos": "Fotos",
-    "showMap": "Karte",
     "previous": "Vorheriges Bild",
     "next": "Nächstes Bild",
     "photo": "Foto {n} von {total}",
@@ -191,7 +251,15 @@
       "invalid": "Bitte prüfen Sie die markierten Felder und versuchen Sie es erneut.",
       "rateLimited": "Sie haben zu viele Anfragen gesendet. Bitte versuchen Sie es in einigen Minuten erneut.",
       "error": "Ihre Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder rufen Sie uns an."
-    }
+    },
+    "contact": "Wilson kontaktieren",
+    "detailsPrevious": "Vorherige Details",
+    "detailsNext": "Weitere Details",
+    "detailsPage": "Details {n} von {total}",
+    "locationTitle": "Nah am Meer, nah an der Stadt.",
+    "openInMaps": "In Google Maps öffnen",
+    "satelliteLabel": "Satellitenansicht der Lage",
+    "nearbySource": "Jeweils das nächstgelegene, Luftlinie, laut OpenStreetMap."
   },
   "servicesPage": {
     "eyebrow": "Leistungen",
@@ -202,44 +270,81 @@
   "aboutPage": {
     "eyebrow": "Über Wilson",
     "title": "Unsere Philosophie",
-    "intro": "Wilson Real Estate & Construction findet, prüft und verwaltet Immobilien mit Investitionspotenzial in den Küsten- und Stadtregionen Albaniens, für Käufer aus dem Kosovo, der Region, der Diaspora und internationale Investoren.",
+    "introTitle": "Wilson Real Estate",
+    "intro": "ist ein Unternehmen, das sich auf Immobilien und Investitionsmöglichkeiten im Norden Albaniens konzentriert, vor allem in Tale, Shëngjin und Kunë — Immobilien nahe der Adriaküste, geeignet für die Eigennutzung ebenso wie für Wohn-, Tourismus- und Gewerbeprojekte und langfristige Investitionen.",
     "approachTitle": "Unser Ansatz",
     "approach": ["Marktanalyse", "Rechtliche Prüfung", "Prozessmanagement", "Transparenz"],
     "strengthEyebrow": "Unsere Stärke",
     "strengthTitle": "Direkter Eigentümer, kein Vermittler.",
-    "strengthText": "Wilson ist direkter Eigentümer der angebotenen Immobilien. Das erspart Zwischenhändler und macht den Ablauf für Käufer klarer, transparenter und sicherer — mit genauerer Kenntnis der Immobilie, ihrer Unterlagen und ihres Umfelds.",
+    "strengthText": "Wilsons größte Stärke ist die direkte Beziehung zur Immobilie. Wilson ist direkter Eigentümer der angebotenen Immobilien. Das erspart Zwischenhändler und macht den Ablauf für Käufer klarer, transparenter und sicherer — mit genauerer Kenntnis der Immobilie, ihrer Unterlagen und ihres Umfelds.",
+    "strengthLink": "Immobilien ansehen",
     "missionEyebrow": "Mission & Vision",
     "missionTitle": "Mission",
-    "missionText": "Echte, sichere Investitionsmöglichkeiten bieten, Kunden mit Immobilien mit Potenzial zusammenbringen und einen neuen Standard an Professionalität auf dem albanischen Immobilienmarkt setzen.",
+    "missionHeading": "Eine Immobilie ist nicht nur eine Fläche zum Verkauf, sondern eine Chance mit Potenzial.",
+    "missionText": "Wir finden und präsentieren Immobilien mit langfristigem Wert und berücksichtigen Lage, Meeresnähe, Entwicklungsmöglichkeiten und einen sicheren Ablauf.",
     "visionTitle": "Vision",
-    "visionText": "Ein Investitionsportfolio mit langfristiger Wirkung aufbauen, bekannt für Qualität, Seriosität und konkrete Ergebnisse, in jeder Region, in der Wilson vertreten ist.",
+    "visionHeading": "Ein Investitionsportfolio mit langfristiger Wirkung.",
+    "visionText": "Bekannt für Qualität, Seriosität und konkrete Ergebnisse, in jeder Region, in der Wilson vertreten ist.",
     "officesTitle": "Büros",
     "offices": [
-      { "name": "Tale, Shëngjin", "address": "Wilson-Komplex" },
-      { "name": "Tirana", "address": "Rruga Pjetër Bogdani, Nr. 351/8270, Blloku, Tirana" },
-      { "name": "Kosovo", "address": "Rruga Agim Ramadani, Nr. 248" }
+      {
+        "name": "Tale, Shëngjin",
+        "address": "Wilson-Komplex"
+      },
+      {
+        "name": "Tirana",
+        "address": "Rruga Pjetër Bogdani, Nr. 351/8270, Blloku, Tirana"
+      },
+      {
+        "name": "Pristina, Kosovo",
+        "address": "Rruga Agim Ramadani, Nr. 248, Pristina"
+      }
     ]
   },
   "contactPage": {
     "eyebrow": "Kontakt",
-    "title": "Wilson kontaktieren",
-    "intro": "Platzhaltertext. Senden Sie uns eine Nachricht, wir melden uns bei Ihnen.",
-    "formTitle": "Nachricht senden",
-    "infoTitle": "Kontaktdaten",
+    "title": "Reden wir über Land.",
+    "intro": "Fragen Sie nach einem Grundstück, vereinbaren Sie eine Besichtigung oder lassen Sie sich beraten, wo Sie investieren sollten. Wir antworten innerhalb eines Werktags — auf Albanisch, Englisch oder Deutsch.",
+    "formTitle": "Schreiben Sie uns",
     "mapLabel": "Karte mit dem Wilson-Büro",
+    "fasterTitle": "Lieber schneller?",
+    "faster": {
+      "call": {
+        "title": "Rufen Sie an",
+        "text": "Sprechen Sie jetzt mit dem Team."
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "text": "Fotos, Fragen, Sprachnachrichten senden.",
+        "action": "Chat öffnen"
+      },
+      "visit": {
+        "title": "Grundstück besichtigen",
+        "text": "Wir fahren Sie zum Grundstück.",
+        "action": "Besichtigung buchen"
+      }
+    },
+    "office": {
+      "eyebrow": "Besuchen Sie unser Büro",
+      "directions": "Route planen",
+      "switchLabel": "Büro wählen"
+    },
     "form": {
       "name": "Vollständiger Name",
-      "email": "E-Mail",
-      "phone": "Telefon (optional)",
-      "subject": "Betreff",
+      "email": "E-Mail-Adresse",
+      "phone": "Telefonnummer",
+      "subject": "Ich interessiere mich für",
       "subjects": {
-        "general": "Allgemeine Frage",
-        "buying": "Immobilie kaufen",
-        "selling": "Immobilie verkaufen",
-        "investment": "Investitionsberatung"
+        "buying": "Grundstückskauf",
+        "viewing": "Eine Besichtigung",
+        "investment": "Investitionsberatung",
+        "general": "Etwas anderes"
       },
+      "property": "Immobilie",
+      "propertyNone": "Keine bestimmte Immobilie",
       "message": "Nachricht",
-      "consent": "Ich bin einverstanden, dass Wilson Real Estate mich zu dieser Anfrage kontaktiert.",
+      "messagePlaceholder": "Wie können wir Ihnen helfen?",
+      "consent": "Ich bin einverstanden, zu meiner Anfrage kontaktiert zu werden.",
       "submit": "Nachricht senden",
       "sending": "Wird gesendet…",
       "success": "Vielen Dank! Ihre Nachricht wurde gesendet. Wir melden uns in Kürze.",
@@ -272,5 +377,102 @@
     "utilities": "Wasser und Strom",
     "flatTerrain": "Ebenes Gelände",
     "cityView": "Stadtblick"
+  },
+  "amenities": {
+    "beach": "Strand",
+    "supermarket": "Geschäfte & Supermarkt",
+    "restaurant": "Restaurants",
+    "hospital": "Krankenhaus / Ambulanz",
+    "pharmacy": "Apotheke",
+    "school": "Schule",
+    "cityCentre": "Stadtzentrum",
+    "publicTransport": "Öffentlicher Verkehr",
+    "airport": "Flughafen"
+  },
+  "searchSuggestions": {
+    "inZone": "Immobilien in {zone}",
+    "near": "In der Nähe: {place}",
+    "groups": {
+      "popular": "Beliebte Suchen",
+      "zones": "Regionen",
+      "types": "Art",
+      "nearby": "In der Nähe",
+      "budget": "Preis und Größe"
+    },
+    "amenityKeywords": {
+      "beach": "meer kuste kueste see",
+      "supermarket": "laden einkaufen markt",
+      "restaurant": "essen cafe bar",
+      "hospital": "arzt notaufnahme klinik gesundheit ambulanz",
+      "pharmacy": "medikamente",
+      "school": "kindergarten bildung kinder",
+      "cityCentre": "innenstadt zentrum",
+      "publicTransport": "bus haltestelle bahnhof",
+      "airport": "fluge fluege"
+    },
+    "popular": [
+      {
+        "label": "Grundstück in Strandnähe",
+        "params": {
+          "type": "land",
+          "near": "beach"
+        },
+        "keywords": "meer kuste"
+      },
+      {
+        "label": "Grundstück mit Meerblick",
+        "params": {
+          "type": "land",
+          "q": "Meerblick"
+        },
+        "keywords": "panorama meer"
+      },
+      {
+        "label": "Baugrundstück in Tirana",
+        "params": {
+          "zone": "tirana",
+          "type": "residential"
+        },
+        "keywords": "haus bauen wohnen"
+      },
+      {
+        "label": "Grundstück in Tale",
+        "params": {
+          "zone": "tale",
+          "type": "land"
+        },
+        "keywords": "lezhe kuste"
+      },
+      {
+        "label": "Grundstück unter 100.000 €",
+        "params": {
+          "type": "land",
+          "price": "lt100k"
+        },
+        "keywords": "gunstig budget preiswert"
+      },
+      {
+        "label": "Große Grundstücke über 5.000 m²",
+        "params": {
+          "area": "gt5000"
+        },
+        "keywords": "investition hektar"
+      },
+      {
+        "label": "Grundstück mit Baugenehmigung",
+        "params": {
+          "q": "Baugenehmigung"
+        },
+        "keywords": "genehmigung bauen"
+      },
+      {
+        "label": "Gewerbefläche zu vermieten",
+        "params": {
+          "type": "commercial",
+          "status": "rent"
+        },
+        "keywords": "geschaft buro laden"
+      }
+    ]
   }
 }

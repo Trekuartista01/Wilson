@@ -36,7 +36,7 @@ export default function Card({
   return (
     <Link
       href={href}
-      className="group flex h-full flex-col overflow-hidden rounded-lg bg-surface-card shadow-[0_4px_24px_rgba(0,0,0,0.06)] ring-1 ring-line transition-shadow hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary"
+      className="group flex h-full flex-col overflow-hidden rounded-tr-card rounded-bl-card bg-surface-listing shadow-[0_4px_24px_rgba(0,0,0,0.06)] ring-1 ring-line transition-shadow hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary"
     >
       {imageUrl ? (
         <div className="relative aspect-[3/2] overflow-hidden bg-placeholder">
@@ -69,7 +69,7 @@ export default function Card({
           </div>
         )}
         <div className="mt-auto pt-4">
-          <span className="inline-flex min-h-9 min-w-24 items-center justify-center rounded bg-brand-brown px-6 text-xs text-surface">
+          <span className="inline-flex min-h-10 min-w-24 items-center justify-center rounded-tr-btn rounded-bl-btn bg-ink px-6 text-xs tracking-[0.08em] text-surface uppercase transition-colors group-hover:bg-brand-accent group-hover:text-ink">
             {buttonLabel}
           </span>
         </div>

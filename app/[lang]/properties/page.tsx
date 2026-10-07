@@ -30,6 +30,9 @@ export default async function Page({ params, searchParams }: PageProps<"/[lang]/
     status: first(query.status),
     area: first(query.area),
     price: first(query.price),
+    near: first(query.near),
+    // Free text from the navbar search; capped like the field itself.
+    q: first(query.q)?.trim().slice(0, 100) || undefined,
     sort: first(query.sort),
   };
 

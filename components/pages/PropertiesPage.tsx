@@ -2,6 +2,7 @@ import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { format, localePath, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import {
+  amenities,
   areaRanges,
   filterProperties,
   getZone,
@@ -14,6 +15,7 @@ import {
 } from "@/data/properties";
 import { formatArea } from "@/lib/format";
 import { getPublishedProperties } from "@/lib/server/catalog";
+import { searchProperties } from "@/lib/property-search";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import Map from "@/components/map/Map";
@@ -43,7 +45,7 @@ export default async function PropertiesPage({ lang, dict, filters, page: reques
   const t = dict.propertiesPage;
   const s = dict.search;
   const action = localePath(lang, "/properties");
-  const results = filterProperties(await getPublishedProperties(), filters);
+  const results = searchProperties(filterProperties(await getPublishedProperties(), filters), filters.q, dict);
   const pageCount = Math.max(1, Math.ceil(results.length / PAGE_SIZE));
   const page = Math.min(requestedPage, pageCount); // e.g. an old link after listings were removed
   const from = (page - 1) * PAGE_SIZE;
@@ -70,6 +72,7 @@ export default async function PropertiesPage({ lang, dict, filters, page: reques
       options: propertyStatuses.map((v) => ({ value: v, label: dict.propertyStatus[v] })),
     },
     { name: "area", label: s.area, placeholder: s.all, options: areaRanges.map((v) => ({ value: v, label: s.areaRanges[v] })) },
+    { name: "near", label: s.near, placeholder: s.all, options: amenities.map((v) => ({ value: v, label: dict.amenities[v] })) },
   ];
   const moreFields: FilterField[] = [
     { name: "price", label: s.price, placeholder: s.all, options: priceRanges.map((v) => ({ value: v, label: s.priceRanges[v] })) },
@@ -98,6 +101,9 @@ export default async function PropertiesPage({ lang, dict, filters, page: reques
           values={filters}
           moreLabel={s.more}
           resetLabel={t.reset}
+          query={filters.q}
+          queryLabel={filters.q ? format(t.searchChip, { query: filters.q }) : ""}
+          clearQueryLabel={filters.q ? format(t.clearSearch, { query: filters.q }) : ""}
           ariaLabel={t.filtersLabel}
         />
 
@@ -114,7 +120,8 @@ export default async function PropertiesPage({ lang, dict, filters, page: reques
               loadingLabel={dict.map.loading}
               markers={markers}
               fitAlbania
-              className="h-72 rounded-xl sm:h-96 lg:h-(--listing-h)"
+              tiles="dark"
+              className="h-72 rounded-tr-card rounded-bl-card sm:h-96 lg:h-(--listing-h)"
             />
           </div>
 

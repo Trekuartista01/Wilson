@@ -2,8 +2,9 @@
 
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import { useEffect } from "react";
 import Link from "next/link";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 
 export type MapMarker = {
   id: string;
@@ -13,6 +14,8 @@ export type MapMarker = {
   subtitle?: string;
   href?: string;
   linkLabel?: string;
+  /** "place": a small dot for a close-by place around the listing's pin (property page). */
+  variant?: "pin" | "place";
 };
 
 export type LeafletMapProps = {
@@ -21,6 +24,32 @@ export type LeafletMapProps = {
   fitAlbania?: boolean;
   center?: [number, number];
   zoom?: number;
+  /** Map style: dark (default, every map on the site since 2026-10-06), satellite photos, or plain OpenStreetMap streets. */
+  tiles?: "street" | "satellite" | "dark";
+  /** Open the first pin's popup as soon as the map loads (property page). */
+  openPopup?: boolean;
+};
+
+// TODO before launch: OSM's public tiles are fine for development but not meant for a busy
+// commercial site; pick a tile plan (MapTiler, Stadia, Carto...) for production.
+// "dark" is the same OSM map with its colours inverted (.map-tiles-dark in globals.css),
+// so it needs no extra provider or key.
+const TILES = {
+  street: {
+    url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    className: "",
+  },
+  satellite: {
+    url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    attribution: "Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+    className: "",
+  },
+  dark: {
+    url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    className: "map-tiles-dark",
+  },
 };
 
 // Albania's bounding box (SW, NE), with a little padding.
@@ -39,10 +68,25 @@ const pinIcon = L.divIcon({
   popupAnchor: [0, -34],
 });
 
-export default function LeafletMap({ markers, fitAlbania = false, center, zoom = 13 }: LeafletMapProps) {
-  const view = fitAlbania
-    ? { bounds: ALBANIA_BOUNDS }
-    : { center: center ?? [markers[0]?.lat ?? 41.33, markers[0]?.lng ?? 19.82], zoom };
+// Close-by places (beach, shop, hospital...): a small white dot, so the listing's pin stands out.
+const placeIcon = L.divIcon({
+  className: "",
+  html: '<span class="map-dot"></span>',
+  iconSize: [14, 14],
+  iconAnchor: [7, 7],
+  popupAnchor: [0, -8],
+});
+
+export default function LeafletMap({
+  markers,
+  fitAlbania = false,
+  center,
+  zoom = 13,
+  tiles = "dark",
+  openPopup = false,
+}: LeafletMapProps) {
+  const target: [number, number] = center ?? [markers[0]?.lat ?? 41.33, markers[0]?.lng ?? 19.82];
+  const view = fitAlbania ? { bounds: ALBANIA_BOUNDS } : { center: target, zoom };
 
   return (
     <MapContainer
@@ -53,14 +97,18 @@ export default function LeafletMap({ markers, fitAlbania = false, center, zoom =
       dragging={!L.Browser.mobile}
       style={{ position: "absolute", inset: 0 }}
     >
-      {/* TODO: OSM's public tiles are fine for development; pick a tile provider
-          (MapTiler, Stadia, Carto...) with a proper plan before launch. */}
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {markers.map((m) => (
-        <Marker key={m.id} position={[m.lat, m.lng]} icon={pinIcon} title={m.title} alt={m.title}>
+      <TileLayer key={tiles} {...TILES[tiles]} />
+      {!fitAlbania && <FollowCenter lat={target[0]} lng={target[1]} zoom={zoom} />}
+      {markers.map((m, i) => (
+        <Marker
+          key={m.id}
+          position={[m.lat, m.lng]}
+          icon={m.variant === "place" ? placeIcon : pinIcon}
+          title={m.title}
+          alt={m.title}
+          // "add" fires once, when the pin is placed on the map.
+          eventHandlers={openPopup && i === 0 ? { add: (e) => e.target.openPopup() } : undefined}
+        >
           <Popup>
             <strong className="block text-sm">{m.title}</strong>
             {m.subtitle && <span className="mt-0.5 block text-xs text-ink-muted">{m.subtitle}</span>}
@@ -74,4 +122,17 @@ export default function LeafletMap({ markers, fitAlbania = false, center, zoom =
       ))}
     </MapContainer>
   );
+}
+
+// MapContainer only reads center/zoom once; this moves the view when they change later
+// (the contact page's office switch). Pans when the target is close, jumps when it is not.
+function FollowCenter({ lat, lng, zoom }: { lat: number; lng: number; zoom: number }) {
+  const map = useMap();
+  useEffect(() => {
+    const current = map.getCenter();
+    if (current.lat === lat && current.lng === lng) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    map.setView([lat, lng], zoom, { animate: !reduce });
+  }, [map, lat, lng, zoom]);
+  return null;
 }

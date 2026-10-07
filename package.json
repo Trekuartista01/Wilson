@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "hash-password": "node scripts/hash-password.mjs",
-    "seed:demo": "tsx scripts/seed/seed-demo.ts"
+    "seed:demo": "tsx scripts/seed/seed-demo.ts",
+    "nearby:refresh": "tsx scripts/nearby-refresh.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.2",
