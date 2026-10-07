@@ -67,17 +67,27 @@ export function mailEnv() {
   };
 }
 
-/** Throws with every missing or invalid setting at once. */
-export function assertServerEnv(): void {
+function problemsIn(checks: (() => unknown)[]): string[] {
   const problems: string[] = [];
-  for (const check of [supabaseEnv, supabasePublicEnv, authEnv, mailEnv]) {
+  for (const check of checks) {
     try {
       check();
     } catch (error) {
       problems.push(error instanceof Error ? error.message : String(error));
     }
   }
-  if (problems.length) {
-    throw new Error(`Invalid server configuration:\n - ${problems.join("\n - ")}`);
-  }
+  return problems;
+}
+
+/**
+ * Every missing or invalid setting, split by impact. `blocking`: the public site can't work
+ * (listings come from Supabase). `degraded`: only the admin login or the contact form fails,
+ * and those fail closed on their own (authEnv / mailEnv throw when used), so the showcase
+ * site can run without them (2026-10-07, team preview on Vercel).
+ */
+export function checkServerEnv(): { blocking: string[]; degraded: string[] } {
+  return {
+    blocking: problemsIn([supabaseEnv, supabasePublicEnv]),
+    degraded: problemsIn([authEnv, mailEnv]),
+  };
 }
