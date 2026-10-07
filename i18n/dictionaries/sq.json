@@ -96,8 +96,9 @@
   },
   "home": {
     "banner": {
-      "lines": ["Aty ku investimi", "takohet me detin", "dhe malin."],
-      "highlight": 1
+      "lead": "Përtej",
+      "highlight": "tokës.",
+      "twoLines": false
     },
     "featured": {
       "eyebrow": "Pronat e veçuara",

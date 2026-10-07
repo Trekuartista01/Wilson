@@ -96,8 +96,9 @@
   },
   "home": {
     "banner": {
-      "lines": ["Where investment", "meets the sea", "and the mountains."],
-      "highlight": 1
+      "lead": "Beyond",
+      "highlight": "Land.",
+      "twoLines": false
     },
     "featured": {
       "eyebrow": "Featured properties",

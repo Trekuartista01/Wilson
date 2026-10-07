@@ -96,8 +96,9 @@
   },
   "home": {
     "banner": {
-      "lines": ["Wo Investition", "auf Meer", "und Berge trifft."],
-      "highlight": 1
+      "lead": "Jenseits des",
+      "highlight": "Landes.",
+      "twoLines": true
     },
     "featured": {
       "eyebrow": "Ausgewählte Immobilien",
