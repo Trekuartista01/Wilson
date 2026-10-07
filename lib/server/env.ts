@@ -33,6 +33,21 @@ export function supabasePublicEnv() {
   };
 }
 
+/**
+ * What's wrong with a bad hash, without revealing it: length and the usual paste mistakes.
+ * A bcrypt hash is 60 characters like $2b$12$..., with no backslashes, quotes or spaces.
+ */
+function describeHash(value: string): string {
+  const issues = [
+    `${value.length} characters (expected 60)`,
+    value.includes("\\") ? "contains a backslash" : "",
+    /["']/.test(value) ? "contains a quote" : "",
+    /\s/.test(value) ? "contains a space or line break" : "",
+    /^\$2[aby]\$/.test(value) ? "" : "does not start with $2a$/$2b$/$2y$",
+  ].filter(Boolean);
+  return `Stored value: ${issues.join(", ")}.`;
+}
+
 export function authEnv() {
   const jwtSecret = required("JWT_SECRET");
   if (jwtSecret.length < 32) {
@@ -40,7 +55,9 @@ export function authEnv() {
   }
   const passwordHash = required("ADMIN_PASSWORD_HASH");
   if (!/^\$2[aby]\$\d{2}\$.{53}$/.test(passwordHash)) {
-    throw new Error("ADMIN_PASSWORD_HASH is not a bcrypt hash (generate one with `npm run hash-password`)");
+    throw new Error(
+      `ADMIN_PASSWORD_HASH is not a bcrypt hash (generate one with \`npm run hash-password\`). ${describeHash(passwordHash)}`,
+    );
   }
   return {
     username: required("ADMIN_USERNAME"),
