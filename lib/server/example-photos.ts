@@ -1,10 +1,10 @@
 import "server-only";
 import type { Property, PropertyImage } from "@/data/properties";
 
-// DEVELOPMENT ONLY. Stand-in photos from public/images/listings, so the site can be previewed
-// with pictures instead of gray boxes. A listing with real photos (uploaded in the admin panel)
-// is left alone, and none of this runs in a production build. To stop using them, delete this
-// file, its call in lib/server/catalog.ts and the public/images/listings folder.
+// PREVIEW ONLY. Stand-in photos from public/images/listings, so the site can be shown with
+// pictures instead of gray boxes. A listing with real photos (uploaded in the admin panel) is
+// left alone. Runs in production too for now (team preview, 2026-10-07): remove before launch
+// by deleting this file, its call in lib/server/catalog.ts and the public/images/listings folder.
 //
 // Photos (2026-10-06): picked from 50 beach + 50 land Unsplash photos (Examples/new images,
 // credits in photo-credits.txt there), resized to 2000 px WebP. Coastal listings get two beach
