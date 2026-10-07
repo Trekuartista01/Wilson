@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { FiArrowRight } from "react-icons/fi";
+import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { format, localePath, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import {
+  amenities,
   areaRanges,
   filterProperties,
   getZone,
@@ -15,38 +15,47 @@ import {
 } from "@/data/properties";
 import { formatArea } from "@/lib/format";
 import { getPublishedProperties } from "@/lib/server/catalog";
+import { searchProperties } from "@/lib/property-search";
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import Map from "@/components/map/Map";
 import FilterBar, { type FilterField } from "@/components/properties/FilterBar";
-import ListingPane from "@/components/properties/ListingPane";
 import PropertyCard from "@/components/properties/PropertyCard";
 
-/** Listings shown at first, and added by each "Shfaq më shumë". */
+/** Listings per page; "Shfaq më shumë" opens the next page. */
 export const PAGE_SIZE = 10;
 
 type PropertiesPageProps = {
   lang: Locale;
   dict: Dictionary;
   filters: PropertyFilters;
-  /** How many listings to show (a multiple of PAGE_SIZE, from ?show=). */
-  show: number;
+  /** Which page of PAGE_SIZE listings to show (1-based, from ?page=). */
+  page: number;
 };
 
 /**
  * Properties list (Figma "Pronat"): filter row, then the listing cards on the left and a map
  * of Albania with every result pinned on the right. On desktop the cards scroll inside a box
- * exactly as tall as the map; "Shfaq më shumë" below it loads the next 10.
+ * exactly as tall as the map; "Shfaq më shumë" below it opens the next 10 (11-20, 21-30, ...).
+ * The page links are plain <a> links, so each page loads fresh and always opens at the very
+ * top: an in-app navigation kept the scroll position, and scrolling back up by script was
+ * unreliable in real browsers.
  */
-export default async function PropertiesPage({ lang, dict, filters, show }: PropertiesPageProps) {
+export default async function PropertiesPage({ lang, dict, filters, page: requestedPage }: PropertiesPageProps) {
   const t = dict.propertiesPage;
   const s = dict.search;
   const action = localePath(lang, "/properties");
-  const results = filterProperties(await getPublishedProperties(), filters);
-  const visible = results.slice(0, show);
+  const results = searchProperties(filterProperties(await getPublishedProperties(), filters), filters.q, dict);
+  const pageCount = Math.max(1, Math.ceil(results.length / PAGE_SIZE));
+  const page = Math.min(requestedPage, pageCount); // e.g. an old link after listings were removed
+  const from = (page - 1) * PAGE_SIZE;
+  const visible = results.slice(from, from + PAGE_SIZE);
 
   const activeFilters = Object.entries(filters).filter(([, v]) => v) as [string, string][];
-  const nextQuery = new URLSearchParams([...activeFilters, ["show", String(show + PAGE_SIZE)]]);
+  const pageHref = (n: number) => {
+    const query = new URLSearchParams(n > 1 ? [...activeFilters, ["page", String(n)]] : activeFilters).toString();
+    return `${action}${query ? `?${query}` : ""}`;
+  };
 
   const fields: FilterField[] = [
     { name: "zone", label: s.zone, placeholder: s.all, options: zones.map((z) => ({ value: z.slug, label: z.name[lang] })) },
@@ -63,6 +72,7 @@ export default async function PropertiesPage({ lang, dict, filters, show }: Prop
       options: propertyStatuses.map((v) => ({ value: v, label: dict.propertyStatus[v] })),
     },
     { name: "area", label: s.area, placeholder: s.all, options: areaRanges.map((v) => ({ value: v, label: s.areaRanges[v] })) },
+    { name: "near", label: s.near, placeholder: s.all, options: amenities.map((v) => ({ value: v, label: dict.amenities[v] })) },
   ];
   const moreFields: FilterField[] = [
     { name: "price", label: s.price, placeholder: s.all, options: priceRanges.map((v) => ({ value: v, label: s.priceRanges[v] })) },
@@ -80,7 +90,7 @@ export default async function PropertiesPage({ lang, dict, filters, show }: Prop
   }));
 
   return (
-    <div className="bg-surface-page">
+    <div>
       <Container className="pt-6 pb-14 sm:pt-10 sm:pb-20 lg:pt-14 lg:pb-28">
         <h1 className="sr-only">{t.title}</h1>
 
@@ -91,6 +101,9 @@ export default async function PropertiesPage({ lang, dict, filters, show }: Prop
           values={filters}
           moreLabel={s.more}
           resetLabel={t.reset}
+          query={filters.q}
+          queryLabel={filters.q ? format(t.searchChip, { query: filters.q }) : ""}
+          clearQueryLabel={filters.q ? format(t.clearSearch, { query: filters.q }) : ""}
           ariaLabel={t.filtersLabel}
         />
 
@@ -107,7 +120,8 @@ export default async function PropertiesPage({ lang, dict, filters, show }: Prop
               loadingLabel={dict.map.loading}
               markers={markers}
               fitAlbania
-              className="h-72 rounded-xl sm:h-96 lg:h-(--listing-h)"
+              tiles="dark"
+              className="h-72 rounded-tr-card rounded-bl-card sm:h-96 lg:h-(--listing-h)"
             />
           </div>
 
@@ -119,10 +133,10 @@ export default async function PropertiesPage({ lang, dict, filters, show }: Prop
             {results.length === 0 ? (
               <p className="rounded-lg bg-surface p-8 text-center text-ink-muted">{t.empty}</p>
             ) : (
-              // Remounts when the filters change, so the box starts back at the top.
-              <ListingPane
+              // Remounts when the filters change, so the box starts back at the top. On desktop it is
+              // exactly as tall as the map and scrolls on its own, so the list never runs past it.
+              <div
                 key={JSON.stringify(filters)}
-                count={visible.length}
                 className="lg:h-(--listing-h) lg:overflow-y-auto lg:overscroll-y-auto lg:pr-2 lg:[scrollbar-width:thin]"
               >
                 <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -132,21 +146,33 @@ export default async function PropertiesPage({ lang, dict, filters, show }: Prop
                     </Reveal>
                   ))}
                 </ul>
-              </ListingPane>
+              </div>
             )}
 
-            {results.length > visible.length && (
+            {pageCount > 1 && (
               <div className="mt-6 flex flex-col items-center gap-1 sm:mt-8">
-                <Link
-                  href={`${action}?${nextQuery}`}
-                  scroll={false}
-                  className="group inline-flex min-h-12 items-center gap-3 px-2 text-lg font-medium"
-                >
-                  {t.showMore}
-                  <FiArrowRight aria-hidden className="size-5 transition-transform group-hover:translate-x-1" />
-                </Link>
+                <div className="flex flex-wrap items-center justify-center gap-x-6">
+                  {page > 1 && (
+                    <a
+                      href={pageHref(page - 1)}
+                      className="group inline-flex min-h-12 items-center gap-2 px-2 text-base text-ink-muted hover:text-ink"
+                    >
+                      <FiArrowLeft aria-hidden className="size-4 transition-transform group-hover:-translate-x-1" />
+                      {t.previous}
+                    </a>
+                  )}
+                  {page < pageCount && (
+                    <a
+                      href={pageHref(page + 1)}
+                      className="group inline-flex min-h-12 items-center gap-3 px-2 text-lg font-medium"
+                    >
+                      {t.showMore}
+                      <FiArrowRight aria-hidden className="size-5 transition-transform group-hover:translate-x-1" />
+                    </a>
+                  )}
+                </div>
                 <p className="text-sm text-ink-muted">
-                  {format(t.showing, { shown: visible.length, count: results.length })}
+                  {format(t.showing, { from: from + 1, to: from + visible.length, count: results.length })}
                 </p>
               </div>
             )}

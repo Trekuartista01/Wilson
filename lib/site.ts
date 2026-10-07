@@ -6,10 +6,10 @@ export const siteConfig = {
   name: "Wilson Real Estate",
   phone: "+355 68 326 1612",
   phoneHref: "tel:+355683261612",
+  /** WhatsApp number (same line as the phone), digits only for wa.me links. TODO: confirm with client. */
+  whatsapp: "355683261612",
   email: "info@wilsonrealestate.al",
   address: ["Rruga Pjetër Bogdani, nr. 351/8270,", "Bllok, Tiranë"],
-  // Approximate coordinates for Blloku, Tirana. TODO: replace with the exact office pin.
-  officeLocation: { lat: 41.3205, lng: 19.8195 },
   social: {
     instagram: "https://www.instagram.com/", // TODO: client Instagram URL
     facebook: "https://www.facebook.com/", // TODO: client Facebook URL

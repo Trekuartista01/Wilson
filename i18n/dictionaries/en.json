@@ -38,7 +38,13 @@
     "closeMenu": "Close menu",
     "language": "Language",
     "skipToContent": "Skip to content",
-    "mainNavigation": "Main navigation"
+    "mainNavigation": "Main navigation",
+    "search": "Search properties",
+    "searchPlaceholder": "Search land, zones, close to the beach…",
+    "searchClose": "Close search",
+    "searchFor": "Search for “{query}”",
+    "searchSuggestions": "Search suggestions",
+    "searchOpen": "Open search"
   },
   "common": {
     "imagePlaceholder": "Image placeholder",
@@ -85,60 +91,116 @@
       "priceDesc": "Price: high to low",
       "areaDesc": "Largest area"
     },
-    "more": "More"
+    "more": "More",
+    "near": "Close by"
   },
   "home": {
     "banner": {
-      "eyebrow": "Wilson Real Estate",
-      "title": "Where investment meets the sea and the mountains.",
-      "primaryCta": "View properties",
-      "secondaryCta": "Contact Wilson"
+      "lead": "Beyond",
+      "highlight": "Land.",
+      "twoLines": false
     },
-    "highlights": [
-      "Legal verification and secure documentation",
-      "Guidance from first contact to closing",
-      "Offices in Tale, Tirana and Kosovo"
-    ],
     "featured": {
-      "title": "Featured properties",
-      "viewAll": "View all properties"
+      "eyebrow": "Featured properties",
+      "viewAll": "View all",
+      "view": "View property",
+      "previous": "Previous property",
+      "next": "Next property",
+      "show": "Show: {title}"
+    },
+    "about": {
+      "eyebrow": "About Wilson",
+      "statement": "Properties that make sense. Investments that last. We find, verify and own land with real potential across Albania.",
+      "stats": [
+        {
+          "value": "25+",
+          "label": "Properties available"
+        },
+        {
+          "value": "6",
+          "label": "Coastal & urban zones"
+        },
+        {
+          "value": "0",
+          "label": "Intermediaries — Wilson owns what it sells"
+        }
+      ],
+      "statsLink": "See the properties"
     },
     "zones": {
-      "title": "Zones",
-      "viewAll": "View all zones",
+      "eyebrow": "Zone locations",
+      "title": "Land where your next chapter begins",
       "count": "{count} properties",
-      "description": "Placeholder text about this zone. Keep it short and simple."
+      "comingSoon": "coming soon",
+      "caption": "Properties in {zone}",
+      "details": "Details",
+      "viewAll": "View all properties",
+      "previous": "Previous zone",
+      "next": "Next zone"
+    },
+    "why": {
+      "eyebrow": "Why Wilson",
+      "lines": ["Local knowledge.", "Verified titles.", "Real opportunity.", "Long-term value."],
+      "learnMore": "Learn more"
     },
     "process": {
       "statement": "We don't just offer properties. We offer opportunities that are analysed, verified and structured.",
       "stepImage": "Step {number} image",
       "steps": [
-        { "title": "Local market knowledge", "text": "Detailed market analysis and strategic property selection." },
-        { "title": "Property verification", "text": "Full legal verification and secure documentation." },
-        { "title": "Investment opportunities", "text": "Real, secure investment opportunities in the Albanian property market." },
-        { "title": "Transparency", "text": "Clear communication with every client, at every stage." },
-        { "title": "Long-term value", "text": "Focus on value growth and long-term development." },
-        { "title": "Support to the end", "text": "Full management of the process from first contact to closing." }
+        {
+          "title": "Local market knowledge",
+          "text": "Detailed market analysis and strategic property selection."
+        },
+        {
+          "title": "Property verification",
+          "text": "Full legal verification and secure documentation."
+        },
+        {
+          "title": "Investment opportunities",
+          "text": "Real, secure investment opportunities in the Albanian property market."
+        },
+        {
+          "title": "Transparency",
+          "text": "Clear communication with every client, at every stage."
+        },
+        {
+          "title": "Long-term value",
+          "text": "Focus on value growth and long-term development."
+        },
+        {
+          "title": "Support to the end",
+          "text": "Full management of the process from first contact to closing."
+        }
       ]
     },
-    "services": {
-      "eyebrow": "What do we offer?",
-      "title": "Wilson services",
-      "text": "Four services, one standard: transparency and clear communication with every client, from first contact to closing.",
-      "viewAll": "All services"
-    },
-    "about": {
-      "eyebrow": "About us",
-      "title": "About Wilson",
-      "text": "Placeholder teaser about Wilson Real Estate. Two or three sentences about who we are and why clients trust us.",
-      "cta": "Read more"
+    "cta": {
+      "eyebrow": "Why Wilson Real Estate?",
+      "title": "You're in safe hands!",
+      "text": "Wilson directly owns the properties it offers, which cuts out intermediaries and makes the process clearer, more transparent and safer for the buyer.",
+      "button": "Find your property"
     }
   },
   "services": [
-    { "slug": "sales", "title": "Property sales", "text": "Placeholder description of the property sales service." },
-    { "slug": "purchase", "title": "Property purchase", "text": "Placeholder description of the property purchase service." },
-    { "slug": "development", "title": "Development and construction", "text": "Placeholder description of the development and construction service." },
-    { "slug": "consulting", "title": "Investment consulting", "text": "Placeholder description of the investment consulting service." }
+    {
+      "slug": "sales",
+      "title": "Property sales",
+      "text": "Verified coastal properties, with complete documentation and a transparent process."
+    },
+    {
+      "slug": "purchase",
+      "title": "Property purchase",
+      "text": "Finding and verifying a property to match the buyer's requirements."
+    },
+    {
+      "slug": "development",
+      "title": "Development and construction",
+      "text": "Partnerships with investors and developers on construction projects."
+    },
+    {
+      "slug": "consulting",
+      "title": "Investment consulting",
+      "text": "Market analysis and strategic selection for investors."
+    }
   ],
   "propertiesPage": {
     "title": "Land and properties in Albania",
@@ -149,7 +211,10 @@
     "mapLabel": "Map of properties in Albania",
     "filtersLabel": "Filter properties",
     "showMore": "Show more",
-    "showing": "{shown} of {count} properties"
+    "previous": "Previous",
+    "showing": "{from}–{to} of {count} properties",
+    "searchChip": "“{query}”",
+    "clearSearch": "Remove search “{query}”"
   },
   "property": {
     "description": "Description",
@@ -159,9 +224,6 @@
     "type": "Type",
     "status": "Status",
     "zone": "Zone",
-    "contactTitle": "Interested in this property?",
-    "contactText": "Placeholder text. Contact Wilson for documents, a site visit or more details.",
-    "contactCta": "Contact Wilson",
     "feature": "Extra features",
     "details": "Details",
     "propertyId": "Property ID",
@@ -172,52 +234,118 @@
     "ari": "{count} ares",
     "similar": "Similar properties",
     "gallery": "Property gallery",
-    "showPhotos": "Photos",
-    "showMap": "Map",
     "previous": "Previous image",
     "next": "Next image",
-    "photo": "Photo {n} of {total}"
+    "photo": "Photo {n} of {total}",
+    "inquiry": {
+      "reference": "Ref.",
+      "whatsapp": "WhatsApp",
+      "call": "Call",
+      "name": "Name",
+      "phone": "Phone",
+      "message": "Message",
+      "messageDefault": "I'm interested in {property}.",
+      "whatsappText": "Hello, I'm interested in the property {property} (Ref. {ref}).",
+      "submit": "Request information",
+      "sending": "Sending…",
+      "success": "Thank you! We'll be in touch soon.",
+      "invalid": "Please check the highlighted fields and try again.",
+      "rateLimited": "You've sent too many requests. Please try again in a few minutes.",
+      "error": "Your request couldn't be sent. Please try again or call us."
+    },
+    "contact": "Contact Wilson",
+    "detailsPrevious": "Previous details",
+    "detailsNext": "More details",
+    "detailsPage": "Details {n} of {total}",
+    "locationTitle": "Close to the sea, close to the city.",
+    "openInMaps": "Open in Google Maps",
+    "satelliteLabel": "Satellite view of the location",
+    "nearbySource": "Nearest of each, in a straight line, from OpenStreetMap."
   },
   "servicesPage": {
     "eyebrow": "Services",
     "title": "Wilson services",
-    "intro": "Placeholder intro for the services page.",
-    "cta": "Talk to us"
+    "intro": "Four services, one standard: transparency and clear communication with every client, from first contact to closing.",
+    "learnMore": "Learn more"
   },
   "aboutPage": {
     "eyebrow": "About Wilson",
-    "title": "About Wilson Real Estate",
-    "intro": "Placeholder intro for the About page.",
-    "storyTitle": "Our story",
-    "storyText": "Placeholder paragraph about the company's history, team and approach to land investment in Albania.",
-    "valuesTitle": "How we work",
-    "officesTitle": "Our offices",
+    "title": "Our philosophy",
+    "introTitle": "Wilson Real Estate",
+    "intro": "is a company focused on property and investment opportunities in northern Albania, mainly in Tale, Shëngjin and Kunë — properties near the Adriatic coast, suited to personal use as well as residential, tourism and commercial development and long-term investment.",
+    "approachTitle": "Our approach",
+    "approach": ["Market analysis", "Legal verification", "Process management", "Transparency"],
+    "strengthEyebrow": "Our key strength",
+    "strengthTitle": "A direct owner, not an intermediary.",
+    "strengthText": "Wilson's key strength is its direct relationship with the property. Wilson directly owns the properties it offers, which cuts out intermediaries and makes the process clearer, more transparent and safer for the buyer — with better knowledge of the property, its documents and its context.",
+    "strengthLink": "View properties",
+    "missionEyebrow": "Mission & vision",
+    "missionTitle": "Mission",
+    "missionHeading": "A property is not just an area for sale, but an opportunity with potential.",
+    "missionText": "We identify and present properties with long-term value, weighing location, closeness to the sea, development potential and a safe process.",
+    "visionTitle": "Vision",
+    "visionHeading": "An investment portfolio with long-term impact.",
+    "visionText": "Known for quality, reliability and concrete results in every area where Wilson is present.",
+    "officesTitle": "Offices",
     "offices": [
-      { "name": "Tale", "text": "Placeholder office address." },
-      { "name": "Tirana", "text": "Placeholder office address." },
-      { "name": "Kosovo", "text": "Placeholder office address." }
+      {
+        "name": "Tale, Shëngjin",
+        "address": "Wilson Complex"
+      },
+      {
+        "name": "Tirana",
+        "address": "Rruga Pjetër Bogdani, no. 351/8270, Blloku, Tirana"
+      },
+      {
+        "name": "Prishtina, Kosovo",
+        "address": "Rruga Agim Ramadani, no. 248, Prishtina"
+      }
     ]
   },
   "contactPage": {
     "eyebrow": "Contact",
-    "title": "Contact Wilson",
-    "intro": "Placeholder intro. Send us a message and we will get back to you.",
-    "formTitle": "Send a message",
-    "infoTitle": "Contact details",
+    "title": "Let's talk land.",
+    "intro": "Ask about a plot, book a viewing or get advice on where to invest. We reply within one working day — in Albanian, English or German.",
+    "formTitle": "Send us a message",
     "mapLabel": "Map showing the Wilson office",
+    "fasterTitle": "Prefer something faster?",
+    "faster": {
+      "call": {
+        "title": "Call us",
+        "text": "Talk to the team now."
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "text": "Send photos, questions, voice notes.",
+        "action": "Open chat"
+      },
+      "visit": {
+        "title": "Visit a plot",
+        "text": "We'll drive you to the land.",
+        "action": "Book a viewing"
+      }
+    },
+    "office": {
+      "eyebrow": "Visit the office",
+      "directions": "Get directions",
+      "switchLabel": "Choose an office"
+    },
     "form": {
       "name": "Full name",
-      "email": "Email",
-      "phone": "Phone (optional)",
-      "subject": "Subject",
+      "email": "Email address",
+      "phone": "Phone number",
+      "subject": "I'm interested in",
       "subjects": {
-        "general": "General question",
-        "buying": "Buying a property",
-        "selling": "Selling a property",
-        "investment": "Investment consulting"
+        "buying": "Buying land",
+        "viewing": "A viewing",
+        "investment": "Investment advice",
+        "general": "Something else"
       },
+      "property": "Property",
+      "propertyNone": "No specific property",
       "message": "Message",
-      "consent": "I agree that Wilson Real Estate may contact me about this request.",
+      "messagePlaceholder": "Tell us how we can help",
+      "consent": "I agree to be contacted about my enquiry.",
       "submit": "Send message",
       "sending": "Sending…",
       "success": "Thank you! Your message has been sent. We'll be in touch soon.",
@@ -250,5 +378,102 @@
     "utilities": "Water and power",
     "flatTerrain": "Flat terrain",
     "cityView": "City view"
+  },
+  "amenities": {
+    "beach": "Beach",
+    "supermarket": "Shops & supermarket",
+    "restaurant": "Restaurants",
+    "hospital": "Hospital / clinic",
+    "pharmacy": "Pharmacy",
+    "school": "School",
+    "cityCentre": "City centre",
+    "publicTransport": "Public transport",
+    "airport": "Airport"
+  },
+  "searchSuggestions": {
+    "inZone": "Properties in {zone}",
+    "near": "Close to: {place}",
+    "groups": {
+      "popular": "Popular searches",
+      "zones": "Zones",
+      "types": "Type",
+      "nearby": "Close by",
+      "budget": "Price and size"
+    },
+    "amenityKeywords": {
+      "beach": "sea seaside coast coastal",
+      "supermarket": "store shop market groceries",
+      "restaurant": "food cafe bar dining",
+      "hospital": "ambulance doctor medical health emergency",
+      "pharmacy": "chemist medicine",
+      "school": "kindergarten education kids",
+      "cityCentre": "downtown center centre town",
+      "publicTransport": "bus station transport",
+      "airport": "flights airport"
+    },
+    "popular": [
+      {
+        "label": "Land near the beach",
+        "params": {
+          "type": "land",
+          "near": "beach"
+        },
+        "keywords": "seaside coastal plot sea"
+      },
+      {
+        "label": "Land with sea view",
+        "params": {
+          "type": "land",
+          "q": "Sea view"
+        },
+        "keywords": "panorama sea view"
+      },
+      {
+        "label": "Building plot in Tirana",
+        "params": {
+          "zone": "tirana",
+          "type": "residential"
+        },
+        "keywords": "house build residential plot"
+      },
+      {
+        "label": "Land in Tale",
+        "params": {
+          "zone": "tale",
+          "type": "land"
+        },
+        "keywords": "lezhe coast"
+      },
+      {
+        "label": "Land under €100,000",
+        "params": {
+          "type": "land",
+          "price": "lt100k"
+        },
+        "keywords": "cheap budget affordable"
+      },
+      {
+        "label": "Large plots over 5,000 m²",
+        "params": {
+          "area": "gt5000"
+        },
+        "keywords": "big investment hectare"
+      },
+      {
+        "label": "Land with building permit",
+        "params": {
+          "q": "Building permit"
+        },
+        "keywords": "permit license construction"
+      },
+      {
+        "label": "Commercial space for rent",
+        "params": {
+          "type": "commercial",
+          "status": "rent"
+        },
+        "keywords": "business office shop"
+      }
+    ]
   }
 }

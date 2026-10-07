@@ -83,3 +83,32 @@ export default function LanguageSwitcher({ lang, label }: LanguageSwitcherProps)
     </div>
   );
 }
+
+/** Inline "SQ — EN — DE" links (homepage navbar on wide screens). Same behaviour as the dropdown. */
+export function LanguageLinks({ lang, label }: LanguageSwitcherProps) {
+  const pathname = usePathname();
+  return (
+    <nav aria-label={label}>
+      <ul className="flex items-center text-xs tracking-wider">
+        {locales.map((locale, i) => (
+          <li key={locale} className="flex items-center">
+            {i > 0 && <span aria-hidden className="mx-1 h-px w-4 bg-surface/40" />}
+            <Link
+              href={`/${locale}${pathname.replace(/^\/[^/]+/, "")}`}
+              hrefLang={locale}
+              lang={locale}
+              onClick={() => rememberLocale(locale)}
+              aria-current={locale === lang ? "true" : undefined}
+              aria-label={localeNames[locale]}
+              className={`inline-flex min-h-11 min-w-9 items-center justify-center transition-colors ${
+                locale === lang ? "font-bold text-surface" : "text-surface/60 hover:text-surface"
+              }`}
+            >
+              {localeLabels[locale]}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}

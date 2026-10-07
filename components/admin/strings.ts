@@ -57,6 +57,9 @@ export const a = {
     priceOnRequest: "Çmimi me kërkesë",
     municipality: "Komuna",
     feature: "Cilësi shtesë",
+    nearby: "Afër",
+    nearbyHint: "Çfarë është afër pronës. Vizitorët mund ta filtrojnë listën sipas këtyre. Distanca (në metra) shfaqet në faqen e pronës; mund të lihet bosh.",
+    distance: "Distanca për {place}, në metra",
     location: "Vendndodhja",
     locationHint: "Klikoni në hartë ose tërhiqni shënjuesin për të vendosur vendndodhjen.",
     lat: "Gjerësia gjeografike",
@@ -112,6 +115,7 @@ export const a = {
     types: sq.propertyTypes,
     statuses: sq.propertyStatus,
     features: sq.propertyFeatures,
+    amenities: sq.amenities,
   },
 };
 

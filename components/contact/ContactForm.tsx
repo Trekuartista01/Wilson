@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { FiChevronDown } from "react-icons/fi";
 import { useHydrated } from "@/lib/use-hydrated";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
@@ -8,18 +9,22 @@ import type { Dictionary } from "@/i18n/dictionaries";
 type ContactFormProps = {
   lang: Locale;
   labels: Dictionary["contactPage"]["form"];
+  /** Published listings for the "Property" select. */
+  properties: { slug: string; label: string }[];
 };
 
 type Status = "idle" | "sending" | "success" | "invalid" | "rateLimited" | "error";
 
+// Underlined fields on the dark hero ("image.png" reference, 2026-10-06): the field name sits
+// in the field as uppercase placeholder text (the <label> is there for screen readers).
 const inputClass =
-  "mt-1.5 block min-h-12 w-full rounded-md border border-line bg-surface px-3 text-base text-ink outline-none transition-colors focus:border-brand-primary focus:ring-1 focus:ring-brand-primary aria-invalid:border-red-600 aria-invalid:ring-1 aria-invalid:ring-red-600";
+  "block min-h-14 w-full border-0 border-b border-surface/30 bg-transparent px-0 text-base text-surface outline-none transition-colors placeholder:text-surface/85 placeholder:uppercase hover:border-surface/60 focus:border-brand-cta aria-invalid:border-red-400";
 
 /**
  * Contact form, posted to /api/contact (validated, rate limited and emailed on the server).
  * The browser's required/maxLength checks are only there for quick feedback.
  */
-export default function ContactForm({ lang, labels }: ContactFormProps) {
+export default function ContactForm({ lang, labels, properties }: ContactFormProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [invalid, setInvalid] = useState<Set<string>>(new Set());
   const hydrated = useHydrated();
@@ -30,7 +35,9 @@ export default function ContactForm({ lang, labels }: ContactFormProps) {
       name: String(data.get("name") ?? ""),
       email: String(data.get("email") ?? ""),
       phone: String(data.get("phone") ?? ""),
-      subject: String(data.get("subject") ?? ""),
+      // No topic picker in this layout; the property select says what it is about.
+      subject: "general",
+      property: String(data.get("property") ?? ""),
       message: String(data.get("message") ?? ""),
       consent: data.get("consent") === "on",
       locale: lang,
@@ -75,51 +82,94 @@ export default function ContactForm({ lang, labels }: ContactFormProps) {
         if (!sending) void submit(e.currentTarget);
       }}
       aria-busy={sending}
-      className="grid grid-cols-1 gap-5 sm:grid-cols-2"
+      className="flex flex-col gap-3"
     >
-      <div className="sm:col-span-2">
-        <label htmlFor="contact-name" className="text-sm font-medium">
+      <div>
+        <label htmlFor="contact-name" className="sr-only">
           {labels.name}
         </label>
-        <input id="contact-name" name="name" type="text" autoComplete="name" required maxLength={100} aria-invalid={bad("name")} className={inputClass} />
+        <input
+          id="contact-name"
+          name="name"
+          type="text"
+          autoComplete="name"
+          required
+          maxLength={100}
+          placeholder={labels.name}
+          aria-invalid={bad("name")}
+          className={inputClass}
+        />
       </div>
       <div>
-        <label htmlFor="contact-email" className="text-sm font-medium">
-          {labels.email}
-        </label>
-        <input id="contact-email" name="email" type="email" autoComplete="email" required maxLength={254} aria-invalid={bad("email")} className={inputClass} />
-      </div>
-      <div>
-        <label htmlFor="contact-phone" className="text-sm font-medium">
+        <label htmlFor="contact-phone" className="sr-only">
           {labels.phone}
         </label>
-        <input id="contact-phone" name="phone" type="tel" autoComplete="tel" maxLength={30} aria-invalid={bad("phone")} className={inputClass} />
+        <input
+          id="contact-phone"
+          name="phone"
+          type="tel"
+          autoComplete="tel"
+          maxLength={30}
+          placeholder={labels.phone}
+          aria-invalid={bad("phone")}
+          className={inputClass}
+        />
       </div>
-      <div className="sm:col-span-2">
-        <label htmlFor="contact-subject" className="text-sm font-medium">
-          {labels.subject}
+      <div>
+        <label htmlFor="contact-email" className="sr-only">
+          {labels.email}
         </label>
-        <select id="contact-subject" name="subject" className={inputClass} defaultValue="general" aria-invalid={bad("subject")}>
-          {Object.entries(labels.subjects).map(([value, label]) => (
-            <option key={value} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
+        <input
+          id="contact-email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          required
+          maxLength={254}
+          placeholder={labels.email}
+          aria-invalid={bad("email")}
+          className={inputClass}
+        />
       </div>
-      <div className="sm:col-span-2">
-        <label htmlFor="contact-message" className="text-sm font-medium">
+      {properties.length > 0 && (
+        <div className="relative">
+          <label htmlFor="contact-property" className="sr-only">
+            {labels.property}
+          </label>
+          <select
+            id="contact-property"
+            name="property"
+            defaultValue=""
+            aria-invalid={bad("property")}
+            className={`${inputClass} appearance-none pr-8 uppercase [&_option]:bg-nav-dark [&_option]:normal-case`}
+          >
+            <option value="">{`${labels.property} — ${labels.propertyNone}`}</option>
+            {properties.map((p) => (
+              <option key={p.slug} value={p.slug}>
+                {p.label}
+              </option>
+            ))}
+          </select>
+          <FiChevronDown
+            aria-hidden
+            className="pointer-events-none absolute top-1/2 right-0 size-4 -translate-y-1/2 text-surface/70"
+          />
+        </div>
+      )}
+      <div>
+        <label htmlFor="contact-message" className="sr-only">
           {labels.message}
         </label>
         <textarea
           id="contact-message"
           name="message"
-          rows={6}
+          rows={3}
           required
           minLength={10}
           maxLength={3000}
+          placeholder={labels.messagePlaceholder}
           aria-invalid={bad("message")}
-          className={`${inputClass} resize-y py-3`}
+          className={`${inputClass} resize-y py-4`}
         />
       </div>
 
@@ -129,30 +179,30 @@ export default function ContactForm({ lang, labels }: ContactFormProps) {
         <input id="contact-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <div className="flex gap-3 sm:col-span-2">
+      <div className="mt-5 flex items-start gap-3">
         <input
           id="contact-consent"
           name="consent"
           type="checkbox"
           required
           aria-invalid={bad("consent")}
-          className="mt-0.5 size-5 shrink-0 accent-brand-primary"
+          className="mt-0.5 size-5 shrink-0 accent-brand-cta"
         />
-        <label htmlFor="contact-consent" className="text-sm text-ink-muted">
+        <label htmlFor="contact-consent" className="text-sm text-surface/70">
           {labels.consent}
         </label>
       </div>
-      <div className="sm:col-span-2">
+      <div className="mt-6">
         <button
           type="submit"
           disabled={sending || !hydrated}
-          className="inline-flex min-h-12 w-full items-center justify-center bg-brand-primary px-6 text-surface transition-colors hover:bg-black disabled:opacity-60 sm:w-auto"
+          className="inline-flex min-h-14 min-w-44 items-center justify-center rounded-tr-btn rounded-bl-btn bg-surface px-10 text-sm tracking-[0.1em] text-ink uppercase transition-colors hover:bg-brand-cta disabled:opacity-60"
         >
           {sending ? labels.sending : labels.submit}
         </button>
         <p
           role="status"
-          className={`mt-3 text-sm ${status === "success" ? "text-ink" : status === "idle" || sending ? "text-ink-muted" : "text-red-700"}`}
+          className={`mt-3 text-sm ${status === "success" ? "text-surface" : status === "idle" || sending ? "text-surface/60" : "text-red-300"}`}
         >
           {status === "idle" || sending ? "" : labels[status]}
         </p>

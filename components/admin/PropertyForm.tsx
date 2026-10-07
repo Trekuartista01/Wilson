@@ -12,7 +12,7 @@ import ConfirmDialog from "./ConfirmDialog";
 import GroupedNumberInput from "./GroupedNumberInput";
 import type { LatLng } from "./LeafletPicker";
 import { inputClass } from "./LoginForm";
-import { a } from "./strings";
+import { a, fill } from "./strings";
 
 // Leaflet needs `window`: load the map in the browser only.
 const LeafletPicker = dynamic(() => import("./LeafletPicker"), { ssr: false });
@@ -27,6 +27,9 @@ type FormState = {
   priceOnRequest: boolean;
   municipality: string;
   feature: string;
+  nearby: string[];
+  /** Metres per close-by place, as typed ("" = no distance). */
+  distances: Record<string, string>;
   position: LatLng | null;
   featured: boolean;
   published: boolean;
@@ -43,6 +46,8 @@ function initialState(p?: AdminProperty): FormState {
     priceOnRequest: p ? p.price === null : false,
     municipality: p?.municipality ?? "",
     feature: p?.feature ?? "",
+    nearby: p?.nearby ?? [],
+    distances: Object.fromEntries(Object.entries(p?.nearbyDistances ?? {}).map(([k, v]) => [k, String(v)])),
     position: p ? { lat: p.lat, lng: p.lng } : null,
     featured: p?.featured ?? false,
     published: p?.published ?? true,
@@ -74,6 +79,10 @@ function toPayload(s: FormState): PropertyInput {
     lng: Number(s.position!.lng.toFixed(6)),
     municipality: s.municipality,
     feature: s.feature as PropertyInput["feature"],
+    nearby: s.nearby as PropertyInput["nearby"],
+    nearbyDistances: Object.fromEntries(
+      s.nearby.filter((a) => /^\d+$/.test(s.distances[a] ?? "") && Number(s.distances[a]) > 0).map((a) => [a, Number(s.distances[a])]),
+    ),
     featured: s.featured,
     published: s.published,
   };
@@ -285,6 +294,47 @@ export default function PropertyForm({ property, justCreated = false }: { proper
           <Select id="f-feature" label={a.form.feature} value={state.feature} onChange={(feature) => update({ feature })} invalid={bad("feature")} placeholder="—"
             options={Object.entries(a.options.features).map(([value, l]) => ({ value, label: l }))} />
         </div>
+        <fieldset className="mt-6">
+          <legend className={label}>{a.form.nearby}</legend>
+          <p className="text-sm text-ink-muted">{a.form.nearbyHint}</p>
+          <div className="mt-2 grid grid-cols-1 gap-x-6 sm:grid-cols-2 lg:grid-cols-3">
+            {Object.entries(a.options.amenities).map(([value, l]) => {
+              const on = state.nearby.includes(value);
+              return (
+                <div key={value} className="flex min-h-11 items-center justify-between gap-2">
+                  <label className="inline-flex min-h-11 items-center gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={on}
+                      onChange={(e) =>
+                        update({ nearby: e.target.checked ? [...state.nearby, value] : state.nearby.filter((n) => n !== value) })
+                      }
+                      className="size-5 accent-brand-primary"
+                    />
+                    {l}
+                  </label>
+                  {on && (
+                    <span className="flex items-center gap-1 text-sm text-ink-muted">
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        maxLength={6}
+                        value={state.distances[value] ?? ""}
+                        onChange={(e) =>
+                          update({ distances: { ...state.distances, [value]: e.target.value.replace(/\D/g, "") } })
+                        }
+                        aria-label={fill(a.form.distance, { place: l })}
+                        placeholder="—"
+                        className="min-h-11 w-24 rounded-md border border-line bg-surface px-3 text-right text-base text-ink outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary"
+                      />
+                      m
+                    </span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </fieldset>
       </section>
 
       {/* Location */}

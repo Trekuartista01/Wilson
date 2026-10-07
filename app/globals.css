@@ -9,7 +9,15 @@
 @theme {
   /* TODO: brand color. Primary action color (buttons). */
   --color-brand-primary: #111111;
-  /* TODO: brand color. Dark surface used by the header and Banner (Figma #3d3d3d). */
+  /* Client palette ("New Colors" mockups). */
+  --color-brand-slate: #2b3748; /* Navbar, homepage "Rreth Wilson" band */
+  --color-brand-olive: #6b6753; /* Active step in the homepage scroll section */
+  --color-brand-brown: #6e4639; /* Buttons, eyebrows and accents on cream, CTA band */
+  /* "Wilson Home Page" mockup (2026-10-02). */
+  --color-nav-dark: #272727; /* Homepage navbar once scrolled */
+  --color-surface-dark: #121414; /* Homepage featured + "Why Wilson" bands, intro curtains */
+  --color-surface-sand: #f0ebe1; /* Homepage "About Wilson" stat cards */
+  /* TODO: brand color. Dark surface used by the inner-page banner (Figma #3d3d3d). */
   --color-brand-dark: #3d3d3d;
   /* TODO: brand color. Footer background (Figma black). */
   --color-brand-darker: #000000;
@@ -17,14 +25,34 @@
   --color-brand-secondary: #8c8c8c;
   /* Brand yellow, from the logo. Highlights only (pins, active states, hovers); pair it
      with dark text, white on yellow is unreadable. */
-  --color-brand-accent: #ffb500;
+  --color-brand-accent: #FFBA1E; /* The one gold everywhere (2026-10-06, by request); was #E2AA0E */
+  /* Homepage CTA band background (2026-10-02). Dark text on it. */
+  --color-brand-cta: #FFBA1E; /* The whole CTA band, by request (2026-10-05) */
+
+  /* Homepage corner radii ("Wilson Home Page1" mockup, 2026-10-05), fluid so phones get
+     smaller corners: cards and photos about 32px at 1440px wide, the CTA band about 60px. */
+  --radius-card: clamp(1rem, 2.2vw, 2rem);
+  --radius-band: clamp(2rem, 4vw, 3.75rem);
+  /* Buttons and list rows ("Wilson Home Page4", 2026-10-06): top-right + bottom-left only. */
+  --radius-btn: 1.25rem;
 
   /* Neutral surfaces and text (keep unless the brand says otherwise). */
   --color-surface: #ffffff;
-  --color-surface-muted: #d9d9d9; /* Services band background in Figma */
-  --color-surface-page: #c3c3c3; /* Property list/detail page background in Figma */
+  --color-surface-muted: #d9d9d9; /* Gray boxes (gallery backdrop) */
   --color-surface-subtle: #f4f4f4;
   --color-placeholder: #dedede; /* Gray image boxes */
+  /* Warm neutrals, sampled from the "New Colors" mockups. */
+  --color-surface-cream: #fbf6ed; /* Page background */
+  --color-surface-cream-strong: #e5e1d6; /* Highlighted zone row */
+  --color-surface-card: #f4e9d7; /* Highlighted dropdown option */
+  --color-surface-listing: #F0ECE2; /* Property cards (2026-10-06) */
+  --color-surface-mission: #e3ddd1; /* Mission card on the About page, a shade darker than sand */
+  --color-surface-raised: #f9f5ef; /* Contact card on the property page */
+  /* Thin separator lines on light backgrounds: brand brown at 30%. Change the % to tune them all. */
+  --color-divider: color-mix(in srgb, #6e4639 30%, transparent);
+  --color-gold: #FFBA1E; /* Detail-tag outlines on listing cards (same gold as brand-accent) */
+  --color-gold-light: #FFBA1E; /* Links and button text on dark backgrounds (same gold) */
+  --color-gold-dark: #FFBA1E; /* Same gold */
   --color-ink: #111111;
   --color-ink-muted: #5c5c5c;
   --color-ink-subtle: #a3a3a3;
@@ -77,10 +105,14 @@ html {
   scroll-padding-top: var(--header-h);
 }
 
-body {
-  background: var(--color-surface);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
+/* Every page sits on cream; white or gray bands are set per section. In the base layer so a
+   utility on <body> still wins (the admin layout sets its own gray). */
+@layer base {
+  body {
+    background: var(--color-surface-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -89,9 +121,56 @@ body {
   }
 }
 
+/*
+ * Homepage intro (components/home/IntroAnimation.tsx). An inline script in HomePage sets
+ * html[data-intro] before the first paint: "play" while the curtains are closed and the logo
+ * draws itself, "open" while they part, "done" afterwards (or straight away for repeat visits
+ * in the same browser session and for reduced motion). Without JavaScript the attribute is
+ * never set, so the overlay stays hidden and nothing below is held back; the same script
+ * forces "done" after a few seconds in case the animation never gets to run.
+ */
+.intro-overlay {
+  display: none;
+}
+html[data-intro="play"] .intro-overlay,
+html[data-intro="open"] .intro-overlay {
+  display: block;
+}
+html[data-intro="play"] {
+  overflow: hidden;
+}
+/* Intro playback speed, 1 = original. Keep in sync with SPEED in IntroAnimation.tsx. */
+:root {
+  --intro-speed: 0.77;
+}
+/* Navbar items and hero text fade up as the curtains open (delay per element via --intro-delay). */
+[data-intro-fade] {
+  transition:
+    opacity calc(0.7s * var(--intro-speed)) ease calc(var(--intro-delay, 0ms) * var(--intro-speed)),
+    transform calc(0.9s * var(--intro-speed)) cubic-bezier(0.2, 0.9, 0.3, 1) calc(var(--intro-delay, 0ms) * var(--intro-speed));
+}
+html[data-intro="play"] [data-intro-fade] {
+  opacity: 0;
+  transform: translateY(18px);
+}
+/* The navbar logo appears the moment the animated one lands on it. */
+html[data-intro="play"] [data-intro-logo],
+html[data-intro="open"] [data-intro-logo] {
+  opacity: 0;
+}
+/* Hero photo settles from a slight zoom. */
+[data-intro-zoom] {
+  transition: transform calc(1.6s * var(--intro-speed)) cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+html[data-intro="play"] [data-intro-zoom] {
+  transform: scale(1.16);
+}
+
 /* Leaflet popups: match the site font and keep links readable. */
 .leaflet-container {
   font-family: var(--font-sans);
+  /* Dark behind the tiles while they load (every map is dark). */
+  background: #2b2b2b;
 }
 .leaflet-container .leaflet-popup-content a {
   color: var(--color-ink);
@@ -101,6 +180,11 @@ body {
 ::selection {
   background: var(--color-brand-accent);
   color: var(--color-ink);
+}
+
+/* Dark maps (all maps on the site): the OSM tiles with their colours flipped (LeafletMap "dark"). */
+.map-tiles-dark {
+  filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.85) saturate(0.4);
 }
 
 /* Map pin (Leaflet divIcon), brand yellow. */
@@ -113,4 +197,14 @@ body {
   background: var(--color-brand-accent);
   border: 3px solid var(--color-surface);
   box-shadow: 0 2px 6px rgb(0 0 0 / 0.35);
+}
+
+.map-dot {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 3px solid var(--color-nav-dark);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.4);
 }

@@ -23,3 +23,10 @@ export function formatDate(locale: Locale, isoDate: string): string {
     new Date(isoDate),
   );
 }
+
+/** Metres -> "400 m", "2,5 km" / "2.5 km", "35 km" (one decimal under 10 km). */
+export function formatDistance(locale: Locale, metres: number): string {
+  if (metres < 1000) return `${new Intl.NumberFormat(intlLocales[locale]).format(Math.round(metres / 10) * 10)} m`;
+  const km = metres / 1000;
+  return `${new Intl.NumberFormat(intlLocales[locale], { maximumFractionDigits: km < 10 ? 1 : 0 }).format(km)} km`;
+}

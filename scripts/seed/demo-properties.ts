@@ -3,6 +3,7 @@
 // Photos are left out: demo listings show the gray placeholders.
 
 import type {
+  Amenity,
   Localized,
   Property,
   PropertyFeature,
@@ -11,7 +12,33 @@ import type {
   ZoneSlug,
 } from "@/data/properties";
 
-export type DemoProperty = Omit<Property, "images" | "reference" | "updatedAt"> & { updatedAt: string };
+export type DemoProperty = Omit<Property, "images" | "reference" | "updatedAt" | "nearby" | "nearbyDistances" | "nearbyPlaces"> & {
+  updatedAt: string;
+};
+
+/** Plausible demo distances in metres, so the property page has something to show. */
+export const demoDistances: Partial<Record<Amenity, number>> = {
+  beach: 400,
+  supermarket: 900,
+  restaurant: 600,
+  hospital: 6000,
+  pharmacy: 1500,
+  school: 2000,
+  cityCentre: 12000,
+  publicTransport: 800,
+  airport: 35000,
+};
+
+/** "Afër" values for the demo listings, a plausible guess from the zone. */
+export function demoNearby(p: DemoProperty): Amenity[] {
+  const coast: ZoneSlug[] = ["tale", "shengjin", "vain", "kune", "durres", "vlore", "sarande", "himare"];
+  const city: ZoneSlug[] = ["tirana", "durres", "vlore", "shkoder", "korce"];
+  const near = new Set<Amenity>(["supermarket"]);
+  if (coast.includes(p.zone)) ["beach", "restaurant"].forEach((a) => near.add(a as Amenity));
+  if (city.includes(p.zone)) ["hospital", "pharmacy", "school", "cityCentre", "publicTransport"].forEach((a) => near.add(a as Amenity));
+  if (p.zone === "tirana" || p.zone === "tale" || p.zone === "shengjin") near.add("airport");
+  return [...near];
+}
 
 const placeholderDescription: Localized = {
   sq: "Përshkrim i përkohshëm i pronës. Vendndodhja, qasja, dokumentacioni dhe potenciali i zhvillimit do të shtohen këtu.",

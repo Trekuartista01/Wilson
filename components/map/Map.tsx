@@ -21,8 +21,8 @@ type MapProps = LeafletMapProps & {
  */
 export default function Map({ label, loadingLabel, className = "", ...mapProps }: MapProps) {
   return (
-    <div role="region" aria-label={label} className={`relative isolate z-0 overflow-hidden bg-placeholder ${className}`}>
-      <p className="absolute inset-0 flex items-center justify-center text-sm text-ink-muted">{loadingLabel}</p>
+    <div role="region" aria-label={label} className={`relative isolate z-0 overflow-hidden bg-[#2b2b2b] ${className}`}>
+      <p className="absolute inset-0 flex items-center justify-center text-sm text-surface/60">{loadingLabel}</p>
       <LeafletMap {...mapProps} />
     </div>
   );

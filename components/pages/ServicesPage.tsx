@@ -1,56 +1,37 @@
-import Link from "next/link";
-import { FiArrowRight } from "react-icons/fi";
 import { localePath, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import Container from "@/components/ui/Container";
-import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
-import PageBanner from "@/components/ui/PageBanner";
+import CtaBand from "@/components/ui/CtaBand";
+import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
+import ServiceStack from "@/components/services/ServiceStack";
+import { serviceImages } from "@/components/services/service-images";
 
 /**
- * Services page: one block per service, alternating image/text.
- * TODO: awaiting Figma. Neutral placeholder layout.
+ * Services page ("Sherbimet" mockup, 2026-10-06): cream intro, then the four services as
+ * full-screen coloured bands that stack as you scroll (ServiceStack), and the yellow
+ * "Jeni në duar të sigurta!" band above the footer.
  */
 export default function ServicesPage({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const t = dict.servicesPage;
 
   return (
     <>
-      <PageBanner eyebrow={t.eyebrow} title={t.title} intro={t.intro} />
-
-      <Container className="py-12 sm:py-16 lg:py-24">
-        <div className="space-y-14 sm:space-y-20 lg:space-y-28">
-          {dict.services.map((service, i) => (
-            <Reveal key={service.slug}>
-              <article id={service.slug} className="grid scroll-mt-6 items-center gap-6 md:grid-cols-2 md:gap-12 lg:gap-20">
-                <ImagePlaceholder
-                  aspect="aspect-[4/3]"
-                  label={dict.common.imagePlaceholder}
-                  className={i % 2 === 1 ? "md:order-2" : ""}
-                />
-                <div>
-                  <p className="text-sm font-medium text-ink-muted">0{i + 1}</p>
-                  <h2 className="mt-2 text-2xl font-medium tracking-tight sm:text-3xl">{service.title}</h2>
-                  <p className="mt-4 max-w-md text-ink-muted">{service.text}</p>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+      <Container className="pt-14 pb-10 sm:pt-20 sm:pb-12 lg:pt-24 lg:pb-14 xl:px-30">
+        <Reveal className="border-b border-divider pb-8 sm:pb-10">
+          <Eyebrow className="text-brand-accent">{t.eyebrow}</Eyebrow>
+          <h1 className="mt-4 font-sans text-4xl tracking-tight sm:mt-6 sm:text-5xl lg:text-[3.5rem]">{t.title}</h1>
+          <p className="mt-4 max-w-2xl text-lg text-ink-muted sm:text-2xl">{t.intro}</p>
+        </Reveal>
       </Container>
 
-      <section className="bg-surface-muted py-12 sm:py-16">
-        <Container className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-2xl font-medium">{dict.property.contactTitle}</p>
-          <Link
-            href={localePath(lang, "/contact")}
-            className="inline-flex min-h-12 items-center gap-2 bg-brand-primary px-5 text-surface transition-colors hover:bg-black"
-          >
-            {t.cta}
-            <FiArrowRight aria-hidden />
-          </Link>
-        </Container>
-      </section>
+      <ServiceStack
+        services={dict.services.map((s) => ({ ...s, image: serviceImages[s.slug] }))}
+        learnMore={{ label: t.learnMore, href: localePath(lang, "/contact") }}
+        imageLabel={dict.common.imagePlaceholder}
+      />
+
+      <CtaBand lang={lang} dict={dict} variant="yellow" above="cream" />
     </>
   );
 }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import PropertiesPage, { PAGE_SIZE } from "@/components/pages/PropertiesPage";
+import PropertiesPage from "@/components/pages/PropertiesPage";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/properties">): Promise<Metadata> {
   const { lang } = await params;
@@ -13,10 +13,10 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/properties
 
 const first = (value: string | string[] | undefined) => (Array.isArray(value) ? value[0] : value);
 
-/** ?show= rounded up to a whole page, at least one page, capped so the URL can't ask for anything huge. */
-function parseShow(value: string | undefined): number {
-  const n = Math.ceil(Number(value) / PAGE_SIZE) * PAGE_SIZE;
-  return Number.isFinite(n) ? Math.min(Math.max(n, PAGE_SIZE), 1000) : PAGE_SIZE;
+/** ?page= as a whole page number, at least 1, capped so the URL can't ask for anything huge. */
+function parsePage(value: string | undefined): number {
+  const n = Math.floor(Number(value));
+  return Number.isFinite(n) ? Math.min(Math.max(n, 1), 1000) : 1;
 }
 
 export default async function Page({ params, searchParams }: PageProps<"/[lang]/properties">) {
@@ -30,8 +30,11 @@ export default async function Page({ params, searchParams }: PageProps<"/[lang]/
     status: first(query.status),
     area: first(query.area),
     price: first(query.price),
+    near: first(query.near),
+    // Free text from the navbar search; capped like the field itself.
+    q: first(query.q)?.trim().slice(0, 100) || undefined,
     sort: first(query.sort),
   };
 
-  return <PropertiesPage lang={lang} dict={dict} filters={filters} show={parseShow(first(query.show))} />;
+  return <PropertiesPage lang={lang} dict={dict} filters={filters} page={parsePage(first(query.page))} />;
 }

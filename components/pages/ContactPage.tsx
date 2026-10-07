@@ -1,78 +1,123 @@
-import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
+import { FiArrowUpRight } from "react-icons/fi";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { offices } from "@/lib/offices";
 import { siteConfig } from "@/lib/site";
 import ContactForm from "@/components/contact/ContactForm";
-import Map from "@/components/map/Map";
+import OfficeMap from "@/components/contact/OfficeMap";
 import Container from "@/components/ui/Container";
-import PageBanner from "@/components/ui/PageBanner";
+import Reveal from "@/components/ui/Reveal";
+
+type ContactPageProps = {
+  lang: Locale;
+  dict: Dictionary;
+  /** Published listings for the form's "Property" select. */
+  properties: { slug: string; label: string }[];
+};
 
 /**
- * Contact page: ContactForm + contact details + embedded Map of the office.
- * TODO: awaiting Figma. Neutral placeholder layout.
+ * Contact page ("04-contact" mockup, 2026-10-06). Hero on near-black under the transparent
+ * navbar: "Let's talk land." and the intro on the left, the form on the right with underlined
+ * fields and a white Submit (the "image.png" reference, on black by request).
+ * Then "Prefer something faster?" (call, WhatsApp, visit a plot) and the offices on a dark map
+ * (switchable between Tiranë, Prishtinë and Tale).
  */
-export default function ContactPage({ lang, dict }: { lang: Locale; dict: Dictionary }) {
+export default function ContactPage({ lang, dict, properties }: ContactPageProps) {
   const t = dict.contactPage;
+  const whatsapp = `https://wa.me/${siteConfig.whatsapp}`;
+
+  const faster = [
+    {
+      ...t.faster.call,
+      action: siteConfig.phone,
+      href: siteConfig.phoneHref,
+      external: false,
+      tone: "bg-surface-sand text-ink",
+    },
+    { ...t.faster.whatsapp, href: whatsapp, external: true, tone: "bg-brand-cta text-ink" },
+    { ...t.faster.visit, href: "#contact-form", external: false, tone: "bg-surface-dark text-surface" },
+  ];
 
   return (
     <>
-      <PageBanner eyebrow={t.eyebrow} title={t.title} intro={t.intro} />
+      {/* Hero: runs up behind the sticky header ([data-hero], see Navbar). */}
+      <section
+        aria-labelledby="contact-title"
+        data-hero
+        className="relative -mt-(--header-h) overflow-hidden rounded-tr-band rounded-bl-band bg-surface-dark pt-(--header-h) text-surface"
+      >
+        <Container className="grid gap-14 py-14 sm:py-20 lg:grid-cols-2 lg:gap-0 lg:py-24">
+          <Reveal className="lg:pr-16 xl:pr-24">
+            <p className="flex items-center gap-2 text-sm tracking-[0.14em] uppercase">
+              <span aria-hidden className="size-1.5 rounded-full bg-brand-cta" />
+              {t.eyebrow}
+            </p>
+            <h1
+              id="contact-title"
+              className="mt-6 text-[3rem] leading-[0.95] tracking-tight uppercase sm:text-[4.5rem] lg:text-[5.25rem] xl:text-[6rem]"
+            >
+              {t.title}
+            </h1>
+            <p className="mt-8 max-w-md leading-relaxed text-surface/80 sm:text-lg lg:mt-12">{t.intro}</p>
+          </Reveal>
 
-      <Container className="grid gap-12 py-12 sm:py-16 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:gap-16 lg:py-24">
-        <section aria-labelledby="contact-form-title">
-          <h2 id="contact-form-title" className="text-2xl font-medium sm:text-3xl">
-            {t.formTitle}
-          </h2>
-          <div className="mt-6">
-            <ContactForm lang={lang} labels={t.form} />
-          </div>
-        </section>
+          <Reveal delay={0.1} as="section" className="lg:pt-14 lg:pl-16 xl:pl-24">
+            {/* Anchor for "Book a viewing"; the heading is for screen readers (the reference shows none). */}
+            <h2 id="contact-form" className="sr-only scroll-mt-[calc(var(--header-h)+1.5rem)]">
+              {t.formTitle}
+            </h2>
+            <div>
+              <ContactForm lang={lang} labels={t.form} properties={properties} />
+            </div>
+          </Reveal>
+        </Container>
+      </section>
 
-        <section aria-labelledby="contact-info-title" className="flex flex-col gap-6">
-          <h2 id="contact-info-title" className="text-2xl font-medium sm:text-3xl">
-            {t.infoTitle}
-          </h2>
-          <ul className="space-y-1">
-            <li>
-              <a href={siteConfig.phoneHref} className="inline-flex min-h-11 items-center gap-3 hover:underline">
-                <FiPhone aria-hidden className="shrink-0" />
-                {siteConfig.phone}
-              </a>
-            </li>
-            <li>
-              <a href={`mailto:${siteConfig.email}`} className="inline-flex min-h-11 items-center gap-3 break-all hover:underline">
-                <FiMail aria-hidden className="shrink-0" />
-                {siteConfig.email}
-              </a>
-            </li>
-            <li className="flex gap-3 pt-2">
-              <FiMapPin aria-hidden className="mt-1 shrink-0" />
-              <address className="not-italic">
-                {siteConfig.address.map((line) => (
-                  <span key={line} className="block">
-                    {line}
+      {/* Quicker ways to get in touch. */}
+      <section aria-labelledby="faster-title" className="py-16 sm:py-20 lg:py-28">
+        <Container>
+          <Reveal>
+            <h2 id="faster-title" className="font-sans text-3xl tracking-tight sm:text-4xl lg:text-[2.75rem]">
+              {t.fasterTitle}
+            </h2>
+          </Reveal>
+          <ul className="mt-10 grid gap-4 sm:grid-cols-3 sm:gap-5 lg:mt-12">
+            {faster.map((card, i) => (
+              <Reveal as="li" key={card.title} delay={i * 0.08}>
+                <a
+                  href={card.href}
+                  {...(card.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className={`group flex h-full min-h-60 flex-col rounded-tr-card rounded-bl-card p-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink lg:p-8 ${card.tone}`}
+                >
+                  <span className={`text-xs tabular-nums ${i === 2 ? "text-brand-cta" : "opacity-60"}`}>
+                    {String(i + 1).padStart(2, "0")}
                   </span>
-                ))}
-              </address>
-            </li>
+                  <span className="mt-auto pt-10 text-2xl sm:text-[1.75rem]">{card.title}</span>
+                  <span className="mt-1 text-sm opacity-70">{card.text}</span>
+                  <span className="mt-6 flex items-center justify-between gap-4 text-sm">
+                    {card.action}
+                    <span
+                      aria-hidden
+                      className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-surface text-ink transition-transform group-hover:rotate-45"
+                    >
+                      <FiArrowUpRight className="size-4" />
+                    </span>
+                  </span>
+                </a>
+              </Reveal>
+            ))}
           </ul>
-          <Map
-            label={t.mapLabel}
-            loadingLabel={dict.map.loading}
-            markers={[
-              {
-                id: "office",
-                lat: siteConfig.officeLocation.lat,
-                lng: siteConfig.officeLocation.lng,
-                title: siteConfig.name,
-                subtitle: siteConfig.address.join(" "),
-              },
-            ]}
-            zoom={15}
-            className="aspect-[4/3] rounded-lg lg:aspect-auto lg:min-h-80 lg:flex-1"
-          />
-        </section>
-      </Container>
+        </Container>
+      </section>
+
+      {/* The offices on a dark map, with a switch and the address card on top. */}
+      <OfficeMap
+        offices={offices.map((o, i) => ({ ...o, ...dict.aboutPage.offices[i] }))}
+        brand={siteConfig.name}
+        t={t.office}
+        mapLabel={t.mapLabel}
+        loadingLabel={dict.map.loading}
+      />
     </>
   );
 }

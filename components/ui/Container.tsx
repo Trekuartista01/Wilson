@@ -4,10 +4,14 @@ type ContainerProps = {
   id?: string;
 };
 
-/** Page-width wrapper with the site's fluid side gutters. */
+/**
+ * Page-width wrapper: the site grid from the mockups, full width with 56px side gutters on
+ * desktop (16/24px on phones and tablets). Past 1920px the whole grid centres, so header,
+ * hero and sections stay lined up on ultrawide screens too.
+ */
 export default function Container({ children, className = "", id }: ContainerProps) {
   return (
-    <div id={id} className={`mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10 2xl:max-w-[88rem] ${className}`}>
+    <div id={id} className={`mx-auto w-full max-w-[120rem] px-4 sm:px-6 lg:px-14 ${className}`}>
       {children}
     </div>
   );
